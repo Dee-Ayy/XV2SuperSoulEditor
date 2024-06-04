@@ -23,7 +23,8 @@ namespace XV2SSEdit
         Russian, 
         Chinese_TW,
         Chinese_ZH,
-        Korean
+        Korean,
+        Japanese
     }
 
     public class ToolSettings
@@ -31,7 +32,7 @@ namespace XV2SSEdit
         [YAXDontSerialize]
         public static string SettingsPath = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + @"/" + "xv2sseditor_settings.xml";
         [YAXDontSerialize]
-        public static string[] LanguageSuffix = new string[12] { "en", "es", "ca", "fr", "de", "it", "pt", "pl", "ru", "tw", "zh", "kr" };
+        public static string[] LanguageSuffix = new string[13] { "en", "es", "ca", "fr", "de", "it", "pt", "pl", "ru", "tw", "zh", "kr", "ja" };
 
         //Settings to save to file
         public string GameDir { get; set; }

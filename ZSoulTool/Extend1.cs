@@ -44,6 +44,7 @@ namespace XV2SSEdit
     {
         public int msgIndexName;
         public int msgIndexDesc;
+        public int msgIndexHow;
         public int msgIndexBurst;
         public int msgIndexBurstBTL;
         public int msgIndexBurstPause;

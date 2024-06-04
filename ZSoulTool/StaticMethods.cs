@@ -13,8 +13,6 @@ namespace XV2SSEdit
     //UNLEASHED: collection of useful methods that can be used anywhere (without creating an instance of this class)
     public static class StaticMethods
     {
-
-
         public static string readString(ref BinaryReader br)
         {
             List<byte> str = new List<byte>();
@@ -75,7 +73,19 @@ namespace XV2SSEdit
             return orgBytes;
         }
 
+        public static List<byte> ReplaceRange(List<byte> list, byte[] insertedData, int startIndex)
+        {
+            if (insertedData.Length > list.Count)
+            {
+                throw new InvalidOperationException("Cannot insert more data than is in the original list");
+            }
 
+            for (int i = 0; i < insertedData.Count(); i++)
+            {
+                list[i + startIndex] = insertedData[i];
+            }
+            return list;
+        }
     }
 }
 

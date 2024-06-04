@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>XV2SSEdit</RootNamespace>
     <AssemblyName>XV2SSEdit</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -103,6 +103,7 @@
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
     <Compile Include="msgfile.cs" />
+    <Compile Include="msgfileNew.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\Settings.cs" />

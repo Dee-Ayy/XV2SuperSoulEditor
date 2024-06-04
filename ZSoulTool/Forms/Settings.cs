@@ -38,6 +38,7 @@ namespace XV2SSEdit.Forms
             comboBox1.Items.Add(Language.Chinese_TW);
             comboBox1.Items.Add(Language.Chinese_ZH);
             comboBox1.Items.Add(Language.Korean);
+            comboBox1.Items.Add(Language.Japanese);
 
             comboBox1.SelectedIndex = (int)settings.GameLanguage;
         }

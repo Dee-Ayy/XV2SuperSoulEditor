@@ -29,6 +29,7 @@ namespace XV2SSEdit
         VFXList vfxList;
         string FileNameMsgN;
         string FileNameMsgD;
+        string FileNameMsgH;
         string FileNameMsgB;
         string FileNameMsgB_BTLHUD;
         string FileNameMsgB_Pause;
@@ -38,11 +39,13 @@ namespace XV2SSEdit
 
         private msg Names;
         private msg Descs;
+        private msg HowTo;
         private msg Burst;
         private msg BurstBTLHUD;
         private msg BurstPause;
         private List<GenericMsgFile> genericMsgListNames = new List<GenericMsgFile>();
-        private List<GenericMsgFile> genericMsgLisDescs = new List<GenericMsgFile>();
+        private List<GenericMsgFile> genericMsgListDescs = new List<GenericMsgFile>();
+        private List<GenericMsgFile> genericMsgListHowTo = new List<GenericMsgFile>();
         private List<GenericMsgFile> genericMsgListBurst = new List<GenericMsgFile>();
         private List<GenericMsgFile> genericMsgListNameBurstBTLHUD = new List<GenericMsgFile>();
         private List<GenericMsgFile> genericMsgListNameBurstPause = new List<GenericMsgFile>();
@@ -74,16 +77,11 @@ namespace XV2SSEdit
         //UNLEASHED: copy and paste
         private byte[] clipboardData = null;
 
-
-        //UNLEASHED: Version
-        string toolVersion = "1.76";
         #endregion
 
         public Form1()
         {
             InitializeComponent();
-
-            this.Text = $"XV2 Super Soul Editor - {toolVersion}";
 
             foreach (string str in ListNames)
             {
@@ -178,7 +176,7 @@ namespace XV2SSEdit
             vfxList = new VFXList();
 
             //Load Talisman IDB
-            //Each Super Soul size: 720 bytes
+            //Each Super Soul size: 772 bytes
             int count = 0;
             FileName = String.Format("{0}/data/system/item/talisman_item.idb", settings.GameDir);
             idbfile = fileIO.GetFileFromGame("system/item/talisman_item.idb");
@@ -201,19 +199,22 @@ namespace XV2SSEdit
             {
                 //SS Names
                 genericMsgListNames.Add(new GenericMsgFile(String.Format("{0}/data/msg/proper_noun_talisman_name_{1}.msg", settings.GameDir, langsSuffix[i]),
-                    msgStream.Load(fileIO.GetFileFromGame(String.Format("msg/proper_noun_talisman_name_{0}.msg", langsSuffix[i])))));
+                msgStream.Load(fileIO.GetFileFromGame(String.Format("msg/proper_noun_talisman_name_{0}.msg", langsSuffix[i])))));
                 //SS Descriptions
-                genericMsgLisDescs.Add(new GenericMsgFile(String.Format("{0}/data/msg/proper_noun_talisman_info_{1}.msg", settings.GameDir, langsSuffix[i]),
-                   msgStream.Load(fileIO.GetFileFromGame(String.Format("msg/proper_noun_talisman_info_{0}.msg", langsSuffix[i])))));
+                genericMsgListDescs.Add(new GenericMsgFile(String.Format("{0}/data/msg/proper_noun_talisman_info_{1}.msg", settings.GameDir, langsSuffix[i]),
+                msgStream.Load(fileIO.GetFileFromGame(String.Format("msg/proper_noun_talisman_info_{0}.msg", langsSuffix[i])))));
+                //SS Lookup Description
+                genericMsgListHowTo.Add(new GenericMsgFile(String.Format("{0}/data/msg/proper_noun_talisman_how_{1}.msg", settings.GameDir, langsSuffix[i]),
+                msgStream.Load(fileIO.GetFileFromGame(String.Format("msg/proper_noun_talisman_how_{0}.msg", langsSuffix[i])))));
                 //LB Desciptions (Menu)
                 genericMsgListBurst.Add(new GenericMsgFile(String.Format("{0}/data/msg/proper_noun_talisman_info_olt_{1}.msg", settings.GameDir, langsSuffix[i]),
-                 msgStream.Load(fileIO.GetFileFromGame(String.Format("msg/proper_noun_talisman_info_olt_{0}.msg", langsSuffix[i])))));
+                msgStream.Load(fileIO.GetFileFromGame(String.Format("msg/proper_noun_talisman_info_olt_{0}.msg", langsSuffix[i])))));
                 //LB Descriptions (Battle)
                 genericMsgListNameBurstBTLHUD.Add(new GenericMsgFile(String.Format("{0}/data/msg/quest_btlhud_{1}.msg", settings.GameDir, langsSuffix[i]),
-                 msgStream.Load(fileIO.GetFileFromGame(String.Format("msg/quest_btlhud_{0}.msg", langsSuffix[i])))));
+                msgStream.Load(fileIO.GetFileFromGame(String.Format("msg/quest_btlhud_{0}.msg", langsSuffix[i])))));
                 //LB Descriptions (Battle2)
                 genericMsgListNameBurstPause.Add(new GenericMsgFile(String.Format("{0}/data/msg/pause_text_{1}.msg", settings.GameDir, langsSuffix[i]),
-                 msgStream.Load(fileIO.GetFileFromGame(String.Format("msg/pause_text_{0}.msg", langsSuffix[i])))));
+                msgStream.Load(fileIO.GetFileFromGame(String.Format("msg/pause_text_{0}.msg", langsSuffix[i])))));
             }
 
             //load msg file for names
@@ -223,6 +224,10 @@ namespace XV2SSEdit
             //load msg file for descriptions
             FileNameMsgD = String.Format("{0}/data/msg/proper_noun_talisman_info_{1}.msg", settings.GameDir, settings.LanguagePrefix);
             Descs = msgStream.Load(fileIO.GetFileFromGame(String.Format("msg/proper_noun_talisman_info_{0}.msg", settings.LanguagePrefix)));
+
+            //load msg file for lookup descriptions
+            FileNameMsgH = String.Format("{0}/data/msg/proper_noun_talisman_how_{1}.msg", settings.GameDir, settings.LanguagePrefix);
+            HowTo = msgStream.Load(fileIO.GetFileFromGame(String.Format("msg/proper_noun_talisman_how_{0}.msg", settings.LanguagePrefix)));
 
             //load msgfile for limit burst descriptions
             //UNLEASHED: btlhud/Pause is a shared MSG for various battle text
@@ -241,14 +246,15 @@ namespace XV2SSEdit
             Items = new idbItem[count];
             for (int i = 0; i < Items.Length; i++)
             {
-                Items[i].Data = new byte[720];
-                Array.Copy(idbfile, 16 + (i * 720), Items[i].Data, 0, 720);
+                Items[i].Data = new byte[772];
+                Array.Copy(idbfile, 16 + (i * 772), Items[i].Data, 0, 772);
 
                 Items[i].msgIndexName = FindmsgIndex(ref Names, BitConverter.ToUInt16(Items[i].Data, 4));
                 Items[i].msgIndexDesc = FindmsgIndex(ref Descs, BitConverter.ToUInt16(Items[i].Data, 6));
+                Items[i].msgIndexHow = FindmsgIndex(ref Descs, BitConverter.ToUInt16(Items[i].Data, 8));
 
                 //UNLEASHED: Add BTL / PAUSE LB Desc
-                Items[i].msgIndexBurst = FindmsgIndex(ref Burst, BitConverter.ToUInt16(Items[i].Data, 40));
+                Items[i].msgIndexBurst = FindmsgIndex(ref Burst, BitConverter.ToUInt16(Items[i].Data, 56));
                 Items[i].msgIndexBurstBTL = getLB_BTL_Pause_DescID(BurstBTLHUD, Burst.data[Items[i].msgIndexBurst].NameID);
                 Items[i].msgIndexBurstPause = getLB_BTL_Pause_DescID(BurstPause, Burst.data[Items[i].msgIndexBurst].NameID);
             }
@@ -307,23 +313,21 @@ namespace XV2SSEdit
                         }
                         break;
                     }
-
                 case 1:
                     {
-                        for (int i = 0; i < genericMsgLisDescs.Count; i++)
+                        for (int i = 0; i < genericMsgListDescs.Count; i++)
                         {
-                            GenericMsgFile tmp = genericMsgLisDescs[i];
+                            GenericMsgFile tmp = genericMsgListDescs[i];
                             msgData[] Expand = new msgData[tmp.msgFile_m.data.Length + 1];
                             Array.Copy(tmp.msgFile_m.data, Expand, tmp.msgFile_m.data.Length);
                             Expand[Expand.Length - 1].NameID = "talisman_eff_" + tmp.msgFile_m.data.Length.ToString("000");
                             Expand[Expand.Length - 1].ID = tmp.msgFile_m.data.Length;
                             Expand[Expand.Length - 1].Lines = new string[] { Msg };
                             tmp.msgFile_m.data = Expand;
-                            genericMsgLisDescs[i] = tmp;
+                            genericMsgListDescs[i] = tmp;
                         }
                         break;
                     }
-
                 case 2:
                     {
                         for (int i = 0; i < genericMsgListBurst.Count; i++)
@@ -340,10 +344,8 @@ namespace XV2SSEdit
                         }
                         break;
                     }
-
                 case 3:
                     {
-
                         for (int i = 0; i < genericMsgListNameBurstBTLHUD.Count; i++)
                         {
                             GenericMsgFile tmp = genericMsgListNameBurstBTLHUD[i];
@@ -357,10 +359,8 @@ namespace XV2SSEdit
                         }
                         break;
                     }
-
                 case 4:
                     {
-
                         for (int i = 0; i < genericMsgListNameBurstPause.Count; i++)
                         {
                             GenericMsgFile tmp = genericMsgListNameBurstPause[i];
@@ -371,6 +371,21 @@ namespace XV2SSEdit
                             Expand6[Expand6.Length - 1].Lines = new string[] { Msg };
                             tmp.msgFile_m.data = Expand6;
                             genericMsgListNameBurstPause[i] = tmp;
+                        }
+                        break;
+                    }
+                case 5:
+                    {
+                        for (int i = 0; i < genericMsgListHowTo.Count; i++)
+                        {
+                            GenericMsgFile tmp = genericMsgListHowTo[i];
+                            msgData[] Expand = new msgData[tmp.msgFile_m.data.Length + 1];
+                            Array.Copy(tmp.msgFile_m.data, Expand, tmp.msgFile_m.data.Length);
+                            Expand[Expand.Length - 1].NameID = "talisman_how_" + tmp.msgFile_m.data.Length.ToString("000");
+                            Expand[Expand.Length - 1].ID = tmp.msgFile_m.data.Length;
+                            Expand[Expand.Length - 1].Lines = new string[] { Msg };
+                            tmp.msgFile_m.data = Expand;
+                            genericMsgListHowTo[i] = tmp;
                         }
                         break;
                     }
@@ -395,7 +410,7 @@ namespace XV2SSEdit
             float n;
 
             if (float.TryParse(txtEditValueb.Text, out n))
-                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 144 + (lstvBasic.SelectedItems[0].Index * 4), 4);
+                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 172 + (lstvBasic.SelectedItems[0].Index * 4), 4);
 
         }
 
@@ -414,7 +429,7 @@ namespace XV2SSEdit
             float n;
 
             if (float.TryParse(txtEditValue1.Text, out n))
-                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 368 + (lstvEffect1.SelectedItems[0].Index * 4), 4);
+                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 408 + (lstvEffect1.SelectedItems[0].Index * 4), 4);
         }
 
         private void lstvEffect2_SelectedIndexChanged(object sender, EventArgs e)
@@ -432,7 +447,7 @@ namespace XV2SSEdit
             float n;
 
             if (float.TryParse(txtEditValue2.Text, out n))
-                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 592 + (lstvEffect2.SelectedItems[0].Index * 4), 4);
+                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 644 + (lstvEffect2.SelectedItems[0].Index * 4), 4);
         }
 
         public static void Applybyte(ref byte[] file, byte[] data, int pos, int count)
@@ -445,7 +460,6 @@ namespace XV2SSEdit
 
         private void SaveXV2SSEdit()
         {
-          
             List<byte> Finalize = new List<byte>();
 
             //UNLEASHED: HEADER
@@ -467,6 +481,7 @@ namespace XV2SSEdit
 
             msgStream.Save(Names, FileNameMsgN);
             msgStream.Save(Descs, FileNameMsgD);
+            msgStream.Save(Descs, FileNameMsgH);
             msgStream.Save(Burst, FileNameMsgB);
             msgStream.Save(BurstBTLHUD, FileNameMsgB_BTLHUD);
             msgStream.Save(BurstPause, FileNameMsgB_Pause);
@@ -475,7 +490,8 @@ namespace XV2SSEdit
             for (int i = 0; i < genericMsgListNames.Count; i++)
             {
                 msgStream.Save(genericMsgListNames[i].msgFile_m, genericMsgListNames[i].msgPath_m);
-                msgStream.Save(genericMsgLisDescs[i].msgFile_m, genericMsgLisDescs[i].msgPath_m);
+                msgStream.Save(genericMsgListDescs[i].msgFile_m, genericMsgListDescs[i].msgPath_m);
+                msgStream.Save(genericMsgListHowTo[i].msgFile_m, genericMsgListDescs[i].msgPath_m);
                 msgStream.Save(genericMsgListBurst[i].msgFile_m, genericMsgListBurst[i].msgPath_m);
                 msgStream.Save(genericMsgListNameBurstBTLHUD[i].msgFile_m, genericMsgListNameBurstBTLHUD[i].msgPath_m);
                 msgStream.Save(genericMsgListNameBurstPause[i].msgFile_m, genericMsgListNameBurstPause[i].msgPath_m);
@@ -487,7 +503,7 @@ namespace XV2SSEdit
             SaveXV2SSEdit();
 
             //UNLEASHED: added msgbox
-        
+            hasSavedChanges = true;
             MessageBox.Show("Save Successful and files writtin to 'data' folder\nTo see changes in-game, the XV2Patcher must be installed.", "Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -618,7 +634,7 @@ namespace XV2SSEdit
 
         private void itemList_SelectedIndexChanged(object sender, EventArgs e)
         {
-      
+            hasSavedChanges = false;
             currentSuperSoulIndex = itemList.SelectedIndex;
             UpdateData();
         }
@@ -635,6 +651,11 @@ namespace XV2SSEdit
         private void txtMsgDesc_TextChanged(object sender, EventArgs e)
         {
             Descs.data[Items[itemList.SelectedIndex].msgIndexDesc].Lines[0] = txtMsgDesc.Text;
+        }
+
+        private void txtMsgHow_TextChanged(object sender, EventArgs e)
+        {
+            HowTo.data[Items[itemList.SelectedIndex].msgIndexHow].Lines[0] = txtMsgHowDesc.Text;
         }
 
         private void txtMsgLBDesc_TextChanged(object sender, EventArgs e)
@@ -658,7 +679,6 @@ namespace XV2SSEdit
             Items[itemList.SelectedIndex].msgIndexName = FindmsgIndex(ref Names, BitConverter.ToUInt16(Items[itemList.SelectedIndex].Data, 4));
             txtMsgName.Text = Names.data[Items[itemList.SelectedIndex].msgIndexName].Lines[0];
             itemList.Items[itemList.SelectedIndex] = BitConverter.ToUInt16(Items[itemList.SelectedIndex].Data, 0).ToString() + " - " + Names.data[Items[itemList.SelectedIndex].msgIndexName].Lines[0];
-         
         }
 
         private void txtDescID_TextChanged(object sender, EventArgs e)
@@ -670,7 +690,25 @@ namespace XV2SSEdit
 
             Items[itemList.SelectedIndex].msgIndexDesc = FindmsgIndex(ref Descs, BitConverter.ToUInt16(Items[itemList.SelectedIndex].Data, 6));
             txtMsgDesc.Text = Descs.data[Items[itemList.SelectedIndex].msgIndexDesc].Lines[0];
-         
+        }
+
+        private void txtHowID_TextChanged(object sender, EventArgs e)
+        {
+            short ID;
+
+            if (short.TryParse(txtHowID.Text, out ID))
+                Array.Copy(BitConverter.GetBytes(ID), 0, Items[itemList.SelectedIndex].Data, 8, 2);
+
+            Items[itemList.SelectedIndex].msgIndexDesc = FindmsgIndex(ref Descs, BitConverter.ToUInt16(Items[itemList.SelectedIndex].Data, 8));
+            txtMsgDesc.Text = Descs.data[Items[itemList.SelectedIndex].msgIndexDesc].Lines[0];
+        }
+
+        private void txtNewI10_TextChanged(object sender, EventArgs e)
+        {
+            short n;
+
+            if (short.TryParse(txtNewI10.Text, out n))
+                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 10, 2);
         }
 
         private void txtShopTest_TextChanged(object sender, EventArgs e)
@@ -678,7 +716,23 @@ namespace XV2SSEdit
             short n;
 
             if (short.TryParse(txtShopTest.Text, out n))
-                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 10, 2);
+                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 14, 2);
+        }
+
+        private void txtUnk1_TextChanged(object sender, EventArgs e)
+        {
+            short n;
+
+            if (short.TryParse(txtUnk1.Text, out n))
+                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 16, 2);
+        }
+
+        private void txtUnk2_TextChanged(object sender, EventArgs e)
+        {
+            short n;
+
+            if (short.TryParse(txtUnk2.Text, out n))
+                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 18, 2);
         }
 
         private void txtTPTest_TextChanged(object sender, EventArgs e)
@@ -686,7 +740,7 @@ namespace XV2SSEdit
             short n;
 
             if (short.TryParse(txtTPTest.Text, out n))
-                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 12, 2);
+                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 20, 2);
         }
 
         private void txtBuy_TextChanged(object sender, EventArgs e)
@@ -694,7 +748,7 @@ namespace XV2SSEdit
             int n;
 
             if (int.TryParse(txtBuy.Text, out n))
-                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 16, 4);
+                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 24, 4);
         }
 
         private void txtSell_TextChanged(object sender, EventArgs e)
@@ -702,7 +756,7 @@ namespace XV2SSEdit
             int n;
 
             if (int.TryParse(txtSell.Text, out n))
-                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 20, 4);
+                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 28, 4);
         }
 
         private void txtRace_TextChanged(object sender, EventArgs e)
@@ -710,7 +764,7 @@ namespace XV2SSEdit
             short n;
 
             if (short.TryParse(txtRace.Text, out n))
-                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 24, 2);
+                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 32, 2);
         }
 
         private void txtBuyTP_TextChanged(object sender, EventArgs e)
@@ -718,7 +772,23 @@ namespace XV2SSEdit
             int n;
 
             if (int.TryParse(txtBuyTP.Text, out n))
-                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 28, 4);
+                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 36, 4);
+        }
+
+        private void txtBuySTP_TextChanged(object sender, EventArgs e)
+        {
+            int n;
+
+            if (int.TryParse(txtBuySTP.Text, out n))
+                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 40, 4);
+        }
+
+        private void txtNewI36_TextChanged(object sender, EventArgs e)
+        {
+            int n;
+
+            if (int.TryParse(txtNewI36.Text, out n))
+                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 44, 4);
         }
 
         private void cbKiType_SelectedIndexChanged(object sender, EventArgs e)
@@ -726,8 +796,7 @@ namespace XV2SSEdit
             int ID = kitList.kitypes[cbKiType.SelectedIndex].ID;
             byte[] pass;
             pass = BitConverter.GetBytes(ID);
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 32, 4);
-        
+            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 48, 4);
         }
 
         private void txtLBAura_TextChanged(object sender, EventArgs e)
@@ -735,7 +804,7 @@ namespace XV2SSEdit
             short n;
 
             if (short.TryParse(txtLBAura.Text, out n))
-                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 36, 2);
+                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 52, 2);
         }
 
         private void cbLBColor_SelectedIndexChanged(object sender, EventArgs e)
@@ -743,7 +812,7 @@ namespace XV2SSEdit
             int ID = lbcList.colors[cbLBColor.SelectedIndex].ID;
             byte[] pass;
             pass = BitConverter.GetBytes(ID);
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 38, 2);
+            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 54, 2);
         }
 
         private void txtLBDesc_TextChanged(object sender, EventArgs e)
@@ -751,9 +820,9 @@ namespace XV2SSEdit
             short ID;
 
             if (short.TryParse(txtLBDesc.Text, out ID))
-                Array.Copy(BitConverter.GetBytes(ID), 0, Items[itemList.SelectedIndex].Data, 40, 2);
+                Array.Copy(BitConverter.GetBytes(ID), 0, Items[itemList.SelectedIndex].Data, 56, 2);
 
-            Items[itemList.SelectedIndex].msgIndexBurst = FindmsgIndex(ref Burst, BitConverter.ToUInt16(Items[itemList.SelectedIndex].Data, 40));
+            Items[itemList.SelectedIndex].msgIndexBurst = FindmsgIndex(ref Burst, BitConverter.ToUInt16(Items[itemList.SelectedIndex].Data, 56));
             txtMsgLBDesc.Text = Burst.data[Items[itemList.SelectedIndex].msgIndexBurst].Lines[0];
 
             //Demon: updates the in battle description text when the description id is changed
@@ -767,7 +836,7 @@ namespace XV2SSEdit
             ushort n;
 
             if (ushort.TryParse(txtLBSoulID1.Text, out n))
-                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 42, 2);
+                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 58, 2);
         }
 
         private void txtLBSoulID2_TextChanged(object sender, EventArgs e)
@@ -775,7 +844,7 @@ namespace XV2SSEdit
             ushort n;
 
             if (ushort.TryParse(txtLBSoulID2.Text, out n))
-                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 44, 2);
+                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 60, 2);
         }
 
         private void txtLBSoulID3_TextChanged(object sender, EventArgs e)
@@ -783,7 +852,7 @@ namespace XV2SSEdit
             ushort n;
 
             if (ushort.TryParse(txtLBSoulID3.Text, out n))
-                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 46, 2);
+                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 62, 2);
         }
 
         //Basic Details
@@ -797,7 +866,7 @@ namespace XV2SSEdit
             else
                 pass = BitConverter.GetBytes(ID);
 
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 48, 4);
+            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 64, 4);
         }
 
         private void cbActiveb_SelectedIndexChanged(object sender, EventArgs e)
@@ -810,7 +879,7 @@ namespace XV2SSEdit
             else
                 pass = BitConverter.GetBytes(ID);
 
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 52, 4);
+            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 68, 4);
         }
 
         private void txtLimitB_TextChanged(object sender, EventArgs e)
@@ -826,7 +895,23 @@ namespace XV2SSEdit
                 else
                     pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 56, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 72, 4);
+            }
+        }
+
+        private void txtNewI12B_TextChanged(object sender, EventArgs e)
+        {
+            int ID;
+
+            if (int.TryParse(txtNewI12b.Text, out ID))
+            {
+                byte[] pass;
+                if (ID == -1)
+                    pass = new byte[] { 0xFF, 0xFF, 0xFF, 0xFF };
+                else
+                    pass = BitConverter.GetBytes(ID);
+
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 76, 4);
             }
         }
 
@@ -838,7 +923,7 @@ namespace XV2SSEdit
             {
                 byte[] pass;
                 pass = BitConverter.GetBytes(ID);
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 60, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 80, 4);
             }
         }
 
@@ -850,7 +935,7 @@ namespace XV2SSEdit
             {
                 byte[] pass;
                 pass = BitConverter.GetBytes(ID);
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 64, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 84, 4);
             }
         }
 
@@ -862,7 +947,7 @@ namespace XV2SSEdit
             {
                 byte[] pass;
                 pass = BitConverter.GetBytes(ID);
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 68, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 88, 4);
             }
         }
 
@@ -874,7 +959,7 @@ namespace XV2SSEdit
             {
                 byte[] pass;
                 pass = BitConverter.GetBytes(ID);
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 72, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 92, 4);
             }
         }
 
@@ -886,7 +971,7 @@ namespace XV2SSEdit
             {
                 byte[] pass;
                 pass = BitConverter.GetBytes(ID);
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 76, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 96, 4);
             }
         }
 
@@ -898,7 +983,7 @@ namespace XV2SSEdit
             {
                 byte[] pass;
                 pass = BitConverter.GetBytes(ID);
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 80, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 100, 4);
             }
         }
 
@@ -910,7 +995,7 @@ namespace XV2SSEdit
             {
                 byte[] pass;
                 pass = BitConverter.GetBytes(ID);
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 84, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 104, 4);
             }
         }
 
@@ -927,7 +1012,7 @@ namespace XV2SSEdit
                 else
                     pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 88, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 108, 4);
             }
         }
 
@@ -944,7 +1029,41 @@ namespace XV2SSEdit
                 else
                     pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 92, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 112, 4);
+            }
+        }
+
+        private void txtUnki48b_TextChanged(object sender, EventArgs e)
+        {
+            int ID;
+
+            if (int.TryParse(txtUnki48b.Text, out ID))
+            {
+                byte[] pass;
+
+                if (ID == -1)
+                    pass = new byte[] { 0xFF, 0xFF, 0xFF, 0xFF };
+                else
+                    pass = BitConverter.GetBytes(ID);
+
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 116, 4);
+            }
+        }
+
+        private void txtUnki52b_TextChanged(object sender, EventArgs e)
+        {
+            int ID;
+
+            if (int.TryParse(txtUnki52b.Text, out ID))
+            {
+                byte[] pass;
+
+                if (ID == -1)
+                    pass = new byte[] { 0xFF, 0xFF, 0xFF, 0xFF };
+                else
+                    pass = BitConverter.GetBytes(ID);
+
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 120, 4);
             }
         }
 
@@ -956,7 +1075,7 @@ namespace XV2SSEdit
             {
                 byte[] pass;
                 pass = BitConverter.GetBytes(ID);
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 96, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 124, 4);
             }
         }
 
@@ -968,7 +1087,7 @@ namespace XV2SSEdit
             {
                 byte[] pass;
                 pass = BitConverter.GetBytes(ID);
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 100, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 128, 4);
             }
         }
 
@@ -980,7 +1099,7 @@ namespace XV2SSEdit
             {
                 byte[] pass;
                 pass = BitConverter.GetBytes(ID);
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 104, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 132, 4);
             }
         }
 
@@ -992,7 +1111,7 @@ namespace XV2SSEdit
             {
                 byte[] pass;
                 pass = BitConverter.GetBytes(ID);
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 108, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 136, 4);
             }
         }
 
@@ -1004,7 +1123,7 @@ namespace XV2SSEdit
             {
                 byte[] pass;
                 pass = BitConverter.GetBytes(ID);
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 112, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 140, 4);
             }
         }
 
@@ -1016,7 +1135,7 @@ namespace XV2SSEdit
             {
                 byte[] pass;
                 pass = BitConverter.GetBytes(ID);
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 116, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 144, 4);
             }
         }
 
@@ -1025,7 +1144,7 @@ namespace XV2SSEdit
             int ID = vfxList.vfxtypes[cbVfxType2B.SelectedIndex].ID;
             byte[] pass;
             pass = BitConverter.GetBytes(ID);
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 120, 4);
+            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 148, 4);
         }
 
         private void txtVfxId2B_TextChanged(object sender, EventArgs e)
@@ -1041,7 +1160,7 @@ namespace XV2SSEdit
                 else
                     pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 124, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 152, 4);
             }
         }
 
@@ -1050,7 +1169,7 @@ namespace XV2SSEdit
             int ID = vfxList.vfxtypes[cbVfxType1B.SelectedIndex].ID;
             byte[] pass;
             pass = BitConverter.GetBytes(ID);
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 128, 4);
+            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 156, 4);
         }
 
         private void txtVfxId1B_TextChanged(object sender, EventArgs e)
@@ -1066,7 +1185,7 @@ namespace XV2SSEdit
                 else
                     pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 132, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 160, 4);
             }
         }
 
@@ -1083,7 +1202,7 @@ namespace XV2SSEdit
                 else
                     pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 136, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 164, 4);
             }
         }
 
@@ -1092,7 +1211,7 @@ namespace XV2SSEdit
             int ID = trgList.targets[cbTargetb.SelectedIndex].ID;
             byte[] pass;
             pass = BitConverter.GetBytes(ID);
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 140, 4);
+            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 168, 4);
         }
 
         //Effect Details 1
@@ -1106,7 +1225,7 @@ namespace XV2SSEdit
             else
                 pass = BitConverter.GetBytes(ID);
 
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 272, 4);
+            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 300, 4);
         }
 
         private void cbActive1_SelectedIndexChanged(object sender, EventArgs e)
@@ -1119,7 +1238,7 @@ namespace XV2SSEdit
             else
                 pass = BitConverter.GetBytes(ID);
 
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 276, 4);
+            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 304, 4);
         }
 
         private void txtLimit1_TextChanged(object sender, EventArgs e)
@@ -1134,7 +1253,23 @@ namespace XV2SSEdit
                 else
                     pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 280, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 308, 4);
+            }
+        }
+
+        private void txtNewI121_TextChanged(object sender, EventArgs e)
+        {
+            int ID;
+
+            if (int.TryParse(txtNewI121.Text, out ID))
+            {
+                byte[] pass;
+                if (ID == -1)
+                    pass = new byte[] { 0xFF, 0xFF, 0xFF, 0xFF };
+                else
+                    pass = BitConverter.GetBytes(ID);
+
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 312, 4);
             }
         }
 
@@ -1147,7 +1282,7 @@ namespace XV2SSEdit
 
                 pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 284, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 316, 4);
             }
         }
 
@@ -1160,7 +1295,7 @@ namespace XV2SSEdit
 
                 pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 288, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 320, 4);
             }
         }
 
@@ -1173,7 +1308,7 @@ namespace XV2SSEdit
 
                 pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 292, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 324, 4);
             }
         }
 
@@ -1186,7 +1321,7 @@ namespace XV2SSEdit
 
                 pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 296, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 328, 4);
             }
         }
 
@@ -1199,7 +1334,7 @@ namespace XV2SSEdit
 
                 pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 300, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 332, 4);
             }
         }
 
@@ -1212,7 +1347,7 @@ namespace XV2SSEdit
 
                 pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 304, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 336, 4);
             }
         }
 
@@ -1225,7 +1360,7 @@ namespace XV2SSEdit
 
                 pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 308, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 340, 4);
             }
         }
 
@@ -1240,7 +1375,7 @@ namespace XV2SSEdit
                 else
                     pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 312, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 344, 4);
             }
         }
 
@@ -1255,7 +1390,37 @@ namespace XV2SSEdit
                 else
                     pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 316, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 348, 4);
+            }
+        }
+
+        private void txtUnki481_TextChanged(object sender, EventArgs e)
+        {
+            int ID;
+            if (int.TryParse(txtUnki481.Text, out ID))
+            {
+                byte[] pass;
+                if (ID == -1)
+                    pass = new byte[] { 0xFF, 0xFF, 0xFF, 0xFF };
+                else
+                    pass = BitConverter.GetBytes(ID);
+
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 352, 4);
+            }
+        }
+
+        private void txtUnki521_TextChanged(object sender, EventArgs e)
+        {
+            int ID;
+            if (int.TryParse(txtUnki521.Text, out ID))
+            {
+                byte[] pass;
+                if (ID == -1)
+                    pass = new byte[] { 0xFF, 0xFF, 0xFF, 0xFF };
+                else
+                    pass = BitConverter.GetBytes(ID);
+
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 356, 4);
             }
         }
 
@@ -1268,7 +1433,7 @@ namespace XV2SSEdit
 
                 pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 320, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 360, 4);
             }
         }
 
@@ -1281,7 +1446,7 @@ namespace XV2SSEdit
 
                 pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 324, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 364, 4);
             }
         }
 
@@ -1294,7 +1459,7 @@ namespace XV2SSEdit
 
                 pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 328, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 368, 4);
             }
         }
 
@@ -1307,7 +1472,7 @@ namespace XV2SSEdit
 
                 pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 332, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 372, 4);
             }
         }
 
@@ -1320,7 +1485,7 @@ namespace XV2SSEdit
 
                 pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 336, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 376, 4);
             }
         }
 
@@ -1333,7 +1498,7 @@ namespace XV2SSEdit
 
                 pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 340, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 380, 4);
             }
         }
 
@@ -1342,7 +1507,7 @@ namespace XV2SSEdit
             int ID = vfxList.vfxtypes[cbVfxType21.SelectedIndex].ID;
             byte[] pass;
             pass = BitConverter.GetBytes(ID);
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 344, 4);
+            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 384, 4);
         }
 
         private void txtVfxId21_TextChanged(object sender, EventArgs e)
@@ -1356,7 +1521,7 @@ namespace XV2SSEdit
                 else
                     pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 348, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 388, 4);
             }
         }
 
@@ -1365,7 +1530,7 @@ namespace XV2SSEdit
             int ID = vfxList.vfxtypes[cbVfxType11.SelectedIndex].ID;
             byte[] pass;
             pass = BitConverter.GetBytes(ID);
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 352, 4);
+            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 392, 4);
         }
 
         private void txtVfxId11_TextChanged(object sender, EventArgs e)
@@ -1379,7 +1544,7 @@ namespace XV2SSEdit
                 else
                     pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 356, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 396, 4);
             }
         }
 
@@ -1394,7 +1559,7 @@ namespace XV2SSEdit
                 else
                     pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 360, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 400, 4);
             }
         }
 
@@ -1403,7 +1568,7 @@ namespace XV2SSEdit
             int ID = trgList.targets[cbTarget1.SelectedIndex].ID;
             byte[] pass;
             pass = BitConverter.GetBytes(ID);
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 364, 4);
+            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 404, 4);
         }
 
         //Effect Details 2
@@ -1416,7 +1581,7 @@ namespace XV2SSEdit
             else
                 pass = BitConverter.GetBytes(ID);
 
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 496, 4);
+            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 536, 4);
         }
 
         private void cbActive2_SelectedIndexChanged(object sender, EventArgs e)
@@ -1428,7 +1593,7 @@ namespace XV2SSEdit
             else
                 pass = BitConverter.GetBytes(ID);
 
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 500, 4);
+            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 540, 4);
         }
 
         private void txtLimit2_TextChanged(object sender, EventArgs e)
@@ -1442,7 +1607,22 @@ namespace XV2SSEdit
                 else
                     pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 504, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 544, 4);
+            }
+        }
+
+        private void txtNewI122_TextChanged(object sender, EventArgs e)
+        {
+            int ID;
+            if (int.TryParse(txtNewI122.Text, out ID))
+            {
+                byte[] pass;
+                if (ID == -1)
+                    pass = new byte[] { 0xFF, 0xFF, 0xFF, 0xFF };
+                else
+                    pass = BitConverter.GetBytes(ID);
+
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 548, 4);
             }
         }
 
@@ -1455,7 +1635,7 @@ namespace XV2SSEdit
 
                 pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 508, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 552, 4);
             }
         }
 
@@ -1468,7 +1648,7 @@ namespace XV2SSEdit
 
                 pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 512, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 556, 4);
             }
         }
 
@@ -1481,7 +1661,7 @@ namespace XV2SSEdit
 
                 pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 516, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 560, 4);
             }
         }
 
@@ -1494,7 +1674,7 @@ namespace XV2SSEdit
 
                 pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 520, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 564, 4);
             }
         }
 
@@ -1507,7 +1687,7 @@ namespace XV2SSEdit
 
                 pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 524, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 568, 4);
             }
         }
 
@@ -1520,7 +1700,7 @@ namespace XV2SSEdit
 
                 pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 528, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 572, 4);
             }
         }
 
@@ -1533,7 +1713,7 @@ namespace XV2SSEdit
 
                 pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 532, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 576, 4);
             }
         }
 
@@ -1548,7 +1728,7 @@ namespace XV2SSEdit
                 else
                     pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 536, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 580, 4);
             }
         }
 
@@ -1563,7 +1743,37 @@ namespace XV2SSEdit
                 else
                     pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 540, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 584, 4);
+            }
+        }
+
+        private void txtUnki482_TextChanged(object sender, EventArgs e)
+        {
+            int ID;
+            if (int.TryParse(txtUnki482.Text, out ID))
+            {
+                byte[] pass;
+                if (ID == -1)
+                    pass = new byte[] { 0xFF, 0xFF, 0xFF, 0xFF };
+                else
+                    pass = BitConverter.GetBytes(ID);
+
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 588, 4);
+            }
+        }
+
+        private void txtUnki522_TextChanged(object sender, EventArgs e)
+        {
+            int ID;
+            if (int.TryParse(txtUnki522.Text, out ID))
+            {
+                byte[] pass;
+                if (ID == -1)
+                    pass = new byte[] { 0xFF, 0xFF, 0xFF, 0xFF };
+                else
+                    pass = BitConverter.GetBytes(ID);
+
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 592, 4);
             }
         }
 
@@ -1576,7 +1786,7 @@ namespace XV2SSEdit
 
                 pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 544, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 596, 4);
             }
         }
 
@@ -1589,7 +1799,7 @@ namespace XV2SSEdit
 
                 pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 548, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 600, 4);
             }
         }
 
@@ -1602,7 +1812,7 @@ namespace XV2SSEdit
 
                 pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 552, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 604, 4);
             }
         }
 
@@ -1615,7 +1825,7 @@ namespace XV2SSEdit
 
                 pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 556, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 608, 4);
             }
         }
 
@@ -1628,7 +1838,7 @@ namespace XV2SSEdit
 
                 pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 560, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 612, 4);
             }
         }
 
@@ -1641,7 +1851,7 @@ namespace XV2SSEdit
 
                 pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 564, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 616, 4);
             }
         }
 
@@ -1650,7 +1860,7 @@ namespace XV2SSEdit
             int ID = vfxList.vfxtypes[cbVfxType22.SelectedIndex].ID;
             byte[] pass;
             pass = BitConverter.GetBytes(ID);
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 568, 4);
+            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 620, 4);
         }
 
         private void txtVfxId22_TextChanged(object sender, EventArgs e)
@@ -1664,7 +1874,7 @@ namespace XV2SSEdit
                 else
                     pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 572, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 624, 4);
             }
         }
 
@@ -1673,7 +1883,7 @@ namespace XV2SSEdit
             int ID = vfxList.vfxtypes[cbVfxType12.SelectedIndex].ID;
             byte[] pass;
             pass = BitConverter.GetBytes(ID);
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 576, 4);
+            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 628, 4);
         }
 
         private void txtVfxId12_TextChanged(object sender, EventArgs e)
@@ -1687,7 +1897,7 @@ namespace XV2SSEdit
                 else
                     pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 580, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 632, 4);
             }
         }
 
@@ -1702,7 +1912,7 @@ namespace XV2SSEdit
                 else
                     pass = BitConverter.GetBytes(ID);
 
-                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 584, 4);
+                Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 636, 4);
             }
         }
 
@@ -1711,7 +1921,7 @@ namespace XV2SSEdit
             int ID = trgList.targets[cbTarget2.SelectedIndex].ID;
             byte[] pass;
             pass = BitConverter.GetBytes(ID);
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 588, 4);
+            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 640, 4);
         }
         #endregion
 
@@ -1720,6 +1930,7 @@ namespace XV2SSEdit
             // Super Soul Details
             txtMsgName.Text = Names.data[Items[itemList.SelectedIndex].msgIndexName].Lines[0];
             txtMsgDesc.Text = Descs.data[Items[itemList.SelectedIndex].msgIndexDesc].Lines[0];
+            txtMsgHowDesc.Text = HowTo.data[Items[itemList.SelectedIndex].msgIndexHow].Lines[0];
 
             //UNLEASHED: Add BTL LB Desc
             txtMsgLBDesc.Text = Burst.data[Items[itemList.SelectedIndex].msgIndexBurst].Lines[0];
@@ -1730,122 +1941,162 @@ namespace XV2SSEdit
             txtNameID.Text = BitConverter.ToUInt16(Items[itemList.SelectedIndex].Data, 4).ToString();
             txtDescID.Text = BitConverter.ToUInt16(Items[itemList.SelectedIndex].Data, 6).ToString();
 
+            //new in 1.22
+            txtHowID.Text = BitConverter.ToUInt16(Items[itemList.SelectedIndex].Data, 8).ToString();
+            txtNewI10.Text = BitConverter.ToUInt16(Items[itemList.SelectedIndex].Data, 10).ToString();
+
             //Demon: this value sets the item type for the menus and shops.
             //this should never be edited in a talisman idb else the souls won't be souls anymore, so commented out
-            //txtIDbType.Text = BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, 8).ToString();
+            //txtIDbType.Text = BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, 12).ToString();
 
-            txtShopTest.Text = BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, 10).ToString();
-            txtTPTest.Text = BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, 12).ToString();
+            txtShopTest.Text = BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, 14).ToString();
+
+            //update 1.18
+            txtUnk1.Text = BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, 16).ToString();
+            txtUnk2.Text = BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, 18).ToString();
+
+            txtTPTest.Text = BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, 20).ToString();
 
             //Demon: unknown what this is for but it's always -1 for every soul, so commented out. probably just filler.
-            //txti_14.Text = BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, 14).ToString();
+            //txti_14.Text = BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, 22).ToString();
 
-            txtBuy.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 16).ToString();
-            txtSell.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 20).ToString();
-            txtRace.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 24).ToString();
-            txtBuyTP.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 28).ToString();
-            cbKiType.SelectedIndex = kitList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 32));
-            txtLBAura.Text = BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, 36).ToString();
-            cbLBColor.SelectedIndex = lbcList.FindIndex(BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, 38));
-            txtLBDesc.Text = BitConverter.ToUInt16(Items[itemList.SelectedIndex].Data, 40).ToString();
-            txtLBSoulID1.Text = BitConverter.ToUInt16(Items[itemList.SelectedIndex].Data, 42).ToString();
-            txtLBSoulID2.Text = BitConverter.ToUInt16(Items[itemList.SelectedIndex].Data, 44).ToString();
-            txtLBSoulID3.Text = BitConverter.ToUInt16(Items[itemList.SelectedIndex].Data, 46).ToString();
+            txtBuy.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 24).ToString();
+            txtSell.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 28).ToString();
+            txtRace.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 32).ToString();
+            txtBuyTP.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 36).ToString();
+
+            //new in 1.22
+            txtBuySTP.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 40).ToString();
+            txtNewI36.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 44).ToString();
+
+            cbKiType.SelectedIndex = kitList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 48));
+            txtLBAura.Text = BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, 52).ToString();
+            cbLBColor.SelectedIndex = lbcList.FindIndex(BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, 54));
+            txtLBDesc.Text = BitConverter.ToUInt16(Items[itemList.SelectedIndex].Data, 56).ToString();
+            txtLBSoulID1.Text = BitConverter.ToUInt16(Items[itemList.SelectedIndex].Data, 58).ToString();
+            txtLBSoulID2.Text = BitConverter.ToUInt16(Items[itemList.SelectedIndex].Data, 60).ToString();
+            txtLBSoulID3.Text = BitConverter.ToUInt16(Items[itemList.SelectedIndex].Data, 62).ToString();
 
             // Basic Details
-            cbEffectb.SelectedIndex = effList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 48));
-            cbActiveb.SelectedIndex = actList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 52));
-            txtLimitB.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 56).ToString();
-            txtDurationB.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 60).ToString();
-            txtValue1B.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 64).ToString();
-            txtValue2B.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 68).ToString();
-            txtValue3B.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 72).ToString();
-            txtValue4B.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 76).ToString();
-            txtValue5B.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 80).ToString();
-            txtValue6B.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 84).ToString();
-            txtChanceb.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 88).ToString();
-            txtUnki44b.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 92).ToString();
-            txtAmount1B.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 96).ToString();
-            txtAmount2B.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 100).ToString();
-            txtAmount3B.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 104).ToString();
-            txtAmount4B.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 108).ToString();
-            txtAmount5B.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 112).ToString();
-            txtAmount6B.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 116).ToString();
-            cbVfxType2B.SelectedIndex = vfxList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 120));
-            txtVfxId2B.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 124).ToString();
-            cbVfxType1B.SelectedIndex = vfxList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 128));
-            txtVfxId1B.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 132).ToString();
-            txtUnki88b.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 136).ToString();
-            cbTargetb.SelectedIndex = trgList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 140));
+            cbEffectb.SelectedIndex = effList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 64));
+            cbActiveb.SelectedIndex = actList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 68));
+            txtLimitB.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 72).ToString();
+
+            //update 1.22
+            txtNewI12b.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 76).ToString();
+
+            txtDurationB.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 80).ToString();
+            txtValue1B.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 84).ToString();
+            txtValue2B.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 88).ToString();
+            txtValue3B.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 92).ToString();
+            txtValue4B.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 96).ToString();
+            txtValue5B.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 100).ToString();
+            txtValue6B.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 104).ToString();
+            txtChanceb.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 108).ToString();
+            txtUnki44b.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 112).ToString();
+
+            //update 1.18
+            txtUnki48b.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 116).ToString();
+            txtUnki52b.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 120).ToString();
+
+            txtAmount1B.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 124).ToString();
+            txtAmount2B.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 128).ToString();
+            txtAmount3B.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 132).ToString();
+            txtAmount4B.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 136).ToString();
+            txtAmount5B.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 140).ToString();
+            txtAmount6B.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 144).ToString();
+            cbVfxType2B.SelectedIndex = vfxList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 148));
+            txtVfxId2B.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 152).ToString();
+            cbVfxType1B.SelectedIndex = vfxList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 156));
+            txtVfxId1B.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 160).ToString();
+            txtUnki88b.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 164).ToString();
+            cbTargetb.SelectedIndex = trgList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 168));
 
             //Stats for Basic Details
             for (int i = 0; i < lstvBasic.Items.Count; i++)
             {
-                lstvBasic.Items[i].SubItems[1].Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 144 + (i * 4)).ToString();
+                lstvBasic.Items[i].SubItems[1].Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 172 + (i * 4)).ToString();
             }
 
             //Effest 1 Details
-            cbEffect1.SelectedIndex = effList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 272));
-            cbActive1.SelectedIndex = actList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 276));
-            txtLimit1.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 280).ToString();
-            txtDuration1.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 284).ToString();
-            txtValue11.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 288).ToString();
-            txtValue21.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 292).ToString();
-            txtValue31.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 296).ToString();
-            txtValue41.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 300).ToString();
-            txtValue51.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 304).ToString();
-            txtValue61.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 308).ToString();
-            txtChance1.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 312).ToString();
-            txtUnki441.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 316).ToString();
-            txtAmount11.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 320).ToString();
-            txtAmount21.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 324).ToString();
-            txtAmount31.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 328).ToString();
-            txtAmount41.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 332).ToString();
-            txtAmount51.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 336).ToString();
-            txtAmount61.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 340).ToString();
-            cbVfxType21.SelectedIndex = vfxList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 344));
-            txtVfxId21.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 348).ToString();
-            cbVfxType11.SelectedIndex = vfxList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 352));
-            txtVfxId11.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 356).ToString();
-            txtUnki881.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 360).ToString();
-            cbTarget1.SelectedIndex = trgList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 364));
+            cbEffect1.SelectedIndex = effList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 300));
+            cbActive1.SelectedIndex = actList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 304));
+            txtLimit1.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 308).ToString();
+
+            //update 1.22
+            txtNewI121.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 312).ToString();
+
+            txtDuration1.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 316).ToString();
+            txtValue11.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 320).ToString();
+            txtValue21.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 324).ToString();
+            txtValue31.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 328).ToString();
+            txtValue41.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 332).ToString();
+            txtValue51.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 336).ToString();
+            txtValue61.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 340).ToString();
+            txtChance1.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 344).ToString();
+            txtUnki441.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 348).ToString();
+
+            //update 1.18
+            txtUnki481.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 352).ToString();
+            txtUnki521.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 356).ToString();
+
+            txtAmount11.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 360).ToString();
+            txtAmount21.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 364).ToString();
+            txtAmount31.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 368).ToString();
+            txtAmount41.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 372).ToString();
+            txtAmount51.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 376).ToString();
+            txtAmount61.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 380).ToString();
+            cbVfxType21.SelectedIndex = vfxList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 384));
+            txtVfxId21.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 388).ToString();
+            cbVfxType11.SelectedIndex = vfxList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 392));
+            txtVfxId11.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 396).ToString();
+            txtUnki881.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 400).ToString();
+            cbTarget1.SelectedIndex = trgList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 404));
 
             //Stats for Effect 1 Details
             for (int i = 0; i < lstvEffect1.Items.Count; i++)
             {
-                lstvEffect1.Items[i].SubItems[1].Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 368 + (i * 4)).ToString();
+                lstvEffect1.Items[i].SubItems[1].Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 408 + (i * 4)).ToString();
             }
 
             //Effect 2 Details
-            cbEffect2.SelectedIndex = effList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 496));
-            cbActive2.SelectedIndex = actList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 500));
-            txtLimit2.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 504).ToString();
-            txtDuration2.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 508).ToString();
-            txtValue12.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 512).ToString();
-            txtValue22.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 516).ToString();
-            txtValue32.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 520).ToString();
-            txtValue42.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 524).ToString();
-            txtValue52.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 528).ToString();
-            txtValue62.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 532).ToString();
-            txtChance2.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 536).ToString();
-            txtUnki442.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 540).ToString();
-            txtAmount12.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 544).ToString();
-            txtAmount22.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 548).ToString();
-            txtAmount32.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 552).ToString();
-            txtAmount42.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 556).ToString();
-            txtAmount52.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 560).ToString();
-            txtAmount62.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 564).ToString();
-            cbVfxType22.SelectedIndex = vfxList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 568));
-            txtVfxId22.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 572).ToString();
-            cbVfxType12.SelectedIndex = vfxList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 576));
-            txtVfxId12.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 580).ToString();
-            txtUnki882.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 584).ToString();
-            cbTarget2.SelectedIndex = trgList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 588));
+            cbEffect2.SelectedIndex = effList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 536));
+            cbActive2.SelectedIndex = actList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 540));
+            txtLimit2.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 544).ToString();
+
+            //update 1.22
+            txtNewI122.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 548).ToString();
+
+            txtDuration2.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 552).ToString();
+            txtValue12.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 556).ToString();
+            txtValue22.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 560).ToString();
+            txtValue32.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 564).ToString();
+            txtValue42.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 568).ToString();
+            txtValue52.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 572).ToString();
+            txtValue62.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 576).ToString();
+            txtChance2.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 580).ToString();
+            txtUnki442.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 584).ToString();
+
+            txtUnki482.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 588).ToString();
+            txtUnki522.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 592).ToString();
+
+            txtAmount12.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 596).ToString();
+            txtAmount22.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 600).ToString();
+            txtAmount32.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 604).ToString();
+            txtAmount42.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 608).ToString();
+            txtAmount52.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 612).ToString();
+            txtAmount62.Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 616).ToString();
+            cbVfxType22.SelectedIndex = vfxList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 620));
+            txtVfxId22.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 624).ToString();
+            cbVfxType12.SelectedIndex = vfxList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 628));
+            txtVfxId12.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 632).ToString();
+            txtUnki882.Text = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 636).ToString();
+            cbTarget2.SelectedIndex = trgList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, 640));
 
             //Stats for Effect 1 Details
             for (int i = 0; i < lstvEffect2.Items.Count; i++)
             {
-                lstvEffect2.Items[i].SubItems[1].Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 592 + (i * 4)).ToString();
+                lstvEffect2.Items[i].SubItems[1].Text = BitConverter.ToSingle(Items[itemList.SelectedIndex].Data, 644 + (i * 4)).ToString();
             }
 
 
@@ -1878,8 +2129,10 @@ namespace XV2SSEdit
 
         private void resolveLBIDsForParentSS(ref List<int> indexCollections, byte[] SSFData, ushort LBID)
         {
-            ushort parentSSIndex = BitConverter.ToUInt16(SSFData, 0x18);
-            ushort burstSlot = BitConverter.ToUInt16(SSFData, 0x1A);
+            //TODO: Chweck what these are supposed to be
+            ushort parentSSIndex = BitConverter.ToUInt16(SSFData, 28);
+            ushort burstSlot = BitConverter.ToUInt16(SSFData, 30);
+            //
             int parentSSItemIndex = indexCollections[parentSSIndex];
 
             switch (burstSlot)
@@ -1887,26 +2140,27 @@ namespace XV2SSEdit
                 case 1:
                     {
                         byte[] changedBytes = BitConverter.GetBytes(LBID);
-                        Items[parentSSItemIndex].Data = StaticMethods.replaceBytesInByteArray(Items[parentSSItemIndex].Data, changedBytes, 42);
+                        Items[parentSSItemIndex].Data = StaticMethods.replaceBytesInByteArray(Items[parentSSItemIndex].Data, changedBytes, 58);
                         break;
                     }
 
                 case 2:
                     {
                         byte[] changedBytes = BitConverter.GetBytes(LBID);
-                        Items[parentSSItemIndex].Data = StaticMethods.replaceBytesInByteArray(Items[parentSSItemIndex].Data, changedBytes, 44);
+                        Items[parentSSItemIndex].Data = StaticMethods.replaceBytesInByteArray(Items[parentSSItemIndex].Data, changedBytes, 60);
                         break;
                     }
 
                 case 3:
                     {
                         byte[] changedBytes = BitConverter.GetBytes(LBID);
-                        Items[parentSSItemIndex].Data = StaticMethods.replaceBytesInByteArray(Items[parentSSItemIndex].Data, changedBytes, 46);
+                        Items[parentSSItemIndex].Data = StaticMethods.replaceBytesInByteArray(Items[parentSSItemIndex].Data, changedBytes, 62);
                         break;
                     }
             }
         }
 
+        //TODO: Update SSP import
         private bool importSSP(string sspPath)
         {
             SSP sspFile = new SSP();
@@ -2017,9 +2271,9 @@ namespace XV2SSEdit
         private void descriptionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //remove msg name
-                msgData[] reduce = new msgData[Names.data.Length - 1];
-                Array.Copy(Names.data, reduce, Names.data.Length - 1);
-                Names.data = reduce;
+            msgData[] reduce = new msgData[Names.data.Length - 1];
+            Array.Copy(Names.data, reduce, Names.data.Length - 1);
+            Names.data = reduce;
         }
 
         private void nameToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -2065,50 +2319,53 @@ namespace XV2SSEdit
 
         //DEMON: old code for replacing the currently selected SS with a .zss
         //commented out for now in case i want to re add this feature
-       //private void replaceImportToolStripMenuItem_Click(object sender, EventArgs e)
-       //{
-       //    //import/replace
-       //    OpenFileDialog browseFile = new OpenFileDialog();
-       //    browseFile.Filter = "Super Soul File (*.zss)|*.zss";
-       //    browseFile.Title = "Browse for Z Soul Share File";
-       //    if (browseFile.ShowDialog() == DialogResult.Cancel)
-       //        return;
-       //
-       //    byte[] zssfile = File.ReadAllBytes(browseFile.FileName);
-       //
-       //    int nameCount = BitConverter.ToInt32(zssfile, 4);
-       //    int DescCount = BitConverter.ToInt32(zssfile, 8);
-       //    short nameID = BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, 4);
-       //    short DescID = BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, 6);
-       //
-       //    Array.Copy(zssfile, 12 + (nameCount * 2) + (DescCount * 2), Items[itemList.SelectedIndex].Data, 2, 718);
-       //    Array.Copy(BitConverter.GetBytes(nameID), 0, Items[itemList.SelectedIndex].Data, 4, 2);
-       //    Array.Copy(BitConverter.GetBytes(DescID), 0, Items[itemList.SelectedIndex].Data, 6, 2);
-       //
-       //    byte[] pass;
-       //
-       //    if (nameCount > 0)
-       //    {
-       //        pass = new byte[nameCount * 2];
-       //        Array.Copy(zssfile, 12, pass, 0, nameCount * 2);
-       //        txtMsgName.Text = BytetoString(pass);
-       //    }
-       //
-       //    if (DescCount > 0)
-       //    {
-       //        pass = new byte[DescCount * 2];
-       //        Array.Copy(zssfile, 12 + (nameCount * 2), pass, 0, DescCount * 2);
-       //        txtMsgDesc.Text = BytetoString(pass);
-       //    }
-       //
-       //    UpdateData();
-       //}
+        //private void replaceImportToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    //import/replace
+        //    OpenFileDialog browseFile = new OpenFileDialog();
+        //    browseFile.Filter = "Super Soul File (*.zss)|*.zss";
+        //    browseFile.Title = "Browse for Z Soul Share File";
+        //    if (browseFile.ShowDialog() == DialogResult.Cancel)
+        //        return;
+        //
+        //    byte[] zssfile = File.ReadAllBytes(browseFile.FileName);
+        //
+        //    int nameCount = BitConverter.ToInt32(zssfile, 4);
+        //    int DescCount = BitConverter.ToInt32(zssfile, 8);
+        //    short nameID = BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, 4);
+        //    short DescID = BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, 6);
+        //
+        //    Array.Copy(zssfile, 12 + (nameCount * 2) + (DescCount * 2), Items[itemList.SelectedIndex].Data, 2, 718);
+        //    Array.Copy(BitConverter.GetBytes(nameID), 0, Items[itemList.SelectedIndex].Data, 4, 2);
+        //    Array.Copy(BitConverter.GetBytes(DescID), 0, Items[itemList.SelectedIndex].Data, 6, 2);
+        //
+        //    byte[] pass;
+        //
+        //    if (nameCount > 0)
+        //    {
+        //        pass = new byte[nameCount * 2];
+        //        Array.Copy(zssfile, 12, pass, 0, nameCount * 2);
+        //        txtMsgName.Text = BytetoString(pass);
+        //    }
+        //
+        //    if (DescCount > 0)
+        //    {
+        //        pass = new byte[DescCount * 2];
+        //        Array.Copy(zssfile, 12 + (nameCount * 2), pass, 0, DescCount * 2);
+        //        txtMsgDesc.Text = BytetoString(pass);
+        //    }
+        //
+        //    UpdateData();
+        //}
 
+
+        /// TODO update with lookup msg text?
         private void exportToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             (new Export(this, Names, Descs, Burst, BurstBTLHUD, BurstPause)).Show();
         }
 
+        //TODO: update addresses
         private int AddLB(byte[] SSData)
 
         {
@@ -2128,9 +2385,9 @@ namespace XV2SSEdit
 
             int nameCount = BitConverter.ToInt32(blankzss, 4);
             int DescCount = BitConverter.ToInt32(blankzss, 8);
-            int LBDescCount = BitConverter.ToInt32(blankzss, 12);
-            int LBDescCountBtl = BitConverter.ToInt32(blankzss, 16);
-            int LBDescCountPause = BitConverter.ToInt32(blankzss, 20);
+            int LBDescCount = BitConverter.ToInt32(blankzss, 16);
+            int LBDescCountBtl = BitConverter.ToInt32(blankzss, 20);
+            int LBDescCountPause = BitConverter.ToInt32(blankzss, 24);
 
 
 
@@ -2142,7 +2399,7 @@ namespace XV2SSEdit
             ////copy the current items to the expanded array
             //Array.Copy(Items, Expand, Items.Length);
             ////add blank IDB data
-            //Expand[Expand.Length - 1].Data = new byte[720];
+            //Expand[Expand.Length - 1].Data = new byte[748];
 
 
             //Items = Expand;
@@ -2186,7 +2443,7 @@ namespace XV2SSEdit
                 Array.Copy(Items, Expand, Items.Length);
 
                 //add blank IDB data
-                Expand[Expand.Length - 1].Data = new byte[720];
+                Expand[Expand.Length - 1].Data = new byte[772];
 
                 //UNLEASHED: finally, set the new array with proper IDs
                 Items = Expand;
@@ -2228,7 +2485,7 @@ namespace XV2SSEdit
             //Array.Copy(blankzss, 12 + (nameCount * 2) + (DescCount * 2), Items[newPos].Data, 2, 718);
 
             //UNLEASHED: + (4) is for limit burst linker 4 bytes, only useful in SSP
-            Array.Copy(blankzss, 0x1C + (nameCount) + (DescCount) + (LBDescCount) + (LBDescCountBtl) + (LBDescCountPause), Items[newPos].Data, 2, 718);
+            Array.Copy(blankzss, 0x1C + (nameCount) + (DescCount) + (LBDescCount) + (LBDescCountBtl) + (LBDescCountPause), Items[newPos].Data, 2, 746);
 
             Items[newPos].msgIndexName = 0;
             Items[newPos].msgIndexDesc = 0;
@@ -2256,6 +2513,7 @@ namespace XV2SSEdit
             itemList.SelectedIndex = index;
         }
 
+        //TODO Update
         //UNLEASHED: decided to wrap this in 1 function so that we don't need to repeat same code for creating new SSF and importing SSP
         private int AddSS(byte[] SSData)
         {
@@ -2274,9 +2532,9 @@ namespace XV2SSEdit
             byte[] blankzss = SSData;
             int nameCount = BitConverter.ToInt32(blankzss, 4);
             int DescCount = BitConverter.ToInt32(blankzss, 8);
-            int LBDescCount = BitConverter.ToInt32(blankzss, 12);
-            int LBDescCountBtl = BitConverter.ToInt32(blankzss, 16);
-            int LBDescCountPause = BitConverter.ToInt32(blankzss, 20);
+            int LBDescCount = BitConverter.ToInt32(blankzss, 16);
+            int LBDescCountBtl = BitConverter.ToInt32(blankzss, 20);
+            int LBDescCountPause = BitConverter.ToInt32(blankzss, 24);
 
             //UNLEASHED: we are gonna skip expanding itemlist until later..
 
@@ -2287,7 +2545,7 @@ namespace XV2SSEdit
             ////copy the current items to the expanded array
             //Array.Copy(Items, Expand, Items.Length);
             ////add blank IDB data
-            //Expand[Expand.Length - 1].Data = new byte[720];
+            //Expand[Expand.Length - 1].Data = new byte[748];
             //Items = Expand;
 
             //==================================EXPAND ITEMS CODE=========================
@@ -2329,7 +2587,7 @@ namespace XV2SSEdit
                 Array.Copy(Items, Expand, Items.Length);
 
                 //add blank IDB data
-                Expand[Expand.Length - 1].Data = new byte[720];
+                Expand[Expand.Length - 1].Data = new byte[772];
 
                 //UNLEASHED: finally, set the new array with proper IDs
                 Items = Expand;
@@ -2369,7 +2627,7 @@ namespace XV2SSEdit
             //Array.Copy(blankzss, 12 + (nameCount * 2) + (DescCount * 2), Items[newPos].Data, 2, 718);
 
             //UNLEASHED: + (4) is for limit burst linker 4 bytes, only useful in SSP
-            Array.Copy(blankzss, 0x1C + (nameCount) + (DescCount) + (LBDescCount) + (LBDescCountBtl) + (LBDescCountPause), Items[newPos].Data, 2, 718);
+            Array.Copy(blankzss, 0x1C + (nameCount) + (DescCount) + (LBDescCount) + (LBDescCountBtl) + (LBDescCountPause), Items[newPos].Data, 2, 746);
 
             //expand Names msg
             //UNLEASHED we shouldn't worry about Msg IDs.. i think......
@@ -2542,7 +2800,7 @@ namespace XV2SSEdit
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show($"XV2 Super Soul Editor Version {toolVersion}\n\nCredits:\nDemonBoy - Tool Creator\nLazybone & Unleashed - Help with fixes/additions\nMugenAttack - Original Source code", "Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("XV2 Super Soul Editor Version 1.90\n\nCredits:\nDemonBoy - Tool Creator\nLazybone & Unleashed - Help with fixes/additions\nMugenAttack - Original Source code", "Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         //UNLEASHED: added this function to search for SS name
@@ -2599,8 +2857,6 @@ namespace XV2SSEdit
         private void txtMsgLBDescBTL_TextChanged(object sender, EventArgs e)
         {
             BurstBTLHUD.data[Items[itemList.SelectedIndex].msgIndexBurstBTL].Lines[0] = txtMsgLBDescBTL.Text;
-            // UNLEASHED: Some SSs don't have the LBPauseDesc (we aren't sure if its evne used by the game..)
-            if (Items[itemList.SelectedIndex].msgIndexBurstPause > -1)
             BurstPause.data[Items[itemList.SelectedIndex].msgIndexBurstPause].Lines[0] = txtMsgLBDescBTL.Text;
         }
 
@@ -2631,7 +2887,7 @@ namespace XV2SSEdit
             txtBuyTP.Text = "0";
             cbStar.SelectedIndex = 4;
         }
-        
+
         private void store_defaultBtn_Click(object sender, EventArgs e)
         {
             txtRace.Text = "255";
@@ -2915,8 +3171,6 @@ namespace XV2SSEdit
                 txtLBSoulID3.Text = "65535";
                 cbLBColor.SelectedIndex = 0;
             }
-
-        
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -2932,6 +3186,7 @@ namespace XV2SSEdit
                 Application.Exit();
         }
 
+        //TODO Update with new values
         private void copyCurrentSuperSoulToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
             List<byte> copiedBytes = new List<byte>();
@@ -2940,14 +3195,7 @@ namespace XV2SSEdit
             string DescText = Descs.data[Items[currentSuperSoulIndex].msgIndexDesc].Lines[0];
             string LBDescText = Burst.data[Items[currentSuperSoulIndex].msgIndexBurst].Lines[0];
             string LBBTLHUDDescText = BurstBTLHUD.data[Items[currentSuperSoulIndex].msgIndexBurstBTL].Lines[0];
-
-            // UNLEASHED: Some SSs don't have the LBPauseDesc (we aren't sure if its even used by the game..)
-            string LBPauseDescText;
-
-            if (Items[currentSuperSoulIndex].msgIndexBurstPause > -1)
-                LBPauseDescText = BurstPause.data[Items[currentSuperSoulIndex].msgIndexBurstPause].Lines[0];
-            else
-                LBPauseDescText = "";
+            string LBPauseDescText = BurstPause.data[Items[currentSuperSoulIndex].msgIndexBurstPause].Lines[0];
 
             int nameCount = nameText.Length * 2;
             int DescCount = DescText.Length * 2;
@@ -2970,7 +3218,7 @@ namespace XV2SSEdit
             copiedBytes.AddRange(System.Text.Encoding.Unicode.GetBytes(LBPauseDescText.ToCharArray()));
 
             byte[] tmp = new byte[718];
-            Array.Copy(Items[currentSuperSoulIndex].Data, 2, tmp, 0, 718);
+            Array.Copy(Items[currentSuperSoulIndex].Data, 2, tmp, 0, 746);
             copiedBytes.AddRange(tmp);
             clipboardData = copiedBytes.ToArray();
             MessageBox.Show("Super Soul copied successfully");
@@ -2998,15 +3246,16 @@ namespace XV2SSEdit
             itemList.SelectedIndex = index;
         }
 
+        //TODO Update
         private void addNewEntryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             byte[] blankzss = Properties.Resources.newss;
 
             int nameCount = BitConverter.ToInt32(blankzss, 4);
             int DescCount = BitConverter.ToInt32(blankzss, 8);
-            int LBDescCount = BitConverter.ToInt32(blankzss, 12);
-            int LBDescCountBtl = BitConverter.ToInt32(blankzss, 16);
-            int LBDescCountPause = BitConverter.ToInt32(blankzss, 20);
+            int LBDescCount = BitConverter.ToInt32(blankzss, 16);
+            int LBDescCountBtl = BitConverter.ToInt32(blankzss, 20);
+            int LBDescCountPause = BitConverter.ToInt32(blankzss, 24);
 
             byte[] pass = null;
             msgData[] Expand4 = new msgData[Burst.data.Length + 1];
@@ -3025,7 +3274,7 @@ namespace XV2SSEdit
                 Expand4[Expand4.Length - 1].Lines = new string[] { "New LB Desc Entry" };
 
             byte[] newMSGLBDescEntryIDBytes = BitConverter.GetBytes((short)Expand4[Expand4.Length - 1].ID);
-            Array.Copy(newMSGLBDescEntryIDBytes, 0, Items[currentSuperSoulIndex].Data, 40, 2);
+            Array.Copy(newMSGLBDescEntryIDBytes, 0, Items[currentSuperSoulIndex].Data, 44, 2);
             Burst.data = Expand4;
             Items[currentSuperSoulIndex].msgIndexBurst = BitConverter.ToInt16(newMSGLBDescEntryIDBytes, 0);
 
@@ -3084,6 +3333,7 @@ namespace XV2SSEdit
             txtLBDesc.Text = Expand4[Expand4.Length - 1].ID.ToString();
         }
 
+        //TODO update(?) 
         private void createNewSoulAsLimitBurstToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int index = AddLB(Properties.Resources.newss);

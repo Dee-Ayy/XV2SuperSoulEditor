@@ -1,7 +1,4 @@
-﻿//created by MugenAttack
-//for reading msg files from xenoverse into any program
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
