@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
+//data for IDB offsets and such will be put here
+//only the offsets here would need to be updated if anything should change in the future
 namespace XV2SSEdit
 {
     public partial class IDB

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using YAXLib;
 using System.Xml.Serialization;
@@ -80,7 +76,6 @@ namespace XV2SSEdit
                 settings.Save();
                 return settings;
             }
-            
         }
 
         public void Save()
@@ -88,7 +83,5 @@ namespace XV2SSEdit
             YAXSerializer serializer = new YAXSerializer(typeof(ToolSettings));
             serializer.SerializeToFile(this, SettingsPath);
         }
-
-        
     }
 }

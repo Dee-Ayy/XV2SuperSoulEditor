@@ -52,7 +52,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>7.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\7.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>XV2SSEdit.Program</StartupObject>
@@ -82,18 +82,21 @@
     <Compile Include="CPK\CriPakTools\Endian.cs" />
     <Compile Include="CPK\CriPakTools\Tools.cs" />
     <Compile Include="CPK\Xv2FileIO.cs" />
-    <Compile Include="Export.cs">
+    <Compile Include="Forms\Export.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Export.Designer.cs">
+    <Compile Include="Forms\Export.Designer.cs">
       <DependentUpon>Export.cs</DependentUpon>
     </Compile>
-    <Compile Include="Extend1.cs" />
-    <Compile Include="FileAssoc.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Main\Extend1.cs" />
+    <Compile Include="Main\ToolStrip.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
+    <Compile Include="Settings\FileAssoc.cs" />
+    <Compile Include="Forms\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Settings.cs">
@@ -102,18 +105,17 @@
     <Compile Include="Forms\Settings.Designer.cs">
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
-    <Compile Include="msgfile.cs" />
-    <Compile Include="msgfileNew.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Main\msgfile.cs" />
+    <Compile Include="Main\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IDB.cs" />
+    <Compile Include="Main\IDB.cs" />
     <Compile Include="Settings\Settings.cs" />
-    <Compile Include="SSP.cs" />
-    <Compile Include="StaticMethods.cs" />
-    <EmbeddedResource Include="Export.resx">
+    <Compile Include="Main\SSP.cs" />
+    <Compile Include="Main\StaticMethods.cs" />
+    <EmbeddedResource Include="Forms\Export.resx">
       <DependentUpon>Export.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
+    <EmbeddedResource Include="Forms\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Settings.resx">
@@ -165,7 +167,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="7.ico" />
+    <Content Include="Resources\7.ico" />
     <EmbeddedResource Include="Resources\DefaultEffectData.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
