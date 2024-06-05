@@ -5,3 +5,5 @@
 /.vs
 /ZSoulTool/bin/Release
 /ZSoulTool/obj/Release
+/ZSoulTool/obj/Debug
+/ZSoulTool/bin/Debug
