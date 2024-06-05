@@ -19,18 +19,20 @@ namespace XV2SSEdit
         private msg Burst;
         private msg BurstBTLHUD;
         private msg BurstPause;
+        private msg HowTo;
         private int numOfExportedItems = 0;
 
-        public Export(Form1 form1,msg msg1,msg msg2,msg msg3,msg msg4,msg msg5)
+        public Export(Form1 form1,msg msg1,msg msg2,msg msg3,msg msg4,msg msg5, msg msg6)
         {
-              this.form1 = form1;
-              //UNLEASHED: the following vars are used to get rid of Warning C1690
-              //apparently, the MSG class refereces Marshal objects or something...
-              Names = msg1;
-              Descs = msg2;
-              Burst = msg3;
-              BurstBTLHUD = msg4;
-              BurstPause = msg5;
+            this.form1 = form1;
+            //UNLEASHED: the following vars are used to get rid of Warning C1690
+            //apparently, the MSG class refereces Marshal objects or something...
+            Names = msg1;
+            Descs = msg2;
+            Burst = msg3;
+            BurstBTLHUD = msg4;
+            BurstPause = msg5;
+            HowTo = msg6;
 
             InitializeComponent();
         }
@@ -62,8 +64,8 @@ namespace XV2SSEdit
                 exportBurst2 = eb2;
                 exportBurst3 = eb3;
             }
-
         }
+
         private void Export_Load(object sender, EventArgs e)
         {
             for (int i = 0; i < form1.Items.Length; i++)
@@ -72,7 +74,6 @@ namespace XV2SSEdit
                 {
                     exportSoulsList.Items.Add(BitConverter.ToUInt16(form1.Items[i].Data, 0).ToString() + " - " + Names.data[form1.Items[i].msgIndexName].Lines[0]);
                 }
-               
             }
 
             exportSoulsList.SelectedIndex = 0;
@@ -84,25 +85,22 @@ namespace XV2SSEdit
             //is to check if it has Burst IDs NOT set to NULL
             //which is normally what a vanilla limit burst would have.
             //this should be put in the "help" button as it may confuse some users
-            ushort Burst1ID = BitConverter.ToUInt16(ssData, 42);
-            ushort Burst2ID = BitConverter.ToUInt16(ssData, 44);
-            ushort Burst3ID = BitConverter.ToUInt16(ssData, 46);
+            ushort Burst1ID = BitConverter.ToUInt16(ssData, IDB.IdbOffsets["LB_Soul_ID1"].Item2);
+            ushort Burst2ID = BitConverter.ToUInt16(ssData, IDB.IdbOffsets["LB_Soul_ID2"].Item2);
+            ushort Burst3ID = BitConverter.ToUInt16(ssData, IDB.IdbOffsets["LB_Soul_ID3"].Item2);
 
             bool isSS = (Burst1ID != 0xFFFF && Burst2ID != 0xFFFF && Burst3ID != 0xFFFF);
             if (isSS)
             {
                 //UNLEASHED: while we are here, we might aswell build the SS Object
-
-
                 List<byte> SSFFile = new List<byte>();
                 SSFFile.AddRange(new byte[] { 0x23, 0x53, 0x53, 0x46 }); // UNLEASHED: Sig
-
-
 
                 string nameText = Names.data[form1.Items[SSIndex].msgIndexName].Lines[0];
                 string DescText = Descs.data[form1.Items[SSIndex].msgIndexDesc].Lines[0];
                 string LBDescText = Burst.data[form1.Items[SSIndex].msgIndexBurst].Lines[0];
                 string LBBTLHUDDescText = BurstBTLHUD.data[form1.Items[SSIndex].msgIndexBurstBTL].Lines[0];
+                string lookupText = HowTo.data[form1.Items[SSIndex].msgIndexHow].Lines[0];
 
                 // UNLEASHED: Some SSs don't have the LBPauseDesc (we aren't sure if its evne used by the game..)
                 string LBPauseDescText;
@@ -112,69 +110,61 @@ namespace XV2SSEdit
                 else
                     LBPauseDescText = "";
 
-
                 int nameCount = nameText.Length * 2;
                 int DescCount = DescText.Length * 2;
                 int LBDescCount = LBDescText.Length * 2;
                 int LBBTLHUDDescCount = LBBTLHUDDescText.Length * 2;
                 int LBPauseDescCount = LBPauseDescText.Length * 2;
-
+                int lookupCount = lookupText.Length * 2;
 
                 SSFFile.AddRange(BitConverter.GetBytes(nameCount));
                 SSFFile.AddRange(BitConverter.GetBytes(DescCount));
                 SSFFile.AddRange(BitConverter.GetBytes(LBDescCount));
                 SSFFile.AddRange(BitConverter.GetBytes(LBBTLHUDDescCount));
                 SSFFile.AddRange(BitConverter.GetBytes(LBPauseDescCount));
+                SSFFile.AddRange(BitConverter.GetBytes(lookupCount));
                 //UNLEASHED: those are the "Burst to Parent Super Soul" bytes, unused in the parent
                 SSFFile.AddRange(new byte[] { 0xFF, 0xFF, 0xFF, 0xFF });
-
-
-
 
                 SSFFile.AddRange(form1.CharByteArray(nameText));
                 SSFFile.AddRange(form1.CharByteArray(DescText));
                 SSFFile.AddRange(form1.CharByteArray(LBDescText));
                 SSFFile.AddRange(form1.CharByteArray(LBBTLHUDDescText));
                 SSFFile.AddRange(form1.CharByteArray(LBPauseDescText));
+                SSFFile.AddRange(form1.CharByteArray(lookupText));
 
-
-       
-
-                byte[] itempass = new byte[718];
-                Array.Copy(form1.Items[SSIndex].Data, 2, itempass, 0, 718);
+                //idb size is -2 because ssf does not copy index from original ss data
+                byte[] itempass = new byte[IDB.Idb_Size - 2];
+                Array.Copy(form1.Items[SSIndex].Data, 2, itempass, 0, IDB.Idb_Size - 2);
                 SSFFile.AddRange(itempass);
 
                 SSObjects.Add(new SSObject(SSFFile.ToArray(),false,nameText, Burst1ID, Burst2ID, Burst3ID, false, false, false));
-                
-         
             }
 
-            return isSS;
-         
+            return isSS;       
         }
 
         private void exportSoulsList_SelectedIndexChanged(object sender, EventArgs e)
         {
             //UNLEASHED: before we update, see if that last item is checked first so we can update SSObject
-
             SSObject ssObjTemp = SSObjects[exportSoulsList.SelectedIndex];
             bool checkedBox = exportSoulsList.GetItemCheckState(exportSoulsList.SelectedIndex) == CheckState.Checked;
-                if (!checkedBox && ssObjTemp.shouldExport){
-                    if (numOfExportedItems > 0)
-                         numOfExportedItems--;
-                }
-                if (checkedBox && !ssObjTemp.shouldExport){
-                    numOfExportedItems++;
-                }
+            
+            if (!checkedBox && ssObjTemp.shouldExport)
+            {
+                if (numOfExportedItems > 0)
+                     numOfExportedItems--;
+            }
 
+            if (checkedBox && !ssObjTemp.shouldExport)
+            {
+                numOfExportedItems++;
+            }
 
-                ssObjTemp.shouldExport = checkedBox;
-                SSObjects[exportSoulsList.SelectedIndex] = ssObjTemp;
+            ssObjTemp.shouldExport = checkedBox;
+            SSObjects[exportSoulsList.SelectedIndex] = ssObjTemp;
             
             //UNLEASHED: now update the index
-     
-
-
             checkBurst1.Checked = SSObjects[exportSoulsList.SelectedIndex].exportBurst1;
             checkBurst2.Checked = SSObjects[exportSoulsList.SelectedIndex].exportBurst2;
             checkBurst3.Checked = SSObjects[exportSoulsList.SelectedIndex].exportBurst3;
@@ -183,62 +173,56 @@ namespace XV2SSEdit
             checkBurst3.Text = "Export Burst 3 (" + SSObjects[exportSoulsList.SelectedIndex].burst3ID.ToString() + ")";
         }
 
-        private byte[] getProperSSF_FormatForLimitBurst(ushort LimitBurstID, ushort parentID, ushort burstSlot){
-
-          
+        private byte[] getProperSSF_FormatForLimitBurst(ushort LimitBurstID, ushort parentID, ushort burstSlot)
+        {
             for (int i = 0; i < form1.Items.Length; i++)
             {
                 if (BitConverter.ToUInt16(form1.Items[i].Data, 0) == LimitBurstID)
                 {
                     int SSIndex = i;
-
                     List<byte> SSFFile = new List<byte>();
                     SSFFile.AddRange(new byte[] { 0x23, 0x53, 0x53, 0x46 }); // UNLEASHED: Sig
-
-
 
                     string nameText = Names.data[form1.Items[SSIndex].msgIndexName].Lines[0];
                     string DescText = Descs.data[form1.Items[SSIndex].msgIndexDesc].Lines[0];
                     string LBDescText = Burst.data[form1.Items[SSIndex].msgIndexBurst].Lines[0];
                     string LBBTLHUDDescText = BurstBTLHUD.data[form1.Items[SSIndex].msgIndexBurstBTL].Lines[0];
                     string LBPauseDescText = BurstPause.data[form1.Items[SSIndex].msgIndexBurstPause].Lines[0];
-
+                    string lookupText = HowTo.data[form1.Items[SSIndex].msgIndexHow].Lines[0];
 
                     int nameCount = nameText.Length * 2;
                     int DescCount = DescText.Length * 2;
                     int LBDescCount = LBDescText.Length * 2;
                     int LBBTLHUDDescCount = LBBTLHUDDescText.Length * 2;
                     int LBPauseDescCount = LBPauseDescText.Length * 2;
-
+                    int lookupCount = lookupText.Length * 2;
 
                     SSFFile.AddRange(BitConverter.GetBytes(nameCount));
                     SSFFile.AddRange(BitConverter.GetBytes(DescCount));
                     SSFFile.AddRange(BitConverter.GetBytes(LBDescCount));
                     SSFFile.AddRange(BitConverter.GetBytes(LBBTLHUDDescCount));
                     SSFFile.AddRange(BitConverter.GetBytes(LBPauseDescCount));
+                    SSFFile.AddRange(BitConverter.GetBytes(lookupCount));
+
                     //UNLEASHED: assign parentID and burstSlot
                     SSFFile.AddRange(BitConverter.GetBytes(parentID));
                     SSFFile.AddRange(BitConverter.GetBytes(burstSlot));
-
-
-
                     SSFFile.AddRange(form1.CharByteArray(nameText));
                     SSFFile.AddRange(form1.CharByteArray(DescText));
                     SSFFile.AddRange(form1.CharByteArray(LBDescText));
                     SSFFile.AddRange(form1.CharByteArray(LBBTLHUDDescText));
                     SSFFile.AddRange(form1.CharByteArray(LBPauseDescText));
+                    SSFFile.AddRange(form1.CharByteArray(lookupText));
 
-
-                   
-
-                    byte[] itempass = new byte[718];
-                    Array.Copy(form1.Items[SSIndex].Data, 2, itempass, 0, 718);
+                    byte[] itempass = new byte[IDB.Idb_Size - 2];
+                    Array.Copy(form1.Items[SSIndex].Data, 2, itempass, 0, IDB.Idb_Size - 2);
                     SSFFile.AddRange(itempass);
                     return SSFFile.ToArray();
                 }
             }
                 return null; 
         }
+
         private void btnExport_Click(object sender, EventArgs e)
         {
             sspFile = new SSP();
@@ -257,55 +241,54 @@ namespace XV2SSEdit
                 MessageBox.Show("Please select atleast 1 super soul");
                 return;
             }
+
             for (int i = 0; i < SSObjects.Count; i++)
             {
-                if(SSObjects[i].shouldExport){
-
-                        if (SSObjects[i].exportBurst1)
+                if (SSObjects[i].shouldExport)
+                {
+                    if (SSObjects[i].exportBurst1)
+                    {
+                        tempBytes = getProperSSF_FormatForLimitBurst(SSObjects[i].burst1ID, exportIndex, 1);
+                        if (tempBytes != null)
+                            limitBursts.Add(tempBytes);
+                        else
                         {
-                            tempBytes = getProperSSF_FormatForLimitBurst(SSObjects[i].burst1ID, exportIndex, 1);
-                            if (tempBytes != null)
-                                limitBursts.Add(tempBytes);
-                            else
-                            {
-                                MessageBox.Show("could not find LimitBurst ID " + SSObjects[i].burst1ID.ToString() + " in Super Soul with Name " +
-                                   SSObjects[i].SSName);
-                                return;
-                            }
-                            
-                    
+                            MessageBox.Show("could not find LimitBurst ID " + SSObjects[i].burst1ID.ToString() + " in Super Soul with Name " +
+                               SSObjects[i].SSName);
+                            return;
                         }
-                        if (SSObjects[i].exportBurst2)
-                        {
-                            tempBytes = getProperSSF_FormatForLimitBurst(SSObjects[i].burst2ID, exportIndex, 2);
-                            if (tempBytes != null)
-                                limitBursts.Add(tempBytes);
-                            else
-                            {
-                                MessageBox.Show("could not find LimitBurst ID " + SSObjects[i].burst1ID.ToString() + " in Super Soul with Name " +
-                                   SSObjects[i].SSName);
-                                return;
-                            }
-                        }
-                        if (SSObjects[i].exportBurst3)
-                        {
-                            tempBytes = getProperSSF_FormatForLimitBurst(SSObjects[i].burst3ID, exportIndex, 3);
-                            if (tempBytes != null)
-                                limitBursts.Add(tempBytes);
-                            else
-                            {
-                                MessageBox.Show("could not find LimitBurst ID " + SSObjects[i].burst3ID.ToString() + " in Super Soul with Name " +
-                                   SSObjects[i].SSName);
-                                return;
-                            }
-                               
-                        }
+                    }
 
-                        sspFile.Souls.Add(new SSP.SSF(SSObjects[i].SSFData));
+                    if (SSObjects[i].exportBurst2)
+                    {
+                        tempBytes = getProperSSF_FormatForLimitBurst(SSObjects[i].burst2ID, exportIndex, 2);
+                        if (tempBytes != null)
+                            limitBursts.Add(tempBytes);
+                        else
+                        {
+                            MessageBox.Show("could not find LimitBurst ID " + SSObjects[i].burst1ID.ToString() + " in Super Soul with Name " +
+                               SSObjects[i].SSName);
+                            return;
+                        }
+                    }
 
-                exportIndex++;
+                    if (SSObjects[i].exportBurst3)
+                    {
+                        tempBytes = getProperSSF_FormatForLimitBurst(SSObjects[i].burst3ID, exportIndex, 3);
+                        if (tempBytes != null)
+                            limitBursts.Add(tempBytes);
+                        else
+                        {
+                            MessageBox.Show("could not find LimitBurst ID " + SSObjects[i].burst3ID.ToString() + " in Super Soul with Name " +
+                               SSObjects[i].SSName);
+                            return;
+                        }
+                    }
+
+                    sspFile.Souls.Add(new SSP.SSF(SSObjects[i].SSFData));
+
+                    exportIndex++;
                 }
-          
             }
 
             for (int i = 0; i < limitBursts.Count; i++)
@@ -317,14 +300,11 @@ namespace XV2SSEdit
             saveFileDialog1.Filter = "Super Soul Package File | *.ssp";
             saveFileDialog1.Title = "Save a Super Soul Package File";
         
-
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 sspFile.SSPWrite(saveFileDialog1.FileName);
                 MessageBox.Show("Super Souls Exported Successfully");
-            }
-
-         
+            }       
         }
 
         private void btnHelp_Click(object sender, EventArgs e)
@@ -345,7 +325,6 @@ namespace XV2SSEdit
             SSObject ssObjTemp = SSObjects[exportSoulsList.SelectedIndex];
             ssObjTemp.exportBurst1 = checkBurst1.Checked;
             SSObjects[exportSoulsList.SelectedIndex] = ssObjTemp;
-      
         }
 
         private void checkBurst2_CheckedChanged(object sender, EventArgs e)
@@ -353,7 +332,6 @@ namespace XV2SSEdit
             SSObject ssObjTemp = SSObjects[exportSoulsList.SelectedIndex];
             ssObjTemp.exportBurst2 = checkBurst2.Checked;
             SSObjects[exportSoulsList.SelectedIndex] = ssObjTemp;
-       
         }
 
         private void checkBurst3_CheckedChanged(object sender, EventArgs e)
@@ -361,7 +339,12 @@ namespace XV2SSEdit
             SSObject ssObjTemp = SSObjects[exportSoulsList.SelectedIndex];
             ssObjTemp.exportBurst3 = checkBurst3.Checked;
             SSObjects[exportSoulsList.SelectedIndex] = ssObjTemp;
-          
+        }
+    
+        //TODO add function to export LB installer xml
+        private void exportLB_Xml()
+        {
+
         }
     }
 }

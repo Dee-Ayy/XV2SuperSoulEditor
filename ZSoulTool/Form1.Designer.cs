@@ -48,88 +48,88 @@
             this.txtMsgName = new System.Windows.Forms.TextBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.label111 = new System.Windows.Forms.Label();
-            this.txtUnk2 = new System.Windows.Forms.TextBox();
+            this.I_18 = new System.Windows.Forms.TextBox();
             this.label110 = new System.Windows.Forms.Label();
-            this.txtUnk1 = new System.Windows.Forms.TextBox();
+            this.I_16 = new System.Windows.Forms.TextBox();
             this.label106 = new System.Windows.Forms.Label();
-            this.txtNewI36 = new System.Windows.Forms.TextBox();
+            this.I_44 = new System.Windows.Forms.TextBox();
             this.label104 = new System.Windows.Forms.Label();
-            this.txtNewI10 = new System.Windows.Forms.TextBox();
+            this.I_10 = new System.Windows.Forms.TextBox();
             this.label103 = new System.Windows.Forms.Label();
-            this.txtBuySTP = new System.Windows.Forms.TextBox();
-            this.txtShopTest = new System.Windows.Forms.TextBox();
-            this.txtTPTest = new System.Windows.Forms.TextBox();
+            this.Cost_STP = new System.Windows.Forms.TextBox();
+            this.Dlc_Flag = new System.Windows.Forms.TextBox();
+            this.Prog_Flag = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.txtBuy = new System.Windows.Forms.TextBox();
+            this.Cost = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
-            this.txtBuyTP = new System.Windows.Forms.TextBox();
-            this.txtSell = new System.Windows.Forms.TextBox();
+            this.Cost_TP = new System.Windows.Forms.TextBox();
+            this.Sell = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.txtRace = new System.Windows.Forms.TextBox();
+            this.Race = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.label52 = new System.Windows.Forms.Label();
-            this.txtHowID = new System.Windows.Forms.TextBox();
+            this.How_ID = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtDescID = new System.Windows.Forms.TextBox();
+            this.Info_ID = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtNameID = new System.Windows.Forms.TextBox();
+            this.Name_ID = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
-            this.cbKiType = new System.Windows.Forms.ComboBox();
+            this.KiBlast = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.cbStar = new System.Windows.Forms.ComboBox();
+            this.Rarity = new System.Windows.Forms.ComboBox();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.label49 = new System.Windows.Forms.Label();
-            this.cbLBColor = new System.Windows.Forms.ComboBox();
+            this.LB_Color = new System.Windows.Forms.ComboBox();
             this.label50 = new System.Windows.Forms.Label();
             this.label48 = new System.Windows.Forms.Label();
             this.label51 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
-            this.txtLBSoulID3 = new System.Windows.Forms.TextBox();
-            this.txtLBSoulID2 = new System.Windows.Forms.TextBox();
-            this.txtLBAura = new System.Windows.Forms.TextBox();
-            this.txtLBSoulID1 = new System.Windows.Forms.TextBox();
-            this.txtLBDesc = new System.Windows.Forms.TextBox();
+            this.LB_Soul_ID3 = new System.Windows.Forms.TextBox();
+            this.LB_Soul_ID2 = new System.Windows.Forms.TextBox();
+            this.LB_Aura = new System.Windows.Forms.TextBox();
+            this.LB_Soul_ID1 = new System.Windows.Forms.TextBox();
+            this.LB_Desc = new System.Windows.Forms.TextBox();
             this.tabpage2 = new System.Windows.Forms.TabPage();
             this.label113 = new System.Windows.Forms.Label();
-            this.txtUnki52b = new System.Windows.Forms.TextBox();
+            this.I_56_EB = new System.Windows.Forms.TextBox();
             this.label112 = new System.Windows.Forms.Label();
-            this.txtUnki48b = new System.Windows.Forms.TextBox();
-            this.txtNewI12b = new System.Windows.Forms.TextBox();
+            this.I_52_EB = new System.Windows.Forms.TextBox();
+            this.I_12_EB = new System.Windows.Forms.TextBox();
             this.label107 = new System.Windows.Forms.Label();
             this.label69 = new System.Windows.Forms.Label();
-            this.txtValue6B = new System.Windows.Forms.TextBox();
+            this.Value6_EB = new System.Windows.Forms.TextBox();
             this.label70 = new System.Windows.Forms.Label();
             this.label75 = new System.Windows.Forms.Label();
             this.label71 = new System.Windows.Forms.Label();
-            this.txtUnki88b = new System.Windows.Forms.TextBox();
+            this.I_100_EB = new System.Windows.Forms.TextBox();
             this.label76 = new System.Windows.Forms.Label();
-            this.txtValue5B = new System.Windows.Forms.TextBox();
+            this.Value5_EB = new System.Windows.Forms.TextBox();
             this.label77 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label72 = new System.Windows.Forms.Label();
-            this.txtAmount6B = new System.Windows.Forms.TextBox();
-            this.txtAmount5B = new System.Windows.Forms.TextBox();
-            this.txtUnki44b = new System.Windows.Forms.TextBox();
-            this.txtValue4B = new System.Windows.Forms.TextBox();
-            this.txtValue3B = new System.Windows.Forms.TextBox();
-            this.txtValue2B = new System.Windows.Forms.TextBox();
+            this.Amount6_EB = new System.Windows.Forms.TextBox();
+            this.Amount5_EB = new System.Windows.Forms.TextBox();
+            this.I_48_EB = new System.Windows.Forms.TextBox();
+            this.Value4_EB = new System.Windows.Forms.TextBox();
+            this.Value3_EB = new System.Windows.Forms.TextBox();
+            this.Value2_EB = new System.Windows.Forms.TextBox();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
             this.label56 = new System.Windows.Forms.Label();
-            this.cbVfxType1B = new System.Windows.Forms.ComboBox();
-            this.txtVfxId1B = new System.Windows.Forms.TextBox();
+            this.Vfx_Type1_EB = new System.Windows.Forms.ComboBox();
+            this.Vfx_ID1_EB = new System.Windows.Forms.TextBox();
             this.label57 = new System.Windows.Forms.Label();
             this.groupBox17 = new System.Windows.Forms.GroupBox();
             this.label58 = new System.Windows.Forms.Label();
-            this.cbVfxType2B = new System.Windows.Forms.ComboBox();
-            this.txtVfxId2B = new System.Windows.Forms.TextBox();
+            this.Vfx_Type2_EB = new System.Windows.Forms.ComboBox();
+            this.Vfx_ID2_EB = new System.Windows.Forms.TextBox();
             this.label59 = new System.Windows.Forms.Label();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
-            this.cbTargetb = new System.Windows.Forms.ComboBox();
+            this.Target_EB = new System.Windows.Forms.ComboBox();
             this.label19 = new System.Windows.Forms.Label();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.label100 = new System.Windows.Forms.Label();
@@ -141,55 +141,55 @@
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label54 = new System.Windows.Forms.Label();
             this.label55 = new System.Windows.Forms.Label();
-            this.txtAmount4B = new System.Windows.Forms.TextBox();
-            this.txtAmount3B = new System.Windows.Forms.TextBox();
+            this.Amount4_EB = new System.Windows.Forms.TextBox();
+            this.Amount3_EB = new System.Windows.Forms.TextBox();
             this.label60 = new System.Windows.Forms.Label();
-            this.txtAmount2B = new System.Windows.Forms.TextBox();
+            this.Amount2_EB = new System.Windows.Forms.TextBox();
             this.label61 = new System.Windows.Forms.Label();
-            this.txtAmount1B = new System.Windows.Forms.TextBox();
-            this.txtChanceb = new System.Windows.Forms.TextBox();
+            this.Amount1_EB = new System.Windows.Forms.TextBox();
+            this.Chance_EB = new System.Windows.Forms.TextBox();
             this.label62 = new System.Windows.Forms.Label();
-            this.txtValue1B = new System.Windows.Forms.TextBox();
+            this.Value1_EB = new System.Windows.Forms.TextBox();
             this.label63 = new System.Windows.Forms.Label();
-            this.txtDurationB = new System.Windows.Forms.TextBox();
+            this.Duration_EB = new System.Windows.Forms.TextBox();
             this.label64 = new System.Windows.Forms.Label();
-            this.txtLimitB = new System.Windows.Forms.TextBox();
+            this.Limit_EB = new System.Windows.Forms.TextBox();
             this.label65 = new System.Windows.Forms.Label();
-            this.cbActiveb = new System.Windows.Forms.ComboBox();
+            this.Activate_EB = new System.Windows.Forms.ComboBox();
             this.label66 = new System.Windows.Forms.Label();
-            this.cbEffectb = new System.Windows.Forms.ComboBox();
+            this.Effect_EB = new System.Windows.Forms.ComboBox();
             this.label67 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label115 = new System.Windows.Forms.Label();
-            this.txtUnki521 = new System.Windows.Forms.TextBox();
+            this.I_56_E1 = new System.Windows.Forms.TextBox();
             this.label114 = new System.Windows.Forms.Label();
-            this.txtUnki481 = new System.Windows.Forms.TextBox();
+            this.I_52_E1 = new System.Windows.Forms.TextBox();
             this.label108 = new System.Windows.Forms.Label();
-            this.txtNewI121 = new System.Windows.Forms.TextBox();
+            this.I_12_E1 = new System.Windows.Forms.TextBox();
             this.label30 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
-            this.txtAmount41 = new System.Windows.Forms.TextBox();
-            this.txtAmount31 = new System.Windows.Forms.TextBox();
+            this.Amount4_E1 = new System.Windows.Forms.TextBox();
+            this.Amount3_E1 = new System.Windows.Forms.TextBox();
             this.label79 = new System.Windows.Forms.Label();
-            this.txtUnki881 = new System.Windows.Forms.TextBox();
+            this.I_100_E1 = new System.Windows.Forms.TextBox();
             this.label81 = new System.Windows.Forms.Label();
             this.label82 = new System.Windows.Forms.Label();
             this.label83 = new System.Windows.Forms.Label();
-            this.txtAmount61 = new System.Windows.Forms.TextBox();
-            this.txtAmount51 = new System.Windows.Forms.TextBox();
-            this.txtUnki441 = new System.Windows.Forms.TextBox();
+            this.Amount6_E1 = new System.Windows.Forms.TextBox();
+            this.Amount5_E1 = new System.Windows.Forms.TextBox();
+            this.I_48_E1 = new System.Windows.Forms.TextBox();
             this.label78 = new System.Windows.Forms.Label();
-            this.txtValue61 = new System.Windows.Forms.TextBox();
+            this.Value6_E1 = new System.Windows.Forms.TextBox();
             this.label80 = new System.Windows.Forms.Label();
-            this.txtValue51 = new System.Windows.Forms.TextBox();
+            this.Value5_E1 = new System.Windows.Forms.TextBox();
             this.label84 = new System.Windows.Forms.Label();
             this.label85 = new System.Windows.Forms.Label();
             this.label86 = new System.Windows.Forms.Label();
-            this.txtValue41 = new System.Windows.Forms.TextBox();
-            this.txtValue31 = new System.Windows.Forms.TextBox();
-            this.txtValue21 = new System.Windows.Forms.TextBox();
+            this.Value4_E1 = new System.Windows.Forms.TextBox();
+            this.Value3_E1 = new System.Windows.Forms.TextBox();
+            this.Value2_E1 = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.cbTarget1 = new System.Windows.Forms.ComboBox();
+            this.Target_E1 = new System.Windows.Forms.ComboBox();
             this.label26 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label99 = new System.Windows.Forms.Label();
@@ -201,63 +201,63 @@
             this.txtEditValue1 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label31 = new System.Windows.Forms.Label();
-            this.cbVfxType11 = new System.Windows.Forms.ComboBox();
-            this.txtVfxId11 = new System.Windows.Forms.TextBox();
+            this.Vfx_Type1_E1 = new System.Windows.Forms.ComboBox();
+            this.Vfx_ID1_E1 = new System.Windows.Forms.TextBox();
             this.label27 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label32 = new System.Windows.Forms.Label();
-            this.cbVfxType21 = new System.Windows.Forms.ComboBox();
-            this.txtVfxId12 = new System.Windows.Forms.TextBox();
+            this.Vfx_Type2_E1 = new System.Windows.Forms.ComboBox();
+            this.Vfx_ID1_E2 = new System.Windows.Forms.TextBox();
             this.label28 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
-            this.txtAmount21 = new System.Windows.Forms.TextBox();
+            this.Amount2_E1 = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
-            this.txtAmount11 = new System.Windows.Forms.TextBox();
-            this.txtChance1 = new System.Windows.Forms.TextBox();
+            this.Amount1_E1 = new System.Windows.Forms.TextBox();
+            this.Chance_E1 = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
-            this.txtValue11 = new System.Windows.Forms.TextBox();
+            this.Value1_E1 = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
-            this.txtDuration1 = new System.Windows.Forms.TextBox();
+            this.Duration_E1 = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.txtLimit1 = new System.Windows.Forms.TextBox();
+            this.Limit_E1 = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.cbActive1 = new System.Windows.Forms.ComboBox();
+            this.Activate_E1 = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.cbEffect1 = new System.Windows.Forms.ComboBox();
+            this.Effect_E1 = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.label117 = new System.Windows.Forms.Label();
-            this.txtUnki522 = new System.Windows.Forms.TextBox();
+            this.I_56_E2 = new System.Windows.Forms.TextBox();
             this.label116 = new System.Windows.Forms.Label();
-            this.txtUnki482 = new System.Windows.Forms.TextBox();
+            this.I_52_E2 = new System.Windows.Forms.TextBox();
             this.label109 = new System.Windows.Forms.Label();
-            this.txtNewI122 = new System.Windows.Forms.TextBox();
+            this.I_12_E2 = new System.Windows.Forms.TextBox();
             this.label87 = new System.Windows.Forms.Label();
-            this.txtValue62 = new System.Windows.Forms.TextBox();
+            this.Value6_E2 = new System.Windows.Forms.TextBox();
             this.label89 = new System.Windows.Forms.Label();
             this.label88 = new System.Windows.Forms.Label();
             this.label93 = new System.Windows.Forms.Label();
-            this.txtUnki882 = new System.Windows.Forms.TextBox();
+            this.I_100_E2 = new System.Windows.Forms.TextBox();
             this.label94 = new System.Windows.Forms.Label();
-            this.txtValue52 = new System.Windows.Forms.TextBox();
+            this.Value5_E2 = new System.Windows.Forms.TextBox();
             this.label95 = new System.Windows.Forms.Label();
             this.label90 = new System.Windows.Forms.Label();
             this.label91 = new System.Windows.Forms.Label();
             this.label92 = new System.Windows.Forms.Label();
-            this.txtAmount62 = new System.Windows.Forms.TextBox();
-            this.txtAmount52 = new System.Windows.Forms.TextBox();
-            this.txtUnki442 = new System.Windows.Forms.TextBox();
-            this.txtValue42 = new System.Windows.Forms.TextBox();
-            this.txtValue32 = new System.Windows.Forms.TextBox();
-            this.txtValue22 = new System.Windows.Forms.TextBox();
+            this.Amount6_E2 = new System.Windows.Forms.TextBox();
+            this.Amount5_E2 = new System.Windows.Forms.TextBox();
+            this.I_48_E2 = new System.Windows.Forms.TextBox();
+            this.Value4_E2 = new System.Windows.Forms.TextBox();
+            this.Value3_E2 = new System.Windows.Forms.TextBox();
+            this.Value2_E2 = new System.Windows.Forms.TextBox();
             this.label35 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.cbTarget2 = new System.Windows.Forms.ComboBox();
+            this.Target_E2 = new System.Windows.Forms.ComboBox();
             this.label33 = new System.Windows.Forms.Label();
-            this.txtAmount32 = new System.Windows.Forms.TextBox();
-            this.txtAmount42 = new System.Windows.Forms.TextBox();
+            this.Amount3_E2 = new System.Windows.Forms.TextBox();
+            this.Amount4_E2 = new System.Windows.Forms.TextBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label68 = new System.Windows.Forms.Label();
             this.label102 = new System.Windows.Forms.Label();
@@ -268,31 +268,31 @@
             this.txtEditName2 = new System.Windows.Forms.TextBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.label36 = new System.Windows.Forms.Label();
-            this.cbVfxType12 = new System.Windows.Forms.ComboBox();
-            this.txtVfxId21 = new System.Windows.Forms.TextBox();
+            this.Vfx_Type1_E2 = new System.Windows.Forms.ComboBox();
+            this.Vfx_ID2_E1 = new System.Windows.Forms.TextBox();
             this.label37 = new System.Windows.Forms.Label();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.label38 = new System.Windows.Forms.Label();
-            this.cbVfxType22 = new System.Windows.Forms.ComboBox();
-            this.txtVfxId22 = new System.Windows.Forms.TextBox();
+            this.Vfx_Type2_E2 = new System.Windows.Forms.ComboBox();
+            this.Vfx_ID2_E2 = new System.Windows.Forms.TextBox();
             this.label39 = new System.Windows.Forms.Label();
             this.label40 = new System.Windows.Forms.Label();
-            this.txtAmount22 = new System.Windows.Forms.TextBox();
+            this.Amount2_E2 = new System.Windows.Forms.TextBox();
             this.label41 = new System.Windows.Forms.Label();
-            this.txtAmount12 = new System.Windows.Forms.TextBox();
-            this.txtChance2 = new System.Windows.Forms.TextBox();
+            this.Amount1_E2 = new System.Windows.Forms.TextBox();
+            this.Chance_E2 = new System.Windows.Forms.TextBox();
             this.label42 = new System.Windows.Forms.Label();
-            this.txtValue12 = new System.Windows.Forms.TextBox();
+            this.Value1_E2 = new System.Windows.Forms.TextBox();
             this.label43 = new System.Windows.Forms.Label();
-            this.txtDuration2 = new System.Windows.Forms.TextBox();
+            this.Duration_E2 = new System.Windows.Forms.TextBox();
             this.label44 = new System.Windows.Forms.Label();
-            this.txtLimit2 = new System.Windows.Forms.TextBox();
+            this.Limit_E2 = new System.Windows.Forms.TextBox();
             this.label45 = new System.Windows.Forms.Label();
-            this.cbActive2 = new System.Windows.Forms.ComboBox();
+            this.Activate_E2 = new System.Windows.Forms.ComboBox();
             this.label46 = new System.Windows.Forms.Label();
-            this.cbEffect2 = new System.Windows.Forms.ComboBox();
+            this.Effect_E2 = new System.Windows.Forms.ComboBox();
             this.label47 = new System.Windows.Forms.Label();
-            this.txtID = new System.Windows.Forms.TextBox();
+            this.Index = new System.Windows.Forms.TextBox();
             this.srchBox = new System.Windows.Forms.TextBox();
             this.srchBtn = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -581,26 +581,26 @@
             // groupBox10
             // 
             this.groupBox10.Controls.Add(this.label111);
-            this.groupBox10.Controls.Add(this.txtUnk2);
+            this.groupBox10.Controls.Add(this.I_18);
             this.groupBox10.Controls.Add(this.label110);
-            this.groupBox10.Controls.Add(this.txtUnk1);
+            this.groupBox10.Controls.Add(this.I_16);
             this.groupBox10.Controls.Add(this.label106);
-            this.groupBox10.Controls.Add(this.txtNewI36);
+            this.groupBox10.Controls.Add(this.I_44);
             this.groupBox10.Controls.Add(this.label104);
-            this.groupBox10.Controls.Add(this.txtNewI10);
+            this.groupBox10.Controls.Add(this.I_10);
             this.groupBox10.Controls.Add(this.label103);
-            this.groupBox10.Controls.Add(this.txtBuySTP);
-            this.groupBox10.Controls.Add(this.txtShopTest);
-            this.groupBox10.Controls.Add(this.txtTPTest);
+            this.groupBox10.Controls.Add(this.Cost_STP);
+            this.groupBox10.Controls.Add(this.Dlc_Flag);
+            this.groupBox10.Controls.Add(this.Prog_Flag);
             this.groupBox10.Controls.Add(this.label15);
             this.groupBox10.Controls.Add(this.label5);
-            this.groupBox10.Controls.Add(this.txtBuy);
+            this.groupBox10.Controls.Add(this.Cost);
             this.groupBox10.Controls.Add(this.label18);
-            this.groupBox10.Controls.Add(this.txtBuyTP);
-            this.groupBox10.Controls.Add(this.txtSell);
+            this.groupBox10.Controls.Add(this.Cost_TP);
+            this.groupBox10.Controls.Add(this.Sell);
             this.groupBox10.Controls.Add(this.label17);
             this.groupBox10.Controls.Add(this.label6);
-            this.groupBox10.Controls.Add(this.txtRace);
+            this.groupBox10.Controls.Add(this.Race);
             this.groupBox10.Controls.Add(this.label16);
             this.groupBox10.Location = new System.Drawing.Point(6, 89);
             this.groupBox10.Name = "groupBox10";
@@ -618,13 +618,13 @@
             this.label111.TabIndex = 50;
             this.label111.Text = "I_12";
             // 
-            // txtUnk2
+            // I_18
             // 
-            this.txtUnk2.Location = new System.Drawing.Point(300, 49);
-            this.txtUnk2.Name = "txtUnk2";
-            this.txtUnk2.Size = new System.Drawing.Size(50, 20);
-            this.txtUnk2.TabIndex = 49;
-            this.txtUnk2.TextChanged += new System.EventHandler(this.txtUnk2_TextChanged);
+            this.I_18.Location = new System.Drawing.Point(300, 49);
+            this.I_18.Name = "I_18";
+            this.I_18.Size = new System.Drawing.Size(50, 20);
+            this.I_18.TabIndex = 49;
+            this.I_18.TextChanged += new System.EventHandler(this.tbNumberChanged);
 
             // 
             // label110
@@ -636,13 +636,13 @@
             this.label110.TabIndex = 48;
             this.label110.Text = "I_10";
             // 
-            // txtUnk1
+            // I_16
             // 
-            this.txtUnk1.Location = new System.Drawing.Point(245, 49);
-            this.txtUnk1.Name = "txtUnk1";
-            this.txtUnk1.Size = new System.Drawing.Size(50, 20);
-            this.txtUnk1.TabIndex = 47;
-            this.txtUnk1.TextChanged += new System.EventHandler(this.txtUnk1_TextChanged);
+            this.I_16.Location = new System.Drawing.Point(245, 49);
+            this.I_16.Name = "I_16";
+            this.I_16.Size = new System.Drawing.Size(50, 20);
+            this.I_16.TabIndex = 47;
+            this.I_16.TextChanged += new System.EventHandler(this.tbNumberChanged);
 
             // 
             // label106
@@ -654,13 +654,13 @@
             this.label106.TabIndex = 46;
             this.label106.Text = "N I_36";
             // 
-            // txtNewI36
+            // I_44
             // 
-            this.txtNewI36.Location = new System.Drawing.Point(287, 106);
-            this.txtNewI36.Name = "txtNewI36";
-            this.txtNewI36.Size = new System.Drawing.Size(65, 20);
-            this.txtNewI36.TabIndex = 45;
-            this.txtNewI36.TextChanged += new System.EventHandler(this.txtNewI36_TextChanged);
+            this.I_44.Location = new System.Drawing.Point(287, 106);
+            this.I_44.Name = "I_44";
+            this.I_44.Size = new System.Drawing.Size(65, 20);
+            this.I_44.TabIndex = 45;
+            this.I_44.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label104
             // 
@@ -671,13 +671,13 @@
             this.label104.TabIndex = 44;
             this.label104.Text = "N I_10";
             // 
-            // txtNewI10
+            // I_10
             // 
-            this.txtNewI10.Location = new System.Drawing.Point(190, 49);
-            this.txtNewI10.Name = "txtNewI10";
-            this.txtNewI10.Size = new System.Drawing.Size(50, 20);
-            this.txtNewI10.TabIndex = 43;
-            this.txtNewI10.TextChanged += new System.EventHandler(this.txtNewI10_TextChanged);
+            this.I_10.Location = new System.Drawing.Point(190, 49);
+            this.I_10.Name = "I_10";
+            this.I_10.Size = new System.Drawing.Size(50, 20);
+            this.I_10.TabIndex = 43;
+            this.I_10.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label103
             // 
@@ -688,29 +688,29 @@
             this.label103.TabIndex = 42;
             this.label103.Text = "STP (Buy)";
             // 
-            // txtBuySTP
+            // Cost_STP
             // 
-            this.txtBuySTP.Location = new System.Drawing.Point(217, 106);
-            this.txtBuySTP.Name = "txtBuySTP";
-            this.txtBuySTP.Size = new System.Drawing.Size(65, 20);
-            this.txtBuySTP.TabIndex = 41;
-            this.txtBuySTP.TextChanged += new System.EventHandler(this.txtBuySTP_TextChanged);
+            this.Cost_STP.Location = new System.Drawing.Point(217, 106);
+            this.Cost_STP.Name = "Cost_STP";
+            this.Cost_STP.Size = new System.Drawing.Size(65, 20);
+            this.Cost_STP.TabIndex = 41;
+            this.Cost_STP.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
-            // txtShopTest
+            // Dlc_Flag
             // 
-            this.txtShopTest.Location = new System.Drawing.Point(80, 49);
-            this.txtShopTest.Name = "txtShopTest";
-            this.txtShopTest.Size = new System.Drawing.Size(50, 20);
-            this.txtShopTest.TabIndex = 40;
-            this.txtShopTest.TextChanged += new System.EventHandler(this.txtShopTest_TextChanged);
+            this.Dlc_Flag.Location = new System.Drawing.Point(80, 49);
+            this.Dlc_Flag.Name = "Dlc_Flag";
+            this.Dlc_Flag.Size = new System.Drawing.Size(50, 20);
+            this.Dlc_Flag.TabIndex = 40;
+            this.Dlc_Flag.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
-            // txtTPTest
+            // Prog_Flag
             // 
-            this.txtTPTest.Location = new System.Drawing.Point(135, 49);
-            this.txtTPTest.Name = "txtTPTest";
-            this.txtTPTest.Size = new System.Drawing.Size(50, 20);
-            this.txtTPTest.TabIndex = 39;
-            this.txtTPTest.TextChanged += new System.EventHandler(this.txtTPTest_TextChanged);
+            this.Prog_Flag.Location = new System.Drawing.Point(135, 49);
+            this.Prog_Flag.Name = "Prog_Flag";
+            this.Prog_Flag.Size = new System.Drawing.Size(50, 20);
+            this.Prog_Flag.TabIndex = 39;
+            this.Prog_Flag.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label15
             // 
@@ -730,14 +730,14 @@
             this.label5.TabIndex = 25;
             this.label5.Text = "Zeni (Buy)";
             // 
-            // txtBuy
+            // Cost
             // 
-            this.txtBuy.Location = new System.Drawing.Point(7, 106);
-            this.txtBuy.Name = "txtBuy";
-            this.txtBuy.Size = new System.Drawing.Size(65, 20);
-            this.txtBuy.TabIndex = 24;
-            this.toolTip1.SetToolTip(this.txtBuy, "Price of the Super Soul in the Item Shop");
-            this.txtBuy.TextChanged += new System.EventHandler(this.txtBuy_TextChanged);
+            this.Cost.Location = new System.Drawing.Point(7, 106);
+            this.Cost.Name = "Cost";
+            this.Cost.Size = new System.Drawing.Size(65, 20);
+            this.Cost.TabIndex = 24;
+            this.toolTip1.SetToolTip(this.Cost, "Price of the Super Soul in the Item Shop");
+            this.Cost.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label18
             // 
@@ -749,23 +749,23 @@
             this.label18.Text = "Prg Flag";
             this.toolTip1.SetToolTip(this.label18, "Determines story progress needed to view\r\nsuper soul in the shop.");
             // 
-            // txtBuyTP
+            // Cost_TP
             // 
-            this.txtBuyTP.Location = new System.Drawing.Point(147, 106);
-            this.txtBuyTP.Name = "txtBuyTP";
-            this.txtBuyTP.Size = new System.Drawing.Size(65, 20);
-            this.txtBuyTP.TabIndex = 32;
-            this.toolTip1.SetToolTip(this.txtBuyTP, "Price of the Super Soul in the TP Shop.");
-            this.txtBuyTP.TextChanged += new System.EventHandler(this.txtBuyTP_TextChanged);
+            this.Cost_TP.Location = new System.Drawing.Point(147, 106);
+            this.Cost_TP.Name = "Cost_TP";
+            this.Cost_TP.Size = new System.Drawing.Size(65, 20);
+            this.Cost_TP.TabIndex = 32;
+            this.toolTip1.SetToolTip(this.Cost_TP, "Price of the Super Soul in the TP Shop.");
+            this.Cost_TP.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
-            // txtSell
+            // Sell
             // 
-            this.txtSell.Location = new System.Drawing.Point(77, 106);
-            this.txtSell.Name = "txtSell";
-            this.txtSell.Size = new System.Drawing.Size(65, 20);
-            this.txtSell.TabIndex = 26;
-            this.toolTip1.SetToolTip(this.txtSell, "How much you get for selling the Super Soul.");
-            this.txtSell.TextChanged += new System.EventHandler(this.txtSell_TextChanged);
+            this.Sell.Location = new System.Drawing.Point(77, 106);
+            this.Sell.Name = "Sell";
+            this.Sell.Size = new System.Drawing.Size(65, 20);
+            this.Sell.TabIndex = 26;
+            this.toolTip1.SetToolTip(this.Sell, "How much you get for selling the Super Soul.");
+            this.Sell.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label17
             // 
@@ -786,13 +786,13 @@
             this.label6.TabIndex = 27;
             this.label6.Text = "Zeni (Sell)";
             // 
-            // txtRace
+            // Race
             // 
-            this.txtRace.Location = new System.Drawing.Point(10, 49);
-            this.txtRace.Name = "txtRace";
-            this.txtRace.Size = new System.Drawing.Size(65, 20);
-            this.txtRace.TabIndex = 20;
-            this.txtRace.TextChanged += new System.EventHandler(this.txtRace_TextChanged);
+            this.Race.Location = new System.Drawing.Point(10, 49);
+            this.Race.Name = "Race";
+            this.Race.Size = new System.Drawing.Size(65, 20);
+            this.Race.TabIndex = 20;
+            this.Race.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label16
             // 
@@ -807,15 +807,15 @@
             // groupBox11
             // 
             this.groupBox11.Controls.Add(this.label52);
-            this.groupBox11.Controls.Add(this.txtHowID);
+            this.groupBox11.Controls.Add(this.How_ID);
             this.groupBox11.Controls.Add(this.label3);
-            this.groupBox11.Controls.Add(this.txtDescID);
+            this.groupBox11.Controls.Add(this.Info_ID);
             this.groupBox11.Controls.Add(this.label2);
-            this.groupBox11.Controls.Add(this.txtNameID);
+            this.groupBox11.Controls.Add(this.Name_ID);
             this.groupBox11.Controls.Add(this.label22);
-            this.groupBox11.Controls.Add(this.cbKiType);
+            this.groupBox11.Controls.Add(this.KiBlast);
             this.groupBox11.Controls.Add(this.label4);
-            this.groupBox11.Controls.Add(this.cbStar);
+            this.groupBox11.Controls.Add(this.Rarity);
             this.groupBox11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox11.Location = new System.Drawing.Point(6, 13);
             this.groupBox11.Name = "groupBox11";
@@ -833,13 +833,13 @@
             this.label52.TabIndex = 33;
             this.label52.Text = "How ID";
             // 
-            // txtHowID
+            // How_ID
             // 
-            this.txtHowID.Location = new System.Drawing.Point(182, 38);
-            this.txtHowID.Name = "txtHowID";
-            this.txtHowID.Size = new System.Drawing.Size(75, 20);
-            this.txtHowID.TabIndex = 32;
-            this.txtHowID.TextChanged += new System.EventHandler(this.txtHowID_TextChanged);
+            this.How_ID.Location = new System.Drawing.Point(182, 38);
+            this.How_ID.Name = "How_ID";
+            this.How_ID.Size = new System.Drawing.Size(75, 20);
+            this.How_ID.TabIndex = 32;
+            this.How_ID.TextChanged += new System.EventHandler(this.txtHowID_TextChanged);
             // 
             // label3
             // 
@@ -851,13 +851,13 @@
             this.label3.Text = "Desc ID";
             this.toolTip1.SetToolTip(this.label3, "ID for the Super Soul Description in the msg.");
             // 
-            // txtDescID
+            // Info_ID
             // 
-            this.txtDescID.Location = new System.Drawing.Point(98, 38);
-            this.txtDescID.Name = "txtDescID";
-            this.txtDescID.Size = new System.Drawing.Size(75, 20);
-            this.txtDescID.TabIndex = 21;
-            this.txtDescID.TextChanged += new System.EventHandler(this.txtDescID_TextChanged);
+            this.Info_ID.Location = new System.Drawing.Point(98, 38);
+            this.Info_ID.Name = "Info_ID";
+            this.Info_ID.Size = new System.Drawing.Size(75, 20);
+            this.Info_ID.TabIndex = 21;
+            this.Info_ID.TextChanged += new System.EventHandler(this.txtDescID_TextChanged);
             // 
             // label2
             // 
@@ -869,13 +869,13 @@
             this.label2.Text = "Name ID";
             this.toolTip1.SetToolTip(this.label2, "ID for the Super Soul Name in the msg.");
             // 
-            // txtNameID
+            // Name_ID
             // 
-            this.txtNameID.Location = new System.Drawing.Point(14, 38);
-            this.txtNameID.Name = "txtNameID";
-            this.txtNameID.Size = new System.Drawing.Size(75, 20);
-            this.txtNameID.TabIndex = 19;
-            this.txtNameID.TextChanged += new System.EventHandler(this.txtNameID_TextChanged);
+            this.Name_ID.Location = new System.Drawing.Point(14, 38);
+            this.Name_ID.Name = "Name_ID";
+            this.Name_ID.Size = new System.Drawing.Size(75, 20);
+            this.Name_ID.TabIndex = 19;
+            this.Name_ID.TextChanged += new System.EventHandler(this.txtNameID_TextChanged);
             // 
             // label22
             // 
@@ -887,15 +887,15 @@
             this.label22.Text = "Ki Blast Type";
             this.toolTip1.SetToolTip(this.label22, "The Ki-Blast type the Super Soul \r\nwill give your character.");
             // 
-            // cbKiType
+            // KiBlast
             // 
-            this.cbKiType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbKiType.FormattingEnabled = true;
-            this.cbKiType.Location = new System.Drawing.Point(267, 37);
-            this.cbKiType.Name = "cbKiType";
-            this.cbKiType.Size = new System.Drawing.Size(100, 21);
-            this.cbKiType.TabIndex = 31;
-            this.cbKiType.SelectedIndexChanged += new System.EventHandler(this.cbKiType_SelectedIndexChanged);
+            this.KiBlast.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.KiBlast.FormattingEnabled = true;
+            this.KiBlast.Location = new System.Drawing.Point(267, 37);
+            this.KiBlast.Name = "KiBlast";
+            this.KiBlast.Size = new System.Drawing.Size(100, 21);
+            this.KiBlast.TabIndex = 31;
+            this.KiBlast.SelectedIndexChanged += new System.EventHandler(this.cbKiType_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -907,38 +907,38 @@
             this.label4.Text = "Stars";
             this.toolTip1.SetToolTip(this.label4, "The Star rarity for the Super Soul.");
             // 
-            // cbStar
+            // Rarity
             // 
-            this.cbStar.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbStar.FormattingEnabled = true;
-            this.cbStar.Items.AddRange(new object[] {
+            this.Rarity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Rarity.FormattingEnabled = true;
+            this.Rarity.Items.AddRange(new object[] {
             "1",
             "2",
             "3",
             "4",
             "5"});
-            this.cbStar.Location = new System.Drawing.Point(376, 37);
-            this.cbStar.Name = "cbStar";
-            this.cbStar.Size = new System.Drawing.Size(55, 21);
-            this.cbStar.TabIndex = 18;
-            this.cbStar.SelectedIndexChanged += new System.EventHandler(this.cbStar_SelectedIndexChanged);
+            this.Rarity.Location = new System.Drawing.Point(376, 37);
+            this.Rarity.Name = "Rarity";
+            this.Rarity.Size = new System.Drawing.Size(55, 21);
+            this.Rarity.TabIndex = 18;
+            this.Rarity.SelectedIndexChanged += new System.EventHandler(this.cbStar_SelectedIndexChanged);
             // 
             // groupBox12
             // 
             this.groupBox12.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox12.Controls.Add(this.label49);
-            this.groupBox12.Controls.Add(this.cbLBColor);
+            this.groupBox12.Controls.Add(this.LB_Color);
             this.groupBox12.Controls.Add(this.label50);
             this.groupBox12.Controls.Add(this.label48);
             this.groupBox12.Controls.Add(this.label51);
             this.groupBox12.Controls.Add(this.label23);
             this.groupBox12.Controls.Add(this.label21);
-            this.groupBox12.Controls.Add(this.txtLBSoulID3);
-            this.groupBox12.Controls.Add(this.txtLBSoulID2);
-            this.groupBox12.Controls.Add(this.txtLBAura);
-            this.groupBox12.Controls.Add(this.txtLBSoulID1);
-            this.groupBox12.Controls.Add(this.txtLBDesc);
+            this.groupBox12.Controls.Add(this.LB_Soul_ID3);
+            this.groupBox12.Controls.Add(this.LB_Soul_ID2);
+            this.groupBox12.Controls.Add(this.LB_Aura);
+            this.groupBox12.Controls.Add(this.LB_Soul_ID1);
+            this.groupBox12.Controls.Add(this.LB_Desc);
             this.groupBox12.Location = new System.Drawing.Point(372, 89);
             this.groupBox12.Name = "groupBox12";
             this.groupBox12.Size = new System.Drawing.Size(280, 145);
@@ -956,15 +956,15 @@
             this.label49.Text = "Burst ID Lv.3";
             this.toolTip1.SetToolTip(this.label49, "ID of the Super Soul the Limit Burst will use for its Lv.3 Activation.");
             // 
-            // cbLBColor
+            // LB_Color
             // 
-            this.cbLBColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbLBColor.FormattingEnabled = true;
-            this.cbLBColor.Location = new System.Drawing.Point(15, 48);
-            this.cbLBColor.Name = "cbLBColor";
-            this.cbLBColor.Size = new System.Drawing.Size(80, 21);
-            this.cbLBColor.TabIndex = 32;
-            this.cbLBColor.SelectedIndexChanged += new System.EventHandler(this.cbLBColor_SelectedIndexChanged);
+            this.LB_Color.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.LB_Color.FormattingEnabled = true;
+            this.LB_Color.Location = new System.Drawing.Point(15, 48);
+            this.LB_Color.Name = "LB_Color";
+            this.LB_Color.Size = new System.Drawing.Size(80, 21);
+            this.LB_Color.TabIndex = 32;
+            this.LB_Color.SelectedIndexChanged += new System.EventHandler(this.cbLBColor_SelectedIndexChanged);
             // 
             // label50
             // 
@@ -1016,96 +1016,96 @@
             this.label21.Text = "Color";
             this.toolTip1.SetToolTip(this.label21, "The UI effect color the Limit Burst will use.");
             // 
-            // txtLBSoulID3
+            // LB_Soul_ID3
             // 
-            this.txtLBSoulID3.Location = new System.Drawing.Point(187, 106);
-            this.txtLBSoulID3.Name = "txtLBSoulID3";
-            this.txtLBSoulID3.Size = new System.Drawing.Size(80, 20);
-            this.txtLBSoulID3.TabIndex = 39;
-            this.txtLBSoulID3.TextChanged += new System.EventHandler(this.txtLBSoulID3_TextChanged);
+            this.LB_Soul_ID3.Location = new System.Drawing.Point(187, 106);
+            this.LB_Soul_ID3.Name = "LB_Soul_ID3";
+            this.LB_Soul_ID3.Size = new System.Drawing.Size(80, 20);
+            this.LB_Soul_ID3.TabIndex = 39;
+            this.LB_Soul_ID3.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
-            // txtLBSoulID2
+            // LB_Soul_ID2
             // 
-            this.txtLBSoulID2.Location = new System.Drawing.Point(101, 106);
-            this.txtLBSoulID2.Name = "txtLBSoulID2";
-            this.txtLBSoulID2.Size = new System.Drawing.Size(80, 20);
-            this.txtLBSoulID2.TabIndex = 38;
-            this.txtLBSoulID2.TextChanged += new System.EventHandler(this.txtLBSoulID2_TextChanged);
+            this.LB_Soul_ID2.Location = new System.Drawing.Point(101, 106);
+            this.LB_Soul_ID2.Name = "LB_Soul_ID2";
+            this.LB_Soul_ID2.Size = new System.Drawing.Size(80, 20);
+            this.LB_Soul_ID2.TabIndex = 38;
+            this.LB_Soul_ID2.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
-            // txtLBAura
+            // LB_Aura
             // 
-            this.txtLBAura.Location = new System.Drawing.Point(101, 48);
-            this.txtLBAura.Name = "txtLBAura";
-            this.txtLBAura.Size = new System.Drawing.Size(80, 20);
-            this.txtLBAura.TabIndex = 35;
-            this.txtLBAura.TextChanged += new System.EventHandler(this.txtLBAura_TextChanged);
+            this.LB_Aura.Location = new System.Drawing.Point(101, 48);
+            this.LB_Aura.Name = "LB_Aura";
+            this.LB_Aura.Size = new System.Drawing.Size(80, 20);
+            this.LB_Aura.TabIndex = 35;
+            this.LB_Aura.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
-            // txtLBSoulID1
+            // LB_Soul_ID1
             // 
-            this.txtLBSoulID1.Location = new System.Drawing.Point(15, 106);
-            this.txtLBSoulID1.Name = "txtLBSoulID1";
-            this.txtLBSoulID1.Size = new System.Drawing.Size(80, 20);
-            this.txtLBSoulID1.TabIndex = 37;
-            this.txtLBSoulID1.TextChanged += new System.EventHandler(this.txtLBSoulID1_TextChanged);
+            this.LB_Soul_ID1.Location = new System.Drawing.Point(15, 106);
+            this.LB_Soul_ID1.Name = "LB_Soul_ID1";
+            this.LB_Soul_ID1.Size = new System.Drawing.Size(80, 20);
+            this.LB_Soul_ID1.TabIndex = 37;
+            this.LB_Soul_ID1.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
-            // txtLBDesc
+            // LB_Desc
             // 
-            this.txtLBDesc.Location = new System.Drawing.Point(187, 48);
-            this.txtLBDesc.Name = "txtLBDesc";
-            this.txtLBDesc.ReadOnly = true;
-            this.txtLBDesc.Size = new System.Drawing.Size(80, 20);
-            this.txtLBDesc.TabIndex = 36;
-            this.txtLBDesc.TextChanged += new System.EventHandler(this.txtLBDesc_TextChanged);
+            this.LB_Desc.Location = new System.Drawing.Point(187, 48);
+            this.LB_Desc.Name = "LB_Desc";
+            this.LB_Desc.ReadOnly = true;
+            this.LB_Desc.Size = new System.Drawing.Size(80, 20);
+            this.LB_Desc.TabIndex = 36;
+            this.LB_Desc.TextChanged += new System.EventHandler(this.txtLBDesc_TextChanged);
             // 
             // tabpage2
             // 
             this.tabpage2.Controls.Add(this.label113);
-            this.tabpage2.Controls.Add(this.txtUnki52b);
+            this.tabpage2.Controls.Add(this.I_56_EB);
             this.tabpage2.Controls.Add(this.label112);
-            this.tabpage2.Controls.Add(this.txtUnki48b);
-            this.tabpage2.Controls.Add(this.txtNewI12b);
+            this.tabpage2.Controls.Add(this.I_52_EB);
+            this.tabpage2.Controls.Add(this.I_12_EB);
             this.tabpage2.Controls.Add(this.label107);
             this.tabpage2.Controls.Add(this.label69);
-            this.tabpage2.Controls.Add(this.txtValue6B);
+            this.tabpage2.Controls.Add(this.Value6_EB);
             this.tabpage2.Controls.Add(this.label70);
             this.tabpage2.Controls.Add(this.label75);
             this.tabpage2.Controls.Add(this.label71);
-            this.tabpage2.Controls.Add(this.txtUnki88b);
+            this.tabpage2.Controls.Add(this.I_100_EB);
             this.tabpage2.Controls.Add(this.label76);
-            this.tabpage2.Controls.Add(this.txtValue5B);
+            this.tabpage2.Controls.Add(this.Value5_EB);
             this.tabpage2.Controls.Add(this.label77);
             this.tabpage2.Controls.Add(this.label74);
             this.tabpage2.Controls.Add(this.label73);
             this.tabpage2.Controls.Add(this.label72);
-            this.tabpage2.Controls.Add(this.txtAmount6B);
-            this.tabpage2.Controls.Add(this.txtAmount5B);
-            this.tabpage2.Controls.Add(this.txtUnki44b);
-            this.tabpage2.Controls.Add(this.txtValue4B);
-            this.tabpage2.Controls.Add(this.txtValue3B);
-            this.tabpage2.Controls.Add(this.txtValue2B);
+            this.tabpage2.Controls.Add(this.Amount6_EB);
+            this.tabpage2.Controls.Add(this.Amount5_EB);
+            this.tabpage2.Controls.Add(this.I_48_EB);
+            this.tabpage2.Controls.Add(this.Value4_EB);
+            this.tabpage2.Controls.Add(this.Value3_EB);
+            this.tabpage2.Controls.Add(this.Value2_EB);
             this.tabpage2.Controls.Add(this.groupBox16);
             this.tabpage2.Controls.Add(this.groupBox17);
             this.tabpage2.Controls.Add(this.groupBox14);
             this.tabpage2.Controls.Add(this.groupBox15);
             this.tabpage2.Controls.Add(this.label54);
             this.tabpage2.Controls.Add(this.label55);
-            this.tabpage2.Controls.Add(this.txtAmount4B);
-            this.tabpage2.Controls.Add(this.txtAmount3B);
+            this.tabpage2.Controls.Add(this.Amount4_EB);
+            this.tabpage2.Controls.Add(this.Amount3_EB);
             this.tabpage2.Controls.Add(this.label60);
-            this.tabpage2.Controls.Add(this.txtAmount2B);
+            this.tabpage2.Controls.Add(this.Amount2_EB);
             this.tabpage2.Controls.Add(this.label61);
-            this.tabpage2.Controls.Add(this.txtAmount1B);
-            this.tabpage2.Controls.Add(this.txtChanceb);
+            this.tabpage2.Controls.Add(this.Amount1_EB);
+            this.tabpage2.Controls.Add(this.Chance_EB);
             this.tabpage2.Controls.Add(this.label62);
-            this.tabpage2.Controls.Add(this.txtValue1B);
+            this.tabpage2.Controls.Add(this.Value1_EB);
             this.tabpage2.Controls.Add(this.label63);
-            this.tabpage2.Controls.Add(this.txtDurationB);
+            this.tabpage2.Controls.Add(this.Duration_EB);
             this.tabpage2.Controls.Add(this.label64);
-            this.tabpage2.Controls.Add(this.txtLimitB);
+            this.tabpage2.Controls.Add(this.Limit_EB);
             this.tabpage2.Controls.Add(this.label65);
-            this.tabpage2.Controls.Add(this.cbActiveb);
+            this.tabpage2.Controls.Add(this.Activate_EB);
             this.tabpage2.Controls.Add(this.label66);
-            this.tabpage2.Controls.Add(this.cbEffectb);
+            this.tabpage2.Controls.Add(this.Effect_EB);
             this.tabpage2.Controls.Add(this.label67);
             this.tabpage2.Location = new System.Drawing.Point(4, 22);
             this.tabpage2.Name = "tabpage2";
@@ -1124,13 +1124,13 @@
             this.label113.TabIndex = 100;
             this.label113.Text = "I_52";
             // 
-            // txtUnki52b
+            // I_56_EB
             // 
-            this.txtUnki52b.Location = new System.Drawing.Point(514, 154);
-            this.txtUnki52b.Name = "txtUnki52b";
-            this.txtUnki52b.Size = new System.Drawing.Size(65, 20);
-            this.txtUnki52b.TabIndex = 99;
-            this.txtUnki52b.TextChanged += new System.EventHandler(this.txtUnki52b_TextChanged);
+            this.I_56_EB.Location = new System.Drawing.Point(514, 154);
+            this.I_56_EB.Name = "I_56_EB";
+            this.I_56_EB.Size = new System.Drawing.Size(65, 20);
+            this.I_56_EB.TabIndex = 99;
+            this.I_56_EB.TextChanged += new System.EventHandler(this.tbNumberChanged);
 
             // 
             // label112
@@ -1142,22 +1142,22 @@
             this.label112.TabIndex = 98;
             this.label112.Text = "I_48";
             // 
-            // txtUnki48b
+            // I_52_EB
             // 
-            this.txtUnki48b.Location = new System.Drawing.Point(443, 154);
-            this.txtUnki48b.Name = "txtUnki48b";
-            this.txtUnki48b.Size = new System.Drawing.Size(65, 20);
-            this.txtUnki48b.TabIndex = 97;
-            this.txtUnki48b.TextChanged += new System.EventHandler(this.txtUnki48b_TextChanged);
+            this.I_52_EB.Location = new System.Drawing.Point(443, 154);
+            this.I_52_EB.Name = "I_52_EB";
+            this.I_52_EB.Size = new System.Drawing.Size(65, 20);
+            this.I_52_EB.TabIndex = 97;
+            this.I_52_EB.TextChanged += new System.EventHandler(this.tbNumberChanged);
 
             // 
-            // txtNewI12b
+            // I_12_EB
             // 
-            this.txtNewI12b.Location = new System.Drawing.Point(585, 104);
-            this.txtNewI12b.Name = "txtNewI12b";
-            this.txtNewI12b.Size = new System.Drawing.Size(65, 20);
-            this.txtNewI12b.TabIndex = 96;
-            this.txtNewI12b.TextChanged += new System.EventHandler(this.txtNewI12B_TextChanged);
+            this.I_12_EB.Location = new System.Drawing.Point(585, 104);
+            this.I_12_EB.Name = "I_12_EB";
+            this.I_12_EB.Size = new System.Drawing.Size(65, 20);
+            this.I_12_EB.TabIndex = 96;
+            this.I_12_EB.TextChanged += new System.EventHandler(this.tbNumberChanged);
 
             // 
             // label107
@@ -1178,13 +1178,13 @@
             this.label69.TabIndex = 94;
             this.label69.Text = "Value 6";
             // 
-            // txtValue6B
+            // Value6_EB
             // 
-            this.txtValue6B.Location = new System.Drawing.Point(500, 205);
-            this.txtValue6B.Name = "txtValue6B";
-            this.txtValue6B.Size = new System.Drawing.Size(80, 20);
-            this.txtValue6B.TabIndex = 89;
-            this.txtValue6B.TextChanged += new System.EventHandler(this.txtValue6B_TextChanged);
+            this.Value6_EB.Location = new System.Drawing.Point(500, 205);
+            this.Value6_EB.Name = "Value6_EB";
+            this.Value6_EB.Size = new System.Drawing.Size(80, 20);
+            this.Value6_EB.TabIndex = 89;
+            this.Value6_EB.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label70
             // 
@@ -1213,13 +1213,13 @@
             this.label71.TabIndex = 92;
             this.label71.Text = "Value 4";
             // 
-            // txtUnki88b
+            // I_100_EB
             // 
-            this.txtUnki88b.Location = new System.Drawing.Point(585, 154);
-            this.txtUnki88b.Name = "txtUnki88b";
-            this.txtUnki88b.Size = new System.Drawing.Size(65, 20);
-            this.txtUnki88b.TabIndex = 87;
-            this.txtUnki88b.TextChanged += new System.EventHandler(this.txtUnki88b_TextChanged);
+            this.I_100_EB.Location = new System.Drawing.Point(585, 154);
+            this.I_100_EB.Name = "I_100_EB";
+            this.I_100_EB.Size = new System.Drawing.Size(65, 20);
+            this.I_100_EB.TabIndex = 87;
+            this.I_100_EB.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label76
             // 
@@ -1230,13 +1230,13 @@
             this.label76.TabIndex = 91;
             this.label76.Text = "Value 3";
             // 
-            // txtValue5B
+            // Value5_EB
             // 
-            this.txtValue5B.Location = new System.Drawing.Point(414, 205);
-            this.txtValue5B.Name = "txtValue5B";
-            this.txtValue5B.Size = new System.Drawing.Size(80, 20);
-            this.txtValue5B.TabIndex = 86;
-            this.txtValue5B.TextChanged += new System.EventHandler(this.txtValue5B_TextChanged);
+            this.Value5_EB.Location = new System.Drawing.Point(414, 205);
+            this.Value5_EB.Name = "Value5_EB";
+            this.Value5_EB.Size = new System.Drawing.Size(80, 20);
+            this.Value5_EB.TabIndex = 86;
+            this.Value5_EB.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label77
             // 
@@ -1274,59 +1274,59 @@
             this.label72.TabIndex = 83;
             this.label72.Text = "Amount 5";
             // 
-            // txtAmount6B
+            // Amount6_EB
             // 
-            this.txtAmount6B.Location = new System.Drawing.Point(500, 247);
-            this.txtAmount6B.Name = "txtAmount6B";
-            this.txtAmount6B.Size = new System.Drawing.Size(80, 20);
-            this.txtAmount6B.TabIndex = 82;
-            this.txtAmount6B.TextChanged += new System.EventHandler(this.txtAmount6B_TextChanged);
+            this.Amount6_EB.Location = new System.Drawing.Point(500, 247);
+            this.Amount6_EB.Name = "Amount6_EB";
+            this.Amount6_EB.Size = new System.Drawing.Size(80, 20);
+            this.Amount6_EB.TabIndex = 82;
+            this.Amount6_EB.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
-            // txtAmount5B
+            // Amount5_EB
             // 
-            this.txtAmount5B.Location = new System.Drawing.Point(414, 247);
-            this.txtAmount5B.Name = "txtAmount5B";
-            this.txtAmount5B.Size = new System.Drawing.Size(80, 20);
-            this.txtAmount5B.TabIndex = 81;
-            this.txtAmount5B.TextChanged += new System.EventHandler(this.txtAmount5B_TextChanged);
+            this.Amount5_EB.Location = new System.Drawing.Point(414, 247);
+            this.Amount5_EB.Name = "Amount5_EB";
+            this.Amount5_EB.Size = new System.Drawing.Size(80, 20);
+            this.Amount5_EB.TabIndex = 81;
+            this.Amount5_EB.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
-            // txtUnki44b
+            // I_48_EB
             // 
-            this.txtUnki44b.Location = new System.Drawing.Point(372, 154);
-            this.txtUnki44b.Name = "txtUnki44b";
-            this.txtUnki44b.Size = new System.Drawing.Size(65, 20);
-            this.txtUnki44b.TabIndex = 80;
-            this.txtUnki44b.TextChanged += new System.EventHandler(this.txtUnki44b_TextChanged);
+            this.I_48_EB.Location = new System.Drawing.Point(372, 154);
+            this.I_48_EB.Name = "I_48_EB";
+            this.I_48_EB.Size = new System.Drawing.Size(65, 20);
+            this.I_48_EB.TabIndex = 80;
+            this.I_48_EB.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
-            // txtValue4B
+            // Value4_EB
             // 
-            this.txtValue4B.Location = new System.Drawing.Point(328, 205);
-            this.txtValue4B.Name = "txtValue4B";
-            this.txtValue4B.Size = new System.Drawing.Size(80, 20);
-            this.txtValue4B.TabIndex = 79;
-            this.txtValue4B.TextChanged += new System.EventHandler(this.txtValue4B_TextChanged);
+            this.Value4_EB.Location = new System.Drawing.Point(328, 205);
+            this.Value4_EB.Name = "Value4_EB";
+            this.Value4_EB.Size = new System.Drawing.Size(80, 20);
+            this.Value4_EB.TabIndex = 79;
+            this.Value4_EB.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
-            // txtValue3B
+            // Value3_EB
             // 
-            this.txtValue3B.Location = new System.Drawing.Point(242, 205);
-            this.txtValue3B.Name = "txtValue3B";
-            this.txtValue3B.Size = new System.Drawing.Size(80, 20);
-            this.txtValue3B.TabIndex = 78;
-            this.txtValue3B.TextChanged += new System.EventHandler(this.txtValue3B_TextChanged);
+            this.Value3_EB.Location = new System.Drawing.Point(242, 205);
+            this.Value3_EB.Name = "Value3_EB";
+            this.Value3_EB.Size = new System.Drawing.Size(80, 20);
+            this.Value3_EB.TabIndex = 78;
+            this.Value3_EB.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
-            // txtValue2B
+            // Value2_EB
             // 
-            this.txtValue2B.Location = new System.Drawing.Point(156, 205);
-            this.txtValue2B.Name = "txtValue2B";
-            this.txtValue2B.Size = new System.Drawing.Size(80, 20);
-            this.txtValue2B.TabIndex = 77;
-            this.txtValue2B.TextChanged += new System.EventHandler(this.txtValue2B_TextChanged);
+            this.Value2_EB.Location = new System.Drawing.Point(156, 205);
+            this.Value2_EB.Name = "Value2_EB";
+            this.Value2_EB.Size = new System.Drawing.Size(80, 20);
+            this.Value2_EB.TabIndex = 77;
+            this.Value2_EB.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // groupBox16
             // 
             this.groupBox16.Controls.Add(this.label56);
-            this.groupBox16.Controls.Add(this.cbVfxType1B);
-            this.groupBox16.Controls.Add(this.txtVfxId1B);
+            this.groupBox16.Controls.Add(this.Vfx_Type1_EB);
+            this.groupBox16.Controls.Add(this.Vfx_ID1_EB);
             this.groupBox16.Controls.Add(this.label57);
             this.groupBox16.Location = new System.Drawing.Point(211, 14);
             this.groupBox16.Name = "groupBox16";
@@ -1344,23 +1344,23 @@
             this.label56.TabIndex = 47;
             this.label56.Text = "EEPK to Use";
             // 
-            // cbVfxType1B
+            // Vfx_Type1_EB
             // 
-            this.cbVfxType1B.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbVfxType1B.FormattingEnabled = true;
-            this.cbVfxType1B.Location = new System.Drawing.Point(17, 35);
-            this.cbVfxType1B.Name = "cbVfxType1B";
-            this.cbVfxType1B.Size = new System.Drawing.Size(100, 21);
-            this.cbVfxType1B.TabIndex = 46;
-            this.cbVfxType1B.SelectedIndexChanged += new System.EventHandler(this.cbVfxType1B_SelectedIndexChanged);
+            this.Vfx_Type1_EB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Vfx_Type1_EB.FormattingEnabled = true;
+            this.Vfx_Type1_EB.Location = new System.Drawing.Point(17, 35);
+            this.Vfx_Type1_EB.Name = "Vfx_Type1_EB";
+            this.Vfx_Type1_EB.Size = new System.Drawing.Size(100, 21);
+            this.Vfx_Type1_EB.TabIndex = 46;
+            this.Vfx_Type1_EB.SelectedIndexChanged += new System.EventHandler(this.cbVfxType1B_SelectedIndexChanged);
             // 
-            // txtVfxId1B
+            // Vfx_ID1_EB
             // 
-            this.txtVfxId1B.Location = new System.Drawing.Point(127, 35);
-            this.txtVfxId1B.Name = "txtVfxId1B";
-            this.txtVfxId1B.Size = new System.Drawing.Size(75, 20);
-            this.txtVfxId1B.TabIndex = 42;
-            this.txtVfxId1B.TextChanged += new System.EventHandler(this.txtVfxId1B_TextChanged);
+            this.Vfx_ID1_EB.Location = new System.Drawing.Point(127, 35);
+            this.Vfx_ID1_EB.Name = "Vfx_ID1_EB";
+            this.Vfx_ID1_EB.Size = new System.Drawing.Size(75, 20);
+            this.Vfx_ID1_EB.TabIndex = 42;
+            this.Vfx_ID1_EB.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label57
             // 
@@ -1375,8 +1375,8 @@
             // groupBox17
             // 
             this.groupBox17.Controls.Add(this.label58);
-            this.groupBox17.Controls.Add(this.cbVfxType2B);
-            this.groupBox17.Controls.Add(this.txtVfxId2B);
+            this.groupBox17.Controls.Add(this.Vfx_Type2_EB);
+            this.groupBox17.Controls.Add(this.Vfx_ID2_EB);
             this.groupBox17.Controls.Add(this.label59);
             this.groupBox17.Location = new System.Drawing.Point(435, 14);
             this.groupBox17.Name = "groupBox17";
@@ -1394,23 +1394,23 @@
             this.label58.TabIndex = 46;
             this.label58.Text = "EEPK to Use";
             // 
-            // cbVfxType2B
+            // Vfx_Type2_EB
             // 
-            this.cbVfxType2B.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbVfxType2B.FormattingEnabled = true;
-            this.cbVfxType2B.Location = new System.Drawing.Point(17, 35);
-            this.cbVfxType2B.Name = "cbVfxType2B";
-            this.cbVfxType2B.Size = new System.Drawing.Size(100, 21);
-            this.cbVfxType2B.TabIndex = 45;
-            this.cbVfxType2B.SelectedIndexChanged += new System.EventHandler(this.cbVfxType2B_SelectedIndexChanged);
+            this.Vfx_Type2_EB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Vfx_Type2_EB.FormattingEnabled = true;
+            this.Vfx_Type2_EB.Location = new System.Drawing.Point(17, 35);
+            this.Vfx_Type2_EB.Name = "Vfx_Type2_EB";
+            this.Vfx_Type2_EB.Size = new System.Drawing.Size(100, 21);
+            this.Vfx_Type2_EB.TabIndex = 45;
+            this.Vfx_Type2_EB.SelectedIndexChanged += new System.EventHandler(this.cbVfxType2B_SelectedIndexChanged);
             // 
-            // txtVfxId2B
+            // Vfx_ID2_EB
             // 
-            this.txtVfxId2B.Location = new System.Drawing.Point(127, 35);
-            this.txtVfxId2B.Name = "txtVfxId2B";
-            this.txtVfxId2B.Size = new System.Drawing.Size(75, 20);
-            this.txtVfxId2B.TabIndex = 42;
-            this.txtVfxId2B.TextChanged += new System.EventHandler(this.txtVfxId2B_TextChanged);
+            this.Vfx_ID2_EB.Location = new System.Drawing.Point(127, 35);
+            this.Vfx_ID2_EB.Name = "Vfx_ID2_EB";
+            this.Vfx_ID2_EB.Size = new System.Drawing.Size(75, 20);
+            this.Vfx_ID2_EB.TabIndex = 42;
+            this.Vfx_ID2_EB.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label59
             // 
@@ -1423,7 +1423,7 @@
             // 
             // groupBox14
             // 
-            this.groupBox14.Controls.Add(this.cbTargetb);
+            this.groupBox14.Controls.Add(this.Target_EB);
             this.groupBox14.Controls.Add(this.label19);
             this.groupBox14.Location = new System.Drawing.Point(8, 14);
             this.groupBox14.Name = "groupBox14";
@@ -1432,15 +1432,15 @@
             this.groupBox14.TabStop = false;
             this.groupBox14.Text = "Target";
             // 
-            // cbTargetb
+            // Target_EB
             // 
-            this.cbTargetb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbTargetb.FormattingEnabled = true;
-            this.cbTargetb.Location = new System.Drawing.Point(6, 35);
-            this.cbTargetb.Name = "cbTargetb";
-            this.cbTargetb.Size = new System.Drawing.Size(185, 21);
-            this.cbTargetb.TabIndex = 37;
-            this.cbTargetb.SelectedIndexChanged += new System.EventHandler(this.cbTargetb_SelectedIndexChanged);
+            this.Target_EB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Target_EB.FormattingEnabled = true;
+            this.Target_EB.Location = new System.Drawing.Point(6, 35);
+            this.Target_EB.Name = "Target_EB";
+            this.Target_EB.Size = new System.Drawing.Size(185, 21);
+            this.Target_EB.TabIndex = 37;
+            this.Target_EB.SelectedIndexChanged += new System.EventHandler(this.cbTargetb_SelectedIndexChanged);
             // 
             // label19
             // 
@@ -1541,21 +1541,21 @@
             this.label55.TabIndex = 71;
             this.label55.Text = "Amount 3";
             // 
-            // txtAmount4B
+            // Amount4_EB
             // 
-            this.txtAmount4B.Location = new System.Drawing.Point(328, 247);
-            this.txtAmount4B.Name = "txtAmount4B";
-            this.txtAmount4B.Size = new System.Drawing.Size(80, 20);
-            this.txtAmount4B.TabIndex = 70;
-            this.txtAmount4B.TextChanged += new System.EventHandler(this.txtAmount4B_TextChanged);
+            this.Amount4_EB.Location = new System.Drawing.Point(328, 247);
+            this.Amount4_EB.Name = "Amount4_EB";
+            this.Amount4_EB.Size = new System.Drawing.Size(80, 20);
+            this.Amount4_EB.TabIndex = 70;
+            this.Amount4_EB.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
-            // txtAmount3B
+            // Amount3_EB
             // 
-            this.txtAmount3B.Location = new System.Drawing.Point(242, 247);
-            this.txtAmount3B.Name = "txtAmount3B";
-            this.txtAmount3B.Size = new System.Drawing.Size(80, 20);
-            this.txtAmount3B.TabIndex = 69;
-            this.txtAmount3B.TextChanged += new System.EventHandler(this.txtAmount3B_TextChanged);
+            this.Amount3_EB.Location = new System.Drawing.Point(242, 247);
+            this.Amount3_EB.Name = "Amount3_EB";
+            this.Amount3_EB.Size = new System.Drawing.Size(80, 20);
+            this.Amount3_EB.TabIndex = 69;
+            this.Amount3_EB.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label60
             // 
@@ -1566,15 +1566,15 @@
             this.label60.TabIndex = 66;
             this.label60.Text = "Amount 2";
             // 
-            // txtAmount2B
+            // Amount2_EB
             // 
-            this.txtAmount2B.Location = new System.Drawing.Point(156, 247);
-            this.txtAmount2B.Name = "txtAmount2B";
-            this.txtAmount2B.Size = new System.Drawing.Size(80, 20);
-            this.txtAmount2B.TabIndex = 65;
-            this.toolTip1.SetToolTip(this.txtAmount2B, "Many different uses.\r\nStatus Ailments seem to use this for strength of the ailmen" +
+            this.Amount2_EB.Location = new System.Drawing.Point(156, 247);
+            this.Amount2_EB.Name = "Amount2_EB";
+            this.Amount2_EB.Size = new System.Drawing.Size(80, 20);
+            this.Amount2_EB.TabIndex = 65;
+            this.toolTip1.SetToolTip(this.Amount2_EB, "Many different uses.\r\nStatus Ailments seem to use this for strength of the ailmen" +
         "t.");
-            this.txtAmount2B.TextChanged += new System.EventHandler(this.txtAmount2B_TextChanged);
+            this.Amount2_EB.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label61
             // 
@@ -1585,24 +1585,24 @@
             this.label61.TabIndex = 64;
             this.label61.Text = "Amount 1";
             // 
-            // txtAmount1B
+            // Amount1_EB
             // 
-            this.txtAmount1B.Location = new System.Drawing.Point(70, 247);
-            this.txtAmount1B.Name = "txtAmount1B";
-            this.txtAmount1B.Size = new System.Drawing.Size(80, 20);
-            this.txtAmount1B.TabIndex = 63;
-            this.toolTip1.SetToolTip(this.txtAmount1B, "Many different uses.\r\nMost common is the strength of the effect.\r\nStatus Ailments" +
+            this.Amount1_EB.Location = new System.Drawing.Point(70, 247);
+            this.Amount1_EB.Name = "Amount1_EB";
+            this.Amount1_EB.Size = new System.Drawing.Size(80, 20);
+            this.Amount1_EB.TabIndex = 63;
+            this.toolTip1.SetToolTip(this.Amount1_EB, "Many different uses.\r\nMost common is the strength of the effect.\r\nStatus Ailments" +
         " seem to use this for duration of the ailment.");
-            this.txtAmount1B.TextChanged += new System.EventHandler(this.txtAmount1B_TextChanged);
+            this.Amount1_EB.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
-            // txtChanceb
+            // Chance_EB
             // 
-            this.txtChanceb.Location = new System.Drawing.Point(514, 104);
-            this.txtChanceb.Name = "txtChanceb";
-            this.txtChanceb.Size = new System.Drawing.Size(65, 20);
-            this.txtChanceb.TabIndex = 62;
-            this.toolTip1.SetToolTip(this.txtChanceb, "Determines the chance of the effect activating when conditions are met.");
-            this.txtChanceb.TextChanged += new System.EventHandler(this.txtChanceb_TextChanged);
+            this.Chance_EB.Location = new System.Drawing.Point(514, 104);
+            this.Chance_EB.Name = "Chance_EB";
+            this.Chance_EB.Size = new System.Drawing.Size(65, 20);
+            this.Chance_EB.TabIndex = 62;
+            this.toolTip1.SetToolTip(this.Chance_EB, "Determines the chance of the effect activating when conditions are met.");
+            this.Chance_EB.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label62
             // 
@@ -1613,13 +1613,13 @@
             this.label62.TabIndex = 61;
             this.label62.Text = "Chance";
             // 
-            // txtValue1B
+            // Value1_EB
             // 
-            this.txtValue1B.Location = new System.Drawing.Point(70, 205);
-            this.txtValue1B.Name = "txtValue1B";
-            this.txtValue1B.Size = new System.Drawing.Size(80, 20);
-            this.txtValue1B.TabIndex = 60;
-            this.txtValue1B.TextChanged += new System.EventHandler(this.txtValue1B_TextChanged);
+            this.Value1_EB.Location = new System.Drawing.Point(70, 205);
+            this.Value1_EB.Name = "Value1_EB";
+            this.Value1_EB.Size = new System.Drawing.Size(80, 20);
+            this.Value1_EB.TabIndex = 60;
+            this.Value1_EB.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label63
             // 
@@ -1630,16 +1630,16 @@
             this.label63.TabIndex = 59;
             this.label63.Text = "Value 1";
             // 
-            // txtDurationB
+            // Duration_EB
             // 
-            this.txtDurationB.Location = new System.Drawing.Point(372, 104);
-            this.txtDurationB.Name = "txtDurationB";
-            this.txtDurationB.Size = new System.Drawing.Size(65, 20);
-            this.txtDurationB.TabIndex = 58;
-            this.toolTip1.SetToolTip(this.txtDurationB, "A few different uses.\r\nUsually determines how long the effect will stay active fo" +
+            this.Duration_EB.Location = new System.Drawing.Point(372, 104);
+            this.Duration_EB.Name = "Duration_EB";
+            this.Duration_EB.Size = new System.Drawing.Size(65, 20);
+            this.Duration_EB.TabIndex = 58;
+            this.toolTip1.SetToolTip(this.Duration_EB, "A few different uses.\r\nUsually determines how long the effect will stay active fo" +
         "r.\r\nBattle start activators use this to determaine how long until the effect act" +
         "ivates from match start.");
-            this.txtDurationB.TextChanged += new System.EventHandler(this.txtDurationB_TextChanged);
+            this.Duration_EB.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label64
             // 
@@ -1650,14 +1650,14 @@
             this.label64.TabIndex = 57;
             this.label64.Text = "Duration";
             // 
-            // txtLimitB
+            // Limit_EB
             // 
-            this.txtLimitB.Location = new System.Drawing.Point(443, 104);
-            this.txtLimitB.Name = "txtLimitB";
-            this.txtLimitB.Size = new System.Drawing.Size(65, 20);
-            this.txtLimitB.TabIndex = 56;
-            this.toolTip1.SetToolTip(this.txtLimitB, "Determines how many times you can activate the effect in a singe match.");
-            this.txtLimitB.TextChanged += new System.EventHandler(this.txtLimitB_TextChanged);
+            this.Limit_EB.Location = new System.Drawing.Point(443, 104);
+            this.Limit_EB.Name = "Limit_EB";
+            this.Limit_EB.Size = new System.Drawing.Size(65, 20);
+            this.Limit_EB.TabIndex = 56;
+            this.toolTip1.SetToolTip(this.Limit_EB, "Determines how many times you can activate the effect in a singe match.");
+            this.Limit_EB.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label65
             // 
@@ -1668,15 +1668,15 @@
             this.label65.TabIndex = 55;
             this.label65.Text = "Limit";
             // 
-            // cbActiveb
+            // Activate_EB
             // 
-            this.cbActiveb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbActiveb.FormattingEnabled = true;
-            this.cbActiveb.Location = new System.Drawing.Point(11, 154);
-            this.cbActiveb.Name = "cbActiveb";
-            this.cbActiveb.Size = new System.Drawing.Size(350, 21);
-            this.cbActiveb.TabIndex = 54;
-            this.cbActiveb.SelectedIndexChanged += new System.EventHandler(this.cbActiveb_SelectedIndexChanged);
+            this.Activate_EB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Activate_EB.FormattingEnabled = true;
+            this.Activate_EB.Location = new System.Drawing.Point(11, 154);
+            this.Activate_EB.Name = "Activate_EB";
+            this.Activate_EB.Size = new System.Drawing.Size(350, 21);
+            this.Activate_EB.TabIndex = 54;
+            this.Activate_EB.SelectedIndexChanged += new System.EventHandler(this.cbActiveb_SelectedIndexChanged);
             // 
             // label66
             // 
@@ -1687,15 +1687,15 @@
             this.label66.TabIndex = 53;
             this.label66.Text = "Activation Method";
             // 
-            // cbEffectb
+            // Effect_EB
             // 
-            this.cbEffectb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbEffectb.FormattingEnabled = true;
-            this.cbEffectb.Location = new System.Drawing.Point(11, 104);
-            this.cbEffectb.Name = "cbEffectb";
-            this.cbEffectb.Size = new System.Drawing.Size(350, 21);
-            this.cbEffectb.TabIndex = 52;
-            this.cbEffectb.SelectedIndexChanged += new System.EventHandler(this.cbEffectb_SelectedIndexChanged);
+            this.Effect_EB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Effect_EB.FormattingEnabled = true;
+            this.Effect_EB.Location = new System.Drawing.Point(11, 104);
+            this.Effect_EB.Name = "Effect_EB";
+            this.Effect_EB.Size = new System.Drawing.Size(350, 21);
+            this.Effect_EB.TabIndex = 52;
+            this.Effect_EB.SelectedIndexChanged += new System.EventHandler(this.cbEffectb_SelectedIndexChanged);
             // 
             // label67
             // 
@@ -1709,52 +1709,52 @@
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.label115);
-            this.tabPage3.Controls.Add(this.txtUnki521);
+            this.tabPage3.Controls.Add(this.I_56_E1);
             this.tabPage3.Controls.Add(this.label114);
-            this.tabPage3.Controls.Add(this.txtUnki481);
+            this.tabPage3.Controls.Add(this.I_52_E1);
             this.tabPage3.Controls.Add(this.label108);
-            this.tabPage3.Controls.Add(this.txtNewI121);
+            this.tabPage3.Controls.Add(this.I_12_E1);
             this.tabPage3.Controls.Add(this.label30);
             this.tabPage3.Controls.Add(this.label29);
-            this.tabPage3.Controls.Add(this.txtAmount41);
-            this.tabPage3.Controls.Add(this.txtAmount31);
+            this.tabPage3.Controls.Add(this.Amount4_E1);
+            this.tabPage3.Controls.Add(this.Amount3_E1);
             this.tabPage3.Controls.Add(this.label79);
-            this.tabPage3.Controls.Add(this.txtUnki881);
+            this.tabPage3.Controls.Add(this.I_100_E1);
             this.tabPage3.Controls.Add(this.label81);
             this.tabPage3.Controls.Add(this.label82);
             this.tabPage3.Controls.Add(this.label83);
-            this.tabPage3.Controls.Add(this.txtAmount61);
-            this.tabPage3.Controls.Add(this.txtAmount51);
-            this.tabPage3.Controls.Add(this.txtUnki441);
+            this.tabPage3.Controls.Add(this.Amount6_E1);
+            this.tabPage3.Controls.Add(this.Amount5_E1);
+            this.tabPage3.Controls.Add(this.I_48_E1);
             this.tabPage3.Controls.Add(this.label78);
-            this.tabPage3.Controls.Add(this.txtValue61);
+            this.tabPage3.Controls.Add(this.Value6_E1);
             this.tabPage3.Controls.Add(this.label80);
-            this.tabPage3.Controls.Add(this.txtValue51);
+            this.tabPage3.Controls.Add(this.Value5_E1);
             this.tabPage3.Controls.Add(this.label84);
             this.tabPage3.Controls.Add(this.label85);
             this.tabPage3.Controls.Add(this.label86);
-            this.tabPage3.Controls.Add(this.txtValue41);
-            this.tabPage3.Controls.Add(this.txtValue31);
-            this.tabPage3.Controls.Add(this.txtValue21);
+            this.tabPage3.Controls.Add(this.Value4_E1);
+            this.tabPage3.Controls.Add(this.Value3_E1);
+            this.tabPage3.Controls.Add(this.Value2_E1);
             this.tabPage3.Controls.Add(this.groupBox4);
             this.tabPage3.Controls.Add(this.groupBox3);
             this.tabPage3.Controls.Add(this.groupBox1);
             this.tabPage3.Controls.Add(this.groupBox2);
             this.tabPage3.Controls.Add(this.label25);
-            this.tabPage3.Controls.Add(this.txtAmount21);
+            this.tabPage3.Controls.Add(this.Amount2_E1);
             this.tabPage3.Controls.Add(this.label24);
-            this.tabPage3.Controls.Add(this.txtAmount11);
-            this.tabPage3.Controls.Add(this.txtChance1);
+            this.tabPage3.Controls.Add(this.Amount1_E1);
+            this.tabPage3.Controls.Add(this.Chance_E1);
             this.tabPage3.Controls.Add(this.label20);
-            this.tabPage3.Controls.Add(this.txtValue11);
+            this.tabPage3.Controls.Add(this.Value1_E1);
             this.tabPage3.Controls.Add(this.label14);
-            this.tabPage3.Controls.Add(this.txtDuration1);
+            this.tabPage3.Controls.Add(this.Duration_E1);
             this.tabPage3.Controls.Add(this.label13);
-            this.tabPage3.Controls.Add(this.txtLimit1);
+            this.tabPage3.Controls.Add(this.Limit_E1);
             this.tabPage3.Controls.Add(this.label12);
-            this.tabPage3.Controls.Add(this.cbActive1);
+            this.tabPage3.Controls.Add(this.Activate_E1);
             this.tabPage3.Controls.Add(this.label11);
-            this.tabPage3.Controls.Add(this.cbEffect1);
+            this.tabPage3.Controls.Add(this.Effect_E1);
             this.tabPage3.Controls.Add(this.label10);
             this.tabPage3.Controls.Add(this.label9);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
@@ -1774,13 +1774,13 @@
             this.label115.TabIndex = 78;
             this.label115.Text = "I_52";
             // 
-            // txtUnki521
+            // I_56_E1
             // 
-            this.txtUnki521.Location = new System.Drawing.Point(514, 154);
-            this.txtUnki521.Name = "txtUnki521";
-            this.txtUnki521.Size = new System.Drawing.Size(65, 20);
-            this.txtUnki521.TabIndex = 77;
-            this.txtUnki521.TextChanged += new System.EventHandler(this.txtUnki521_TextChanged);
+            this.I_56_E1.Location = new System.Drawing.Point(514, 154);
+            this.I_56_E1.Name = "I_56_E1";
+            this.I_56_E1.Size = new System.Drawing.Size(65, 20);
+            this.I_56_E1.TabIndex = 77;
+            this.I_56_E1.TextChanged += new System.EventHandler(this.tbNumberChanged);
 
             // 
             // label114
@@ -1792,13 +1792,13 @@
             this.label114.TabIndex = 76;
             this.label114.Text = "I_48";
             // 
-            // txtUnki481
+            // I_52_E1
             // 
-            this.txtUnki481.Location = new System.Drawing.Point(443, 154);
-            this.txtUnki481.Name = "txtUnki481";
-            this.txtUnki481.Size = new System.Drawing.Size(65, 20);
-            this.txtUnki481.TabIndex = 75;
-            this.txtUnki481.TextChanged += new System.EventHandler(this.txtUnki481_TextChanged);
+            this.I_52_E1.Location = new System.Drawing.Point(443, 154);
+            this.I_52_E1.Name = "I_52_E1";
+            this.I_52_E1.Size = new System.Drawing.Size(65, 20);
+            this.I_52_E1.TabIndex = 75;
+            this.I_52_E1.TextChanged += new System.EventHandler(this.tbNumberChanged);
 
             // 
             // label108
@@ -1810,13 +1810,13 @@
             this.label108.TabIndex = 74;
             this.label108.Text = "NEW I_12";
             // 
-            // txtNewI121
+            // I_12_E1
             // 
-            this.txtNewI121.Location = new System.Drawing.Point(585, 104);
-            this.txtNewI121.Name = "txtNewI121";
-            this.txtNewI121.Size = new System.Drawing.Size(65, 20);
-            this.txtNewI121.TabIndex = 73;
-            this.txtNewI121.TextChanged += new System.EventHandler(this.txtNewI121_TextChanged);
+            this.I_12_E1.Location = new System.Drawing.Point(585, 104);
+            this.I_12_E1.Name = "I_12_E1";
+            this.I_12_E1.Size = new System.Drawing.Size(65, 20);
+            this.I_12_E1.TabIndex = 73;
+            this.I_12_E1.TextChanged += new System.EventHandler(this.tbNumberChanged);
 
             // 
             // label30
@@ -1837,21 +1837,21 @@
             this.label29.TabIndex = 71;
             this.label29.Text = "Amount 3";
             // 
-            // txtAmount41
+            // Amount4_E1
             // 
-            this.txtAmount41.Location = new System.Drawing.Point(328, 247);
-            this.txtAmount41.Name = "txtAmount41";
-            this.txtAmount41.Size = new System.Drawing.Size(80, 20);
-            this.txtAmount41.TabIndex = 70;
-            this.txtAmount41.TextChanged += new System.EventHandler(this.txtAmount41_TextChanged);
+            this.Amount4_E1.Location = new System.Drawing.Point(328, 247);
+            this.Amount4_E1.Name = "Amount4_E1";
+            this.Amount4_E1.Size = new System.Drawing.Size(80, 20);
+            this.Amount4_E1.TabIndex = 70;
+            this.Amount4_E1.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
-            // txtAmount31
+            // Amount3_E1
             // 
-            this.txtAmount31.Location = new System.Drawing.Point(242, 247);
-            this.txtAmount31.Name = "txtAmount31";
-            this.txtAmount31.Size = new System.Drawing.Size(80, 20);
-            this.txtAmount31.TabIndex = 69;
-            this.txtAmount31.TextChanged += new System.EventHandler(this.txtAmount31_TextChanged);
+            this.Amount3_E1.Location = new System.Drawing.Point(242, 247);
+            this.Amount3_E1.Name = "Amount3_E1";
+            this.Amount3_E1.Size = new System.Drawing.Size(80, 20);
+            this.Amount3_E1.TabIndex = 69;
+            this.Amount3_E1.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label79
             // 
@@ -1862,13 +1862,13 @@
             this.label79.TabIndex = 68;
             this.label79.Text = "I_88";
             // 
-            // txtUnki881
+            // I_100_E1
             // 
-            this.txtUnki881.Location = new System.Drawing.Point(585, 154);
-            this.txtUnki881.Name = "txtUnki881";
-            this.txtUnki881.Size = new System.Drawing.Size(65, 20);
-            this.txtUnki881.TabIndex = 67;
-            this.txtUnki881.TextChanged += new System.EventHandler(this.txtUnki881_TextChanged);
+            this.I_100_E1.Location = new System.Drawing.Point(585, 154);
+            this.I_100_E1.Name = "I_100_E1";
+            this.I_100_E1.Size = new System.Drawing.Size(65, 20);
+            this.I_100_E1.TabIndex = 67;
+            this.I_100_E1.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label81
             // 
@@ -1897,29 +1897,29 @@
             this.label83.TabIndex = 64;
             this.label83.Text = "Amount 5";
             // 
-            // txtAmount61
+            // Amount6_E1
             // 
-            this.txtAmount61.Location = new System.Drawing.Point(500, 247);
-            this.txtAmount61.Name = "txtAmount61";
-            this.txtAmount61.Size = new System.Drawing.Size(80, 20);
-            this.txtAmount61.TabIndex = 63;
-            this.txtAmount61.TextChanged += new System.EventHandler(this.txtAmount61_TextChanged);
+            this.Amount6_E1.Location = new System.Drawing.Point(500, 247);
+            this.Amount6_E1.Name = "Amount6_E1";
+            this.Amount6_E1.Size = new System.Drawing.Size(80, 20);
+            this.Amount6_E1.TabIndex = 63;
+            this.Amount6_E1.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
-            // txtAmount51
+            // Amount5_E1
             // 
-            this.txtAmount51.Location = new System.Drawing.Point(414, 247);
-            this.txtAmount51.Name = "txtAmount51";
-            this.txtAmount51.Size = new System.Drawing.Size(80, 20);
-            this.txtAmount51.TabIndex = 62;
-            this.txtAmount51.TextChanged += new System.EventHandler(this.txtAmount51_TextChanged);
+            this.Amount5_E1.Location = new System.Drawing.Point(414, 247);
+            this.Amount5_E1.Name = "Amount5_E1";
+            this.Amount5_E1.Size = new System.Drawing.Size(80, 20);
+            this.Amount5_E1.TabIndex = 62;
+            this.Amount5_E1.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
-            // txtUnki441
+            // I_48_E1
             // 
-            this.txtUnki441.Location = new System.Drawing.Point(372, 154);
-            this.txtUnki441.Name = "txtUnki441";
-            this.txtUnki441.Size = new System.Drawing.Size(65, 20);
-            this.txtUnki441.TabIndex = 61;
-            this.txtUnki441.TextChanged += new System.EventHandler(this.txtUnki441_TextChanged);
+            this.I_48_E1.Location = new System.Drawing.Point(372, 154);
+            this.I_48_E1.Name = "I_48_E1";
+            this.I_48_E1.Size = new System.Drawing.Size(65, 20);
+            this.I_48_E1.TabIndex = 61;
+            this.I_48_E1.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label78
             // 
@@ -1930,13 +1930,13 @@
             this.label78.TabIndex = 60;
             this.label78.Text = "Value 6";
             // 
-            // txtValue61
+            // Value6_E1
             // 
-            this.txtValue61.Location = new System.Drawing.Point(500, 205);
-            this.txtValue61.Name = "txtValue61";
-            this.txtValue61.Size = new System.Drawing.Size(80, 20);
-            this.txtValue61.TabIndex = 59;
-            this.txtValue61.TextChanged += new System.EventHandler(this.txtValue61_TextChanged);
+            this.Value6_E1.Location = new System.Drawing.Point(500, 205);
+            this.Value6_E1.Name = "Value6_E1";
+            this.Value6_E1.Size = new System.Drawing.Size(80, 20);
+            this.Value6_E1.TabIndex = 59;
+            this.Value6_E1.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label80
             // 
@@ -1947,13 +1947,13 @@
             this.label80.TabIndex = 58;
             this.label80.Text = "Value 5";
             // 
-            // txtValue51
+            // Value5_E1
             // 
-            this.txtValue51.Location = new System.Drawing.Point(414, 205);
-            this.txtValue51.Name = "txtValue51";
-            this.txtValue51.Size = new System.Drawing.Size(80, 20);
-            this.txtValue51.TabIndex = 57;
-            this.txtValue51.TextChanged += new System.EventHandler(this.txtValue51_TextChanged);
+            this.Value5_E1.Location = new System.Drawing.Point(414, 205);
+            this.Value5_E1.Name = "Value5_E1";
+            this.Value5_E1.Size = new System.Drawing.Size(80, 20);
+            this.Value5_E1.TabIndex = 57;
+            this.Value5_E1.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label84
             // 
@@ -1982,33 +1982,33 @@
             this.label86.TabIndex = 54;
             this.label86.Text = "Value 2";
             // 
-            // txtValue41
+            // Value4_E1
             // 
-            this.txtValue41.Location = new System.Drawing.Point(328, 205);
-            this.txtValue41.Name = "txtValue41";
-            this.txtValue41.Size = new System.Drawing.Size(80, 20);
-            this.txtValue41.TabIndex = 53;
-            this.txtValue41.TextChanged += new System.EventHandler(this.txtValue41_TextChanged);
+            this.Value4_E1.Location = new System.Drawing.Point(328, 205);
+            this.Value4_E1.Name = "Value4_E1";
+            this.Value4_E1.Size = new System.Drawing.Size(80, 20);
+            this.Value4_E1.TabIndex = 53;
+            this.Value4_E1.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
-            // txtValue31
+            // Value3_E1
             // 
-            this.txtValue31.Location = new System.Drawing.Point(242, 205);
-            this.txtValue31.Name = "txtValue31";
-            this.txtValue31.Size = new System.Drawing.Size(80, 20);
-            this.txtValue31.TabIndex = 52;
-            this.txtValue31.TextChanged += new System.EventHandler(this.txtValue31_TextChanged);
+            this.Value3_E1.Location = new System.Drawing.Point(242, 205);
+            this.Value3_E1.Name = "Value3_E1";
+            this.Value3_E1.Size = new System.Drawing.Size(80, 20);
+            this.Value3_E1.TabIndex = 52;
+            this.Value3_E1.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
-            // txtValue21
+            // Value2_E1
             // 
-            this.txtValue21.Location = new System.Drawing.Point(156, 205);
-            this.txtValue21.Name = "txtValue21";
-            this.txtValue21.Size = new System.Drawing.Size(80, 20);
-            this.txtValue21.TabIndex = 51;
-            this.txtValue21.TextChanged += new System.EventHandler(this.txtValue21_TextChanged);
+            this.Value2_E1.Location = new System.Drawing.Point(156, 205);
+            this.Value2_E1.Name = "Value2_E1";
+            this.Value2_E1.Size = new System.Drawing.Size(80, 20);
+            this.Value2_E1.TabIndex = 51;
+            this.Value2_E1.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.cbTarget1);
+            this.groupBox4.Controls.Add(this.Target_E1);
             this.groupBox4.Controls.Add(this.label26);
             this.groupBox4.Location = new System.Drawing.Point(8, 14);
             this.groupBox4.Name = "groupBox4";
@@ -2017,16 +2017,16 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Target";
             // 
-            // cbTarget1
+            // Target_E1
             // 
-            this.cbTarget1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbTarget1.FormattingEnabled = true;
-            this.cbTarget1.Location = new System.Drawing.Point(6, 35);
-            this.cbTarget1.Name = "cbTarget1";
-            this.cbTarget1.Size = new System.Drawing.Size(185, 21);
-            this.cbTarget1.TabIndex = 37;
-            this.toolTip1.SetToolTip(this.cbTarget1, "The Target the Effect will be used on.");
-            this.cbTarget1.SelectedIndexChanged += new System.EventHandler(this.cbTarget1_SelectedIndexChanged);
+            this.Target_E1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Target_E1.FormattingEnabled = true;
+            this.Target_E1.Location = new System.Drawing.Point(6, 35);
+            this.Target_E1.Name = "Target_E1";
+            this.Target_E1.Size = new System.Drawing.Size(185, 21);
+            this.Target_E1.TabIndex = 37;
+            this.toolTip1.SetToolTip(this.Target_E1, "The Target the Effect will be used on.");
+            this.Target_E1.SelectedIndexChanged += new System.EventHandler(this.cbTarget1_SelectedIndexChanged);
             // 
             // label26
             // 
@@ -2110,8 +2110,8 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.label31);
-            this.groupBox1.Controls.Add(this.cbVfxType11);
-            this.groupBox1.Controls.Add(this.txtVfxId11);
+            this.groupBox1.Controls.Add(this.Vfx_Type1_E1);
+            this.groupBox1.Controls.Add(this.Vfx_ID1_E1);
             this.groupBox1.Controls.Add(this.label27);
             this.groupBox1.Location = new System.Drawing.Point(211, 14);
             this.groupBox1.Name = "groupBox1";
@@ -2129,24 +2129,24 @@
             this.label31.TabIndex = 47;
             this.label31.Text = "EEPK to Use";
             // 
-            // cbVfxType11
+            // Vfx_Type1_E1
             // 
-            this.cbVfxType11.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbVfxType11.FormattingEnabled = true;
-            this.cbVfxType11.Location = new System.Drawing.Point(17, 35);
-            this.cbVfxType11.Name = "cbVfxType11";
-            this.cbVfxType11.Size = new System.Drawing.Size(100, 21);
-            this.cbVfxType11.TabIndex = 46;
-            this.cbVfxType11.SelectedIndexChanged += new System.EventHandler(this.cbVfxType11_SelectedIndexChanged);
+            this.Vfx_Type1_E1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Vfx_Type1_E1.FormattingEnabled = true;
+            this.Vfx_Type1_E1.Location = new System.Drawing.Point(17, 35);
+            this.Vfx_Type1_E1.Name = "Vfx_Type1_E1";
+            this.Vfx_Type1_E1.Size = new System.Drawing.Size(100, 21);
+            this.Vfx_Type1_E1.TabIndex = 46;
+            this.Vfx_Type1_E1.SelectedIndexChanged += new System.EventHandler(this.cbVfxType11_SelectedIndexChanged);
             // 
-            // txtVfxId11
+            // Vfx_ID1_E1
             // 
-            this.txtVfxId11.Location = new System.Drawing.Point(127, 35);
-            this.txtVfxId11.Name = "txtVfxId11";
-            this.txtVfxId11.Size = new System.Drawing.Size(75, 20);
-            this.txtVfxId11.TabIndex = 42;
-            this.toolTip1.SetToolTip(this.txtVfxId11, "The Aura the Super Soul will use on effect activation.");
-            this.txtVfxId11.TextChanged += new System.EventHandler(this.txtVfxId11_TextChanged);
+            this.Vfx_ID1_E1.Location = new System.Drawing.Point(127, 35);
+            this.Vfx_ID1_E1.Name = "Vfx_ID1_E1";
+            this.Vfx_ID1_E1.Size = new System.Drawing.Size(75, 20);
+            this.Vfx_ID1_E1.TabIndex = 42;
+            this.toolTip1.SetToolTip(this.Vfx_ID1_E1, "The Aura the Super Soul will use on effect activation.");
+            this.Vfx_ID1_E1.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label27
             // 
@@ -2160,8 +2160,8 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label32);
-            this.groupBox2.Controls.Add(this.cbVfxType21);
-            this.groupBox2.Controls.Add(this.txtVfxId12);
+            this.groupBox2.Controls.Add(this.Vfx_Type2_E1);
+            this.groupBox2.Controls.Add(this.Vfx_ID1_E2);
             this.groupBox2.Controls.Add(this.label28);
             this.groupBox2.Location = new System.Drawing.Point(435, 14);
             this.groupBox2.Name = "groupBox2";
@@ -2179,23 +2179,23 @@
             this.label32.TabIndex = 46;
             this.label32.Text = "EEPK to Use";
             // 
-            // cbVfxType21
+            // Vfx_Type2_E1
             // 
-            this.cbVfxType21.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbVfxType21.FormattingEnabled = true;
-            this.cbVfxType21.Location = new System.Drawing.Point(17, 35);
-            this.cbVfxType21.Name = "cbVfxType21";
-            this.cbVfxType21.Size = new System.Drawing.Size(100, 21);
-            this.cbVfxType21.TabIndex = 45;
-            this.cbVfxType21.SelectedIndexChanged += new System.EventHandler(this.cbVfxType21_SelectedIndexChanged);
+            this.Vfx_Type2_E1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Vfx_Type2_E1.FormattingEnabled = true;
+            this.Vfx_Type2_E1.Location = new System.Drawing.Point(17, 35);
+            this.Vfx_Type2_E1.Name = "Vfx_Type2_E1";
+            this.Vfx_Type2_E1.Size = new System.Drawing.Size(100, 21);
+            this.Vfx_Type2_E1.TabIndex = 45;
+            this.Vfx_Type2_E1.SelectedIndexChanged += new System.EventHandler(this.cbVfxType21_SelectedIndexChanged);
             // 
-            // txtVfxId12
+            // Vfx_ID1_E2
             // 
-            this.txtVfxId12.Location = new System.Drawing.Point(127, 35);
-            this.txtVfxId12.Name = "txtVfxId12";
-            this.txtVfxId12.Size = new System.Drawing.Size(75, 20);
-            this.txtVfxId12.TabIndex = 42;
-            this.txtVfxId12.TextChanged += new System.EventHandler(this.txtVfxId12_TextChanged);
+            this.Vfx_ID1_E2.Location = new System.Drawing.Point(127, 35);
+            this.Vfx_ID1_E2.Name = "Vfx_ID1_E2";
+            this.Vfx_ID1_E2.Size = new System.Drawing.Size(75, 20);
+            this.Vfx_ID1_E2.TabIndex = 42;
+            this.Vfx_ID1_E2.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label28
             // 
@@ -2215,15 +2215,15 @@
             this.label25.TabIndex = 36;
             this.label25.Text = "Amount 2";
             // 
-            // txtAmount21
+            // Amount2_E1
             // 
-            this.txtAmount21.Location = new System.Drawing.Point(156, 247);
-            this.txtAmount21.Name = "txtAmount21";
-            this.txtAmount21.Size = new System.Drawing.Size(80, 20);
-            this.txtAmount21.TabIndex = 34;
-            this.toolTip1.SetToolTip(this.txtAmount21, "Many different uses.\r\nStatus Ailments seem to use this for strength of the ailmen" +
+            this.Amount2_E1.Location = new System.Drawing.Point(156, 247);
+            this.Amount2_E1.Name = "Amount2_E1";
+            this.Amount2_E1.Size = new System.Drawing.Size(80, 20);
+            this.Amount2_E1.TabIndex = 34;
+            this.toolTip1.SetToolTip(this.Amount2_E1, "Many different uses.\r\nStatus Ailments seem to use this for strength of the ailmen" +
         "t.");
-            this.txtAmount21.TextChanged += new System.EventHandler(this.txtAmount21_TextChanged);
+            this.Amount2_E1.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label24
             // 
@@ -2234,23 +2234,23 @@
             this.label24.TabIndex = 33;
             this.label24.Text = "Amount 1";
             // 
-            // txtAmount11
+            // Amount1_E1
             // 
-            this.txtAmount11.Location = new System.Drawing.Point(70, 247);
-            this.txtAmount11.Name = "txtAmount11";
-            this.txtAmount11.Size = new System.Drawing.Size(80, 20);
-            this.txtAmount11.TabIndex = 32;
-            this.toolTip1.SetToolTip(this.txtAmount11, "Many different uses.");
-            this.txtAmount11.TextChanged += new System.EventHandler(this.txtAmount11_TextChanged);
+            this.Amount1_E1.Location = new System.Drawing.Point(70, 247);
+            this.Amount1_E1.Name = "Amount1_E1";
+            this.Amount1_E1.Size = new System.Drawing.Size(80, 20);
+            this.Amount1_E1.TabIndex = 32;
+            this.toolTip1.SetToolTip(this.Amount1_E1, "Many different uses.");
+            this.Amount1_E1.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
-            // txtChance1
+            // Chance_E1
             // 
-            this.txtChance1.Location = new System.Drawing.Point(514, 104);
-            this.txtChance1.Name = "txtChance1";
-            this.txtChance1.Size = new System.Drawing.Size(65, 20);
-            this.txtChance1.TabIndex = 31;
-            this.toolTip1.SetToolTip(this.txtChance1, "Determines the chance of the effect activating when conditions are met.");
-            this.txtChance1.TextChanged += new System.EventHandler(this.txtChance1_TextChanged);
+            this.Chance_E1.Location = new System.Drawing.Point(514, 104);
+            this.Chance_E1.Name = "Chance_E1";
+            this.Chance_E1.Size = new System.Drawing.Size(65, 20);
+            this.Chance_E1.TabIndex = 31;
+            this.toolTip1.SetToolTip(this.Chance_E1, "Determines the chance of the effect activating when conditions are met.");
+            this.Chance_E1.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label20
             // 
@@ -2261,13 +2261,13 @@
             this.label20.TabIndex = 30;
             this.label20.Text = "Chance";
             // 
-            // txtValue11
+            // Value1_E1
             // 
-            this.txtValue11.Location = new System.Drawing.Point(70, 205);
-            this.txtValue11.Name = "txtValue11";
-            this.txtValue11.Size = new System.Drawing.Size(80, 20);
-            this.txtValue11.TabIndex = 27;
-            this.txtValue11.TextChanged += new System.EventHandler(this.txtValue11_TextChanged);
+            this.Value1_E1.Location = new System.Drawing.Point(70, 205);
+            this.Value1_E1.Name = "Value1_E1";
+            this.Value1_E1.Size = new System.Drawing.Size(80, 20);
+            this.Value1_E1.TabIndex = 27;
+            this.Value1_E1.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label14
             // 
@@ -2278,16 +2278,16 @@
             this.label14.TabIndex = 26;
             this.label14.Text = "Value 1";
             // 
-            // txtDuration1
+            // Duration_E1
             // 
-            this.txtDuration1.Location = new System.Drawing.Point(372, 104);
-            this.txtDuration1.Name = "txtDuration1";
-            this.txtDuration1.Size = new System.Drawing.Size(65, 20);
-            this.txtDuration1.TabIndex = 25;
-            this.toolTip1.SetToolTip(this.txtDuration1, "A few different uses.\r\nUsually determines how long the effect will stay active fo" +
+            this.Duration_E1.Location = new System.Drawing.Point(372, 104);
+            this.Duration_E1.Name = "Duration_E1";
+            this.Duration_E1.Size = new System.Drawing.Size(65, 20);
+            this.Duration_E1.TabIndex = 25;
+            this.toolTip1.SetToolTip(this.Duration_E1, "A few different uses.\r\nUsually determines how long the effect will stay active fo" +
         "r.\r\nBattle start activators use this to determaine how long until the effect act" +
         "ivates from match start.");
-            this.txtDuration1.TextChanged += new System.EventHandler(this.txtDuration1_TextChanged);
+            this.Duration_E1.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label13
             // 
@@ -2298,14 +2298,14 @@
             this.label13.TabIndex = 24;
             this.label13.Text = "Duration";
             // 
-            // txtLimit1
+            // Limit_E1
             // 
-            this.txtLimit1.Location = new System.Drawing.Point(443, 104);
-            this.txtLimit1.Name = "txtLimit1";
-            this.txtLimit1.Size = new System.Drawing.Size(65, 20);
-            this.txtLimit1.TabIndex = 23;
-            this.toolTip1.SetToolTip(this.txtLimit1, "Determines how many times you can activate the effect in a singe match.");
-            this.txtLimit1.TextChanged += new System.EventHandler(this.txtLimit1_TextChanged);
+            this.Limit_E1.Location = new System.Drawing.Point(443, 104);
+            this.Limit_E1.Name = "Limit_E1";
+            this.Limit_E1.Size = new System.Drawing.Size(65, 20);
+            this.Limit_E1.TabIndex = 23;
+            this.toolTip1.SetToolTip(this.Limit_E1, "Determines how many times you can activate the effect in a singe match.");
+            this.Limit_E1.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label12
             // 
@@ -2316,15 +2316,15 @@
             this.label12.TabIndex = 22;
             this.label12.Text = "Limit";
             // 
-            // cbActive1
+            // Activate_E1
             // 
-            this.cbActive1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbActive1.FormattingEnabled = true;
-            this.cbActive1.Location = new System.Drawing.Point(11, 154);
-            this.cbActive1.Name = "cbActive1";
-            this.cbActive1.Size = new System.Drawing.Size(350, 21);
-            this.cbActive1.TabIndex = 21;
-            this.cbActive1.SelectedIndexChanged += new System.EventHandler(this.cbActive1_SelectedIndexChanged);
+            this.Activate_E1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Activate_E1.FormattingEnabled = true;
+            this.Activate_E1.Location = new System.Drawing.Point(11, 154);
+            this.Activate_E1.Name = "Activate_E1";
+            this.Activate_E1.Size = new System.Drawing.Size(350, 21);
+            this.Activate_E1.TabIndex = 21;
+            this.Activate_E1.SelectedIndexChanged += new System.EventHandler(this.cbActive1_SelectedIndexChanged);
             // 
             // label11
             // 
@@ -2335,15 +2335,15 @@
             this.label11.TabIndex = 20;
             this.label11.Text = "Activation Method";
             // 
-            // cbEffect1
+            // Effect_E1
             // 
-            this.cbEffect1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbEffect1.FormattingEnabled = true;
-            this.cbEffect1.Location = new System.Drawing.Point(11, 104);
-            this.cbEffect1.Name = "cbEffect1";
-            this.cbEffect1.Size = new System.Drawing.Size(350, 21);
-            this.cbEffect1.TabIndex = 19;
-            this.cbEffect1.SelectedIndexChanged += new System.EventHandler(this.cbEffect1_SelectedIndexChanged);
+            this.Effect_E1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Effect_E1.FormattingEnabled = true;
+            this.Effect_E1.Location = new System.Drawing.Point(11, 104);
+            this.Effect_E1.Name = "Effect_E1";
+            this.Effect_E1.Size = new System.Drawing.Size(350, 21);
+            this.Effect_E1.TabIndex = 19;
+            this.Effect_E1.SelectedIndexChanged += new System.EventHandler(this.cbEffect1_SelectedIndexChanged);
             // 
             // label10
             // 
@@ -2366,52 +2366,52 @@
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.label117);
-            this.tabPage4.Controls.Add(this.txtUnki522);
+            this.tabPage4.Controls.Add(this.I_56_E2);
             this.tabPage4.Controls.Add(this.label116);
-            this.tabPage4.Controls.Add(this.txtUnki482);
+            this.tabPage4.Controls.Add(this.I_52_E2);
             this.tabPage4.Controls.Add(this.label109);
-            this.tabPage4.Controls.Add(this.txtNewI122);
+            this.tabPage4.Controls.Add(this.I_12_E2);
             this.tabPage4.Controls.Add(this.label87);
-            this.tabPage4.Controls.Add(this.txtValue62);
+            this.tabPage4.Controls.Add(this.Value6_E2);
             this.tabPage4.Controls.Add(this.label89);
             this.tabPage4.Controls.Add(this.label88);
             this.tabPage4.Controls.Add(this.label93);
-            this.tabPage4.Controls.Add(this.txtUnki882);
+            this.tabPage4.Controls.Add(this.I_100_E2);
             this.tabPage4.Controls.Add(this.label94);
-            this.tabPage4.Controls.Add(this.txtValue52);
+            this.tabPage4.Controls.Add(this.Value5_E2);
             this.tabPage4.Controls.Add(this.label95);
             this.tabPage4.Controls.Add(this.label90);
             this.tabPage4.Controls.Add(this.label91);
             this.tabPage4.Controls.Add(this.label92);
-            this.tabPage4.Controls.Add(this.txtAmount62);
-            this.tabPage4.Controls.Add(this.txtAmount52);
-            this.tabPage4.Controls.Add(this.txtUnki442);
-            this.tabPage4.Controls.Add(this.txtValue42);
-            this.tabPage4.Controls.Add(this.txtValue32);
-            this.tabPage4.Controls.Add(this.txtValue22);
+            this.tabPage4.Controls.Add(this.Amount6_E2);
+            this.tabPage4.Controls.Add(this.Amount5_E2);
+            this.tabPage4.Controls.Add(this.I_48_E2);
+            this.tabPage4.Controls.Add(this.Value4_E2);
+            this.tabPage4.Controls.Add(this.Value3_E2);
+            this.tabPage4.Controls.Add(this.Value2_E2);
             this.tabPage4.Controls.Add(this.label35);
             this.tabPage4.Controls.Add(this.label34);
             this.tabPage4.Controls.Add(this.groupBox5);
-            this.tabPage4.Controls.Add(this.txtAmount32);
-            this.tabPage4.Controls.Add(this.txtAmount42);
+            this.tabPage4.Controls.Add(this.Amount3_E2);
+            this.tabPage4.Controls.Add(this.Amount4_E2);
             this.tabPage4.Controls.Add(this.groupBox6);
             this.tabPage4.Controls.Add(this.groupBox7);
             this.tabPage4.Controls.Add(this.groupBox8);
             this.tabPage4.Controls.Add(this.label40);
-            this.tabPage4.Controls.Add(this.txtAmount22);
+            this.tabPage4.Controls.Add(this.Amount2_E2);
             this.tabPage4.Controls.Add(this.label41);
-            this.tabPage4.Controls.Add(this.txtAmount12);
-            this.tabPage4.Controls.Add(this.txtChance2);
+            this.tabPage4.Controls.Add(this.Amount1_E2);
+            this.tabPage4.Controls.Add(this.Chance_E2);
             this.tabPage4.Controls.Add(this.label42);
-            this.tabPage4.Controls.Add(this.txtValue12);
+            this.tabPage4.Controls.Add(this.Value1_E2);
             this.tabPage4.Controls.Add(this.label43);
-            this.tabPage4.Controls.Add(this.txtDuration2);
+            this.tabPage4.Controls.Add(this.Duration_E2);
             this.tabPage4.Controls.Add(this.label44);
-            this.tabPage4.Controls.Add(this.txtLimit2);
+            this.tabPage4.Controls.Add(this.Limit_E2);
             this.tabPage4.Controls.Add(this.label45);
-            this.tabPage4.Controls.Add(this.cbActive2);
+            this.tabPage4.Controls.Add(this.Activate_E2);
             this.tabPage4.Controls.Add(this.label46);
-            this.tabPage4.Controls.Add(this.cbEffect2);
+            this.tabPage4.Controls.Add(this.Effect_E2);
             this.tabPage4.Controls.Add(this.label47);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
@@ -2430,13 +2430,13 @@
             this.label117.TabIndex = 98;
             this.label117.Text = "I_52";
             // 
-            // txtUnki522
+            // I_56_E2
             // 
-            this.txtUnki522.Location = new System.Drawing.Point(514, 154);
-            this.txtUnki522.Name = "txtUnki522";
-            this.txtUnki522.Size = new System.Drawing.Size(65, 20);
-            this.txtUnki522.TabIndex = 97;
-            this.txtUnki522.TextChanged += new System.EventHandler(this.txtUnki522_TextChanged);
+            this.I_56_E2.Location = new System.Drawing.Point(514, 154);
+            this.I_56_E2.Name = "I_56_E2";
+            this.I_56_E2.Size = new System.Drawing.Size(65, 20);
+            this.I_56_E2.TabIndex = 97;
+            this.I_56_E2.TextChanged += new System.EventHandler(this.tbNumberChanged);
 
             // 
             // label116
@@ -2448,13 +2448,13 @@
             this.label116.TabIndex = 96;
             this.label116.Text = "I_48";
             // 
-            // txtUnki482
+            // I_52_E2
             // 
-            this.txtUnki482.Location = new System.Drawing.Point(443, 154);
-            this.txtUnki482.Name = "txtUnki482";
-            this.txtUnki482.Size = new System.Drawing.Size(65, 20);
-            this.txtUnki482.TabIndex = 95;
-            this.txtUnki482.TextChanged += new System.EventHandler(this.txtUnki482_TextChanged);
+            this.I_52_E2.Location = new System.Drawing.Point(443, 154);
+            this.I_52_E2.Name = "I_52_E2";
+            this.I_52_E2.Size = new System.Drawing.Size(65, 20);
+            this.I_52_E2.TabIndex = 95;
+            this.I_52_E2.TextChanged += new System.EventHandler(this.tbNumberChanged);
 
             // 
             // label109
@@ -2466,13 +2466,13 @@
             this.label109.TabIndex = 94;
             this.label109.Text = "NEW I_12";
             // 
-            // txtNewI122
+            // I_12_E2
             // 
-            this.txtNewI122.Location = new System.Drawing.Point(585, 104);
-            this.txtNewI122.Name = "txtNewI122";
-            this.txtNewI122.Size = new System.Drawing.Size(65, 20);
-            this.txtNewI122.TabIndex = 93;
-            this.txtNewI122.TextChanged += new System.EventHandler(this.txtNewI122_TextChanged);
+            this.I_12_E2.Location = new System.Drawing.Point(585, 104);
+            this.I_12_E2.Name = "I_12_E2";
+            this.I_12_E2.Size = new System.Drawing.Size(65, 20);
+            this.I_12_E2.TabIndex = 93;
+            this.I_12_E2.TextChanged += new System.EventHandler(this.tbNumberChanged);
 
             // 
             // label87
@@ -2484,13 +2484,13 @@
             this.label87.TabIndex = 92;
             this.label87.Text = "Value 6";
             // 
-            // txtValue62
+            // Value6_E2
             // 
-            this.txtValue62.Location = new System.Drawing.Point(500, 205);
-            this.txtValue62.Name = "txtValue62";
-            this.txtValue62.Size = new System.Drawing.Size(80, 20);
-            this.txtValue62.TabIndex = 87;
-            this.txtValue62.TextChanged += new System.EventHandler(this.txtValue62_TextChanged);
+            this.Value6_E2.Location = new System.Drawing.Point(500, 205);
+            this.Value6_E2.Name = "Value6_E2";
+            this.Value6_E2.Size = new System.Drawing.Size(80, 20);
+            this.Value6_E2.TabIndex = 87;
+            this.Value6_E2.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label89
             // 
@@ -2519,13 +2519,13 @@
             this.label93.TabIndex = 90;
             this.label93.Text = "Value 4";
             // 
-            // txtUnki882
+            // I_100_E2
             // 
-            this.txtUnki882.Location = new System.Drawing.Point(585, 154);
-            this.txtUnki882.Name = "txtUnki882";
-            this.txtUnki882.Size = new System.Drawing.Size(65, 20);
-            this.txtUnki882.TabIndex = 85;
-            this.txtUnki882.TextChanged += new System.EventHandler(this.txtUnki882_TextChanged);
+            this.I_100_E2.Location = new System.Drawing.Point(585, 154);
+            this.I_100_E2.Name = "I_100_E2";
+            this.I_100_E2.Size = new System.Drawing.Size(65, 20);
+            this.I_100_E2.TabIndex = 85;
+            this.I_100_E2.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label94
             // 
@@ -2536,13 +2536,13 @@
             this.label94.TabIndex = 89;
             this.label94.Text = "Value 3";
             // 
-            // txtValue52
+            // Value5_E2
             // 
-            this.txtValue52.Location = new System.Drawing.Point(414, 205);
-            this.txtValue52.Name = "txtValue52";
-            this.txtValue52.Size = new System.Drawing.Size(80, 20);
-            this.txtValue52.TabIndex = 84;
-            this.txtValue52.TextChanged += new System.EventHandler(this.txtValue52_TextChanged);
+            this.Value5_E2.Location = new System.Drawing.Point(414, 205);
+            this.Value5_E2.Name = "Value5_E2";
+            this.Value5_E2.Size = new System.Drawing.Size(80, 20);
+            this.Value5_E2.TabIndex = 84;
+            this.Value5_E2.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label95
             // 
@@ -2580,53 +2580,53 @@
             this.label92.TabIndex = 81;
             this.label92.Text = "Amount 5";
             // 
-            // txtAmount62
+            // Amount6_E2
             // 
-            this.txtAmount62.Location = new System.Drawing.Point(500, 247);
-            this.txtAmount62.Name = "txtAmount62";
-            this.txtAmount62.Size = new System.Drawing.Size(80, 20);
-            this.txtAmount62.TabIndex = 80;
-            this.txtAmount62.TextChanged += new System.EventHandler(this.txtAmount62_TextChanged);
+            this.Amount6_E2.Location = new System.Drawing.Point(500, 247);
+            this.Amount6_E2.Name = "Amount6_E2";
+            this.Amount6_E2.Size = new System.Drawing.Size(80, 20);
+            this.Amount6_E2.TabIndex = 80;
+            this.Amount6_E2.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
-            // txtAmount52
+            // Amount5_E2
             // 
-            this.txtAmount52.Location = new System.Drawing.Point(414, 247);
-            this.txtAmount52.Name = "txtAmount52";
-            this.txtAmount52.Size = new System.Drawing.Size(80, 20);
-            this.txtAmount52.TabIndex = 79;
-            this.txtAmount52.TextChanged += new System.EventHandler(this.txtAmount52_TextChanged);
+            this.Amount5_E2.Location = new System.Drawing.Point(414, 247);
+            this.Amount5_E2.Name = "Amount5_E2";
+            this.Amount5_E2.Size = new System.Drawing.Size(80, 20);
+            this.Amount5_E2.TabIndex = 79;
+            this.Amount5_E2.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
-            // txtUnki442
+            // I_48_E2
             // 
-            this.txtUnki442.Location = new System.Drawing.Point(372, 154);
-            this.txtUnki442.Name = "txtUnki442";
-            this.txtUnki442.Size = new System.Drawing.Size(65, 20);
-            this.txtUnki442.TabIndex = 78;
-            this.txtUnki442.TextChanged += new System.EventHandler(this.txtUnki442_TextChanged);
+            this.I_48_E2.Location = new System.Drawing.Point(372, 154);
+            this.I_48_E2.Name = "I_48_E2";
+            this.I_48_E2.Size = new System.Drawing.Size(65, 20);
+            this.I_48_E2.TabIndex = 78;
+            this.I_48_E2.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
-            // txtValue42
+            // Value4_E2
             // 
-            this.txtValue42.Location = new System.Drawing.Point(328, 205);
-            this.txtValue42.Name = "txtValue42";
-            this.txtValue42.Size = new System.Drawing.Size(80, 20);
-            this.txtValue42.TabIndex = 77;
-            this.txtValue42.TextChanged += new System.EventHandler(this.txtValue42_TextChanged);
+            this.Value4_E2.Location = new System.Drawing.Point(328, 205);
+            this.Value4_E2.Name = "Value4_E2";
+            this.Value4_E2.Size = new System.Drawing.Size(80, 20);
+            this.Value4_E2.TabIndex = 77;
+            this.Value4_E2.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
-            // txtValue32
+            // Value3_E2
             // 
-            this.txtValue32.Location = new System.Drawing.Point(242, 205);
-            this.txtValue32.Name = "txtValue32";
-            this.txtValue32.Size = new System.Drawing.Size(80, 20);
-            this.txtValue32.TabIndex = 76;
-            this.txtValue32.TextChanged += new System.EventHandler(this.txtValue32_TextChanged);
+            this.Value3_E2.Location = new System.Drawing.Point(242, 205);
+            this.Value3_E2.Name = "Value3_E2";
+            this.Value3_E2.Size = new System.Drawing.Size(80, 20);
+            this.Value3_E2.TabIndex = 76;
+            this.Value3_E2.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
-            // txtValue22
+            // Value2_E2
             // 
-            this.txtValue22.Location = new System.Drawing.Point(156, 205);
-            this.txtValue22.Name = "txtValue22";
-            this.txtValue22.Size = new System.Drawing.Size(80, 20);
-            this.txtValue22.TabIndex = 75;
-            this.txtValue22.TextChanged += new System.EventHandler(this.txtValue22_TextChanged);
+            this.Value2_E2.Location = new System.Drawing.Point(156, 205);
+            this.Value2_E2.Name = "Value2_E2";
+            this.Value2_E2.Size = new System.Drawing.Size(80, 20);
+            this.Value2_E2.TabIndex = 75;
+            this.Value2_E2.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label35
             // 
@@ -2648,7 +2648,7 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.cbTarget2);
+            this.groupBox5.Controls.Add(this.Target_E2);
             this.groupBox5.Controls.Add(this.label33);
             this.groupBox5.Location = new System.Drawing.Point(8, 14);
             this.groupBox5.Name = "groupBox5";
@@ -2657,15 +2657,15 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Target";
             // 
-            // cbTarget2
+            // Target_E2
             // 
-            this.cbTarget2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbTarget2.FormattingEnabled = true;
-            this.cbTarget2.Location = new System.Drawing.Point(6, 35);
-            this.cbTarget2.Name = "cbTarget2";
-            this.cbTarget2.Size = new System.Drawing.Size(185, 21);
-            this.cbTarget2.TabIndex = 37;
-            this.cbTarget2.SelectedIndexChanged += new System.EventHandler(this.cbTarget2_SelectedIndexChanged);
+            this.Target_E2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Target_E2.FormattingEnabled = true;
+            this.Target_E2.Location = new System.Drawing.Point(6, 35);
+            this.Target_E2.Name = "Target_E2";
+            this.Target_E2.Size = new System.Drawing.Size(185, 21);
+            this.Target_E2.TabIndex = 37;
+            this.Target_E2.SelectedIndexChanged += new System.EventHandler(this.cbTarget2_SelectedIndexChanged);
             // 
             // label33
             // 
@@ -2676,21 +2676,21 @@
             this.label33.TabIndex = 38;
             this.label33.Text = "Value";
             // 
-            // txtAmount32
+            // Amount3_E2
             // 
-            this.txtAmount32.Location = new System.Drawing.Point(242, 247);
-            this.txtAmount32.Name = "txtAmount32";
-            this.txtAmount32.Size = new System.Drawing.Size(80, 20);
-            this.txtAmount32.TabIndex = 69;
-            this.txtAmount32.TextChanged += new System.EventHandler(this.txtAmount32_TextChanged);
+            this.Amount3_E2.Location = new System.Drawing.Point(242, 247);
+            this.Amount3_E2.Name = "Amount3_E2";
+            this.Amount3_E2.Size = new System.Drawing.Size(80, 20);
+            this.Amount3_E2.TabIndex = 69;
+            this.Amount3_E2.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
-            // txtAmount42
+            // Amount4_E2
             // 
-            this.txtAmount42.Location = new System.Drawing.Point(328, 247);
-            this.txtAmount42.Name = "txtAmount42";
-            this.txtAmount42.Size = new System.Drawing.Size(80, 20);
-            this.txtAmount42.TabIndex = 70;
-            this.txtAmount42.TextChanged += new System.EventHandler(this.txtAmount42_TextChanged);
+            this.Amount4_E2.Location = new System.Drawing.Point(328, 247);
+            this.Amount4_E2.Name = "Amount4_E2";
+            this.Amount4_E2.Size = new System.Drawing.Size(80, 20);
+            this.Amount4_E2.TabIndex = 70;
+            this.Amount4_E2.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // groupBox6
             // 
@@ -2765,8 +2765,8 @@
             // groupBox7
             // 
             this.groupBox7.Controls.Add(this.label36);
-            this.groupBox7.Controls.Add(this.cbVfxType12);
-            this.groupBox7.Controls.Add(this.txtVfxId21);
+            this.groupBox7.Controls.Add(this.Vfx_Type1_E2);
+            this.groupBox7.Controls.Add(this.Vfx_ID2_E1);
             this.groupBox7.Controls.Add(this.label37);
             this.groupBox7.Location = new System.Drawing.Point(211, 14);
             this.groupBox7.Name = "groupBox7";
@@ -2784,24 +2784,24 @@
             this.label36.TabIndex = 45;
             this.label36.Text = "EEPK to Use";
             // 
-            // cbVfxType12
+            // Vfx_Type1_E2
             // 
-            this.cbVfxType12.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbVfxType12.FormattingEnabled = true;
-            this.cbVfxType12.Location = new System.Drawing.Point(17, 35);
-            this.cbVfxType12.Name = "cbVfxType12";
-            this.cbVfxType12.Size = new System.Drawing.Size(100, 21);
-            this.cbVfxType12.TabIndex = 44;
-            this.cbVfxType12.SelectedIndexChanged += new System.EventHandler(this.cbVfxType12_SelectedIndexChanged);
+            this.Vfx_Type1_E2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Vfx_Type1_E2.FormattingEnabled = true;
+            this.Vfx_Type1_E2.Location = new System.Drawing.Point(17, 35);
+            this.Vfx_Type1_E2.Name = "Vfx_Type1_E2";
+            this.Vfx_Type1_E2.Size = new System.Drawing.Size(100, 21);
+            this.Vfx_Type1_E2.TabIndex = 44;
+            this.Vfx_Type1_E2.SelectedIndexChanged += new System.EventHandler(this.cbVfxType12_SelectedIndexChanged);
             // 
-            // txtVfxId21
+            // Vfx_ID2_E1
             // 
-            this.txtVfxId21.Location = new System.Drawing.Point(127, 35);
-            this.txtVfxId21.Name = "txtVfxId21";
-            this.txtVfxId21.Size = new System.Drawing.Size(75, 20);
-            this.txtVfxId21.TabIndex = 42;
-            this.toolTip1.SetToolTip(this.txtVfxId21, "The Aura the Super Soul will use on effect activation.");
-            this.txtVfxId21.TextChanged += new System.EventHandler(this.txtVfxId21_TextChanged);
+            this.Vfx_ID2_E1.Location = new System.Drawing.Point(127, 35);
+            this.Vfx_ID2_E1.Name = "Vfx_ID2_E1";
+            this.Vfx_ID2_E1.Size = new System.Drawing.Size(75, 20);
+            this.Vfx_ID2_E1.TabIndex = 42;
+            this.toolTip1.SetToolTip(this.Vfx_ID2_E1, "The Aura the Super Soul will use on effect activation.");
+            this.Vfx_ID2_E1.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label37
             // 
@@ -2815,8 +2815,8 @@
             // groupBox8
             // 
             this.groupBox8.Controls.Add(this.label38);
-            this.groupBox8.Controls.Add(this.cbVfxType22);
-            this.groupBox8.Controls.Add(this.txtVfxId22);
+            this.groupBox8.Controls.Add(this.Vfx_Type2_E2);
+            this.groupBox8.Controls.Add(this.Vfx_ID2_E2);
             this.groupBox8.Controls.Add(this.label39);
             this.groupBox8.Location = new System.Drawing.Point(435, 14);
             this.groupBox8.Name = "groupBox8";
@@ -2834,23 +2834,23 @@
             this.label38.TabIndex = 46;
             this.label38.Text = "EEPK to Use";
             // 
-            // cbVfxType22
+            // Vfx_Type2_E2
             // 
-            this.cbVfxType22.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbVfxType22.FormattingEnabled = true;
-            this.cbVfxType22.Location = new System.Drawing.Point(17, 35);
-            this.cbVfxType22.Name = "cbVfxType22";
-            this.cbVfxType22.Size = new System.Drawing.Size(100, 21);
-            this.cbVfxType22.TabIndex = 45;
-            this.cbVfxType22.SelectedIndexChanged += new System.EventHandler(this.cbVfxType22_SelectedIndexChanged);
+            this.Vfx_Type2_E2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Vfx_Type2_E2.FormattingEnabled = true;
+            this.Vfx_Type2_E2.Location = new System.Drawing.Point(17, 35);
+            this.Vfx_Type2_E2.Name = "Vfx_Type2_E2";
+            this.Vfx_Type2_E2.Size = new System.Drawing.Size(100, 21);
+            this.Vfx_Type2_E2.TabIndex = 45;
+            this.Vfx_Type2_E2.SelectedIndexChanged += new System.EventHandler(this.cbVfxType22_SelectedIndexChanged);
             // 
-            // txtVfxId22
+            // Vfx_ID2_E2
             // 
-            this.txtVfxId22.Location = new System.Drawing.Point(127, 35);
-            this.txtVfxId22.Name = "txtVfxId22";
-            this.txtVfxId22.Size = new System.Drawing.Size(75, 20);
-            this.txtVfxId22.TabIndex = 42;
-            this.txtVfxId22.TextChanged += new System.EventHandler(this.txtVfxId22_TextChanged);
+            this.Vfx_ID2_E2.Location = new System.Drawing.Point(127, 35);
+            this.Vfx_ID2_E2.Name = "Vfx_ID2_E2";
+            this.Vfx_ID2_E2.Size = new System.Drawing.Size(75, 20);
+            this.Vfx_ID2_E2.TabIndex = 42;
+            this.Vfx_ID2_E2.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label39
             // 
@@ -2870,15 +2870,15 @@
             this.label40.TabIndex = 66;
             this.label40.Text = "Amount 2";
             // 
-            // txtAmount22
+            // Amount2_E2
             // 
-            this.txtAmount22.Location = new System.Drawing.Point(156, 247);
-            this.txtAmount22.Name = "txtAmount22";
-            this.txtAmount22.Size = new System.Drawing.Size(80, 20);
-            this.txtAmount22.TabIndex = 65;
-            this.toolTip1.SetToolTip(this.txtAmount22, "Many different uses.\r\nStatus Ailments seem to use this for strength of the ailmen" +
+            this.Amount2_E2.Location = new System.Drawing.Point(156, 247);
+            this.Amount2_E2.Name = "Amount2_E2";
+            this.Amount2_E2.Size = new System.Drawing.Size(80, 20);
+            this.Amount2_E2.TabIndex = 65;
+            this.toolTip1.SetToolTip(this.Amount2_E2, "Many different uses.\r\nStatus Ailments seem to use this for strength of the ailmen" +
         "t.");
-            this.txtAmount22.TextChanged += new System.EventHandler(this.txtAmount22_TextChanged);
+            this.Amount2_E2.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label41
             // 
@@ -2889,24 +2889,24 @@
             this.label41.TabIndex = 64;
             this.label41.Text = "Amount 1";
             // 
-            // txtAmount12
+            // Amount1_E2
             // 
-            this.txtAmount12.Location = new System.Drawing.Point(70, 247);
-            this.txtAmount12.Name = "txtAmount12";
-            this.txtAmount12.Size = new System.Drawing.Size(80, 20);
-            this.txtAmount12.TabIndex = 63;
-            this.toolTip1.SetToolTip(this.txtAmount12, "Many different uses.\r\nMost common is the strength of the effect.\r\nStatus Ailments" +
+            this.Amount1_E2.Location = new System.Drawing.Point(70, 247);
+            this.Amount1_E2.Name = "Amount1_E2";
+            this.Amount1_E2.Size = new System.Drawing.Size(80, 20);
+            this.Amount1_E2.TabIndex = 63;
+            this.toolTip1.SetToolTip(this.Amount1_E2, "Many different uses.\r\nMost common is the strength of the effect.\r\nStatus Ailments" +
         " seem to use this for duration of the ailment.");
-            this.txtAmount12.TextChanged += new System.EventHandler(this.txtAmount12_TextChanged);
+            this.Amount1_E2.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
-            // txtChance2
+            // Chance_E2
             // 
-            this.txtChance2.Location = new System.Drawing.Point(514, 104);
-            this.txtChance2.Name = "txtChance2";
-            this.txtChance2.Size = new System.Drawing.Size(65, 20);
-            this.txtChance2.TabIndex = 62;
-            this.toolTip1.SetToolTip(this.txtChance2, "Determines the chance of the effect activating when conditions are met.");
-            this.txtChance2.TextChanged += new System.EventHandler(this.txtChance2_TextChanged);
+            this.Chance_E2.Location = new System.Drawing.Point(514, 104);
+            this.Chance_E2.Name = "Chance_E2";
+            this.Chance_E2.Size = new System.Drawing.Size(65, 20);
+            this.Chance_E2.TabIndex = 62;
+            this.toolTip1.SetToolTip(this.Chance_E2, "Determines the chance of the effect activating when conditions are met.");
+            this.Chance_E2.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label42
             // 
@@ -2917,13 +2917,13 @@
             this.label42.TabIndex = 61;
             this.label42.Text = "Chance";
             // 
-            // txtValue12
+            // Value1_E2
             // 
-            this.txtValue12.Location = new System.Drawing.Point(70, 205);
-            this.txtValue12.Name = "txtValue12";
-            this.txtValue12.Size = new System.Drawing.Size(80, 20);
-            this.txtValue12.TabIndex = 60;
-            this.txtValue12.TextChanged += new System.EventHandler(this.txtValue12_TextChanged);
+            this.Value1_E2.Location = new System.Drawing.Point(70, 205);
+            this.Value1_E2.Name = "Value1_E2";
+            this.Value1_E2.Size = new System.Drawing.Size(80, 20);
+            this.Value1_E2.TabIndex = 60;
+            this.Value1_E2.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label43
             // 
@@ -2934,16 +2934,16 @@
             this.label43.TabIndex = 59;
             this.label43.Text = "Value 1";
             // 
-            // txtDuration2
+            // Duration_E2
             // 
-            this.txtDuration2.Location = new System.Drawing.Point(372, 104);
-            this.txtDuration2.Name = "txtDuration2";
-            this.txtDuration2.Size = new System.Drawing.Size(65, 20);
-            this.txtDuration2.TabIndex = 58;
-            this.toolTip1.SetToolTip(this.txtDuration2, "A few different uses.\r\nUsually determines how long the effect will stay active fo" +
+            this.Duration_E2.Location = new System.Drawing.Point(372, 104);
+            this.Duration_E2.Name = "Duration_E2";
+            this.Duration_E2.Size = new System.Drawing.Size(65, 20);
+            this.Duration_E2.TabIndex = 58;
+            this.toolTip1.SetToolTip(this.Duration_E2, "A few different uses.\r\nUsually determines how long the effect will stay active fo" +
         "r.\r\nBattle start activators use this to determaine how long until the effect act" +
         "ivates from match start.");
-            this.txtDuration2.TextChanged += new System.EventHandler(this.txtDuration2_TextChanged);
+            this.Duration_E2.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label44
             // 
@@ -2954,14 +2954,14 @@
             this.label44.TabIndex = 57;
             this.label44.Text = "Duration";
             // 
-            // txtLimit2
+            // Limit_E2
             // 
-            this.txtLimit2.Location = new System.Drawing.Point(443, 104);
-            this.txtLimit2.Name = "txtLimit2";
-            this.txtLimit2.Size = new System.Drawing.Size(65, 20);
-            this.txtLimit2.TabIndex = 56;
-            this.toolTip1.SetToolTip(this.txtLimit2, "Determines how many times you can activate the effect in a singe match.");
-            this.txtLimit2.TextChanged += new System.EventHandler(this.txtLimit2_TextChanged);
+            this.Limit_E2.Location = new System.Drawing.Point(443, 104);
+            this.Limit_E2.Name = "Limit_E2";
+            this.Limit_E2.Size = new System.Drawing.Size(65, 20);
+            this.Limit_E2.TabIndex = 56;
+            this.toolTip1.SetToolTip(this.Limit_E2, "Determines how many times you can activate the effect in a singe match.");
+            this.Limit_E2.TextChanged += new System.EventHandler(this.tbNumberChanged);
             // 
             // label45
             // 
@@ -2972,15 +2972,15 @@
             this.label45.TabIndex = 55;
             this.label45.Text = "Limit";
             // 
-            // cbActive2
+            // Activate_E2
             // 
-            this.cbActive2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbActive2.FormattingEnabled = true;
-            this.cbActive2.Location = new System.Drawing.Point(11, 154);
-            this.cbActive2.Name = "cbActive2";
-            this.cbActive2.Size = new System.Drawing.Size(350, 21);
-            this.cbActive2.TabIndex = 54;
-            this.cbActive2.SelectedIndexChanged += new System.EventHandler(this.cbActive2_SelectedIndexChanged);
+            this.Activate_E2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Activate_E2.FormattingEnabled = true;
+            this.Activate_E2.Location = new System.Drawing.Point(11, 154);
+            this.Activate_E2.Name = "Activate_E2";
+            this.Activate_E2.Size = new System.Drawing.Size(350, 21);
+            this.Activate_E2.TabIndex = 54;
+            this.Activate_E2.SelectedIndexChanged += new System.EventHandler(this.cbActive2_SelectedIndexChanged);
             // 
             // label46
             // 
@@ -2991,15 +2991,15 @@
             this.label46.TabIndex = 53;
             this.label46.Text = "Activation Method";
             // 
-            // cbEffect2
+            // Effect_E2
             // 
-            this.cbEffect2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbEffect2.FormattingEnabled = true;
-            this.cbEffect2.Location = new System.Drawing.Point(11, 104);
-            this.cbEffect2.Name = "cbEffect2";
-            this.cbEffect2.Size = new System.Drawing.Size(350, 21);
-            this.cbEffect2.TabIndex = 52;
-            this.cbEffect2.SelectedIndexChanged += new System.EventHandler(this.cbEffect2_SelectedIndexChanged);
+            this.Effect_E2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Effect_E2.FormattingEnabled = true;
+            this.Effect_E2.Location = new System.Drawing.Point(11, 104);
+            this.Effect_E2.Name = "Effect_E2";
+            this.Effect_E2.Size = new System.Drawing.Size(350, 21);
+            this.Effect_E2.TabIndex = 52;
+            this.Effect_E2.SelectedIndexChanged += new System.EventHandler(this.cbEffect2_SelectedIndexChanged);
             // 
             // label47
             // 
@@ -3010,14 +3010,14 @@
             this.label47.TabIndex = 51;
             this.label47.Text = "Effect to Use";
             // 
-            // txtID
+            // Index
             // 
-            this.txtID.Location = new System.Drawing.Point(468, 0);
-            this.txtID.Name = "txtID";
-            this.txtID.ReadOnly = true;
-            this.txtID.Size = new System.Drawing.Size(48, 20);
-            this.txtID.TabIndex = 16;
-            this.txtID.Visible = false;
+            this.Index.Location = new System.Drawing.Point(468, 0);
+            this.Index.Name = "Index";
+            this.Index.ReadOnly = true;
+            this.Index.Size = new System.Drawing.Size(48, 20);
+            this.Index.TabIndex = 16;
+            this.Index.Visible = false;
             // 
             // srchBox
             // 
@@ -3332,7 +3332,7 @@
             this.Controls.Add(this.label53);
             this.Controls.Add(this.itemList);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.txtID);
+            this.Controls.Add(this.Index);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -3417,18 +3417,18 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.TextBox txtEditValue1;
         private System.Windows.Forms.TextBox txtEditName1;
-        private System.Windows.Forms.TextBox txtValue11;
+        private System.Windows.Forms.TextBox Value1_E1;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox txtDuration1;
+        private System.Windows.Forms.TextBox Duration_E1;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox txtLimit1;
+        private System.Windows.Forms.TextBox Limit_E1;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.ComboBox cbActive1;
+        private System.Windows.Forms.ComboBox Activate_E1;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.ComboBox cbEffect1;
+        private System.Windows.Forms.ComboBox Effect_E1;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox txtChance1;
+        private System.Windows.Forms.TextBox Chance_E1;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeToolStripMenuItem;
@@ -3436,89 +3436,89 @@
         private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem1;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox txtSell;
+        private System.Windows.Forms.TextBox Sell;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txtBuy;
+        private System.Windows.Forms.TextBox Cost;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtNameID;
-        private System.Windows.Forms.ComboBox cbStar;
+        private System.Windows.Forms.TextBox Name_ID;
+        private System.Windows.Forms.ComboBox Rarity;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtID;
-        private System.Windows.Forms.TextBox txtAmount11;
+        private System.Windows.Forms.TextBox Index;
+        private System.Windows.Forms.TextBox Amount1_E1;
         private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.ComboBox cbTarget1;
+        private System.Windows.Forms.ComboBox Target_E1;
         private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.TextBox txtAmount21;
+        private System.Windows.Forms.TextBox Amount2_E1;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader7;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox txtVfxId11;
+        private System.Windows.Forms.TextBox Vfx_ID1_E1;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox txtVfxId12;
+        private System.Windows.Forms.TextBox Vfx_ID1_E2;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label32;
-        private System.Windows.Forms.ComboBox cbVfxType21;
+        private System.Windows.Forms.ComboBox Vfx_Type2_E1;
         private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.ComboBox cbTarget2;
+        private System.Windows.Forms.ComboBox Target_E2;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label label35;
-        private System.Windows.Forms.TextBox txtAmount42;
-        private System.Windows.Forms.TextBox txtAmount32;
+        private System.Windows.Forms.TextBox Amount4_E2;
+        private System.Windows.Forms.TextBox Amount3_E2;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.Label label36;
-        private System.Windows.Forms.ComboBox cbVfxType12;
-        private System.Windows.Forms.TextBox txtVfxId21;
+        private System.Windows.Forms.ComboBox Vfx_Type1_E2;
+        private System.Windows.Forms.TextBox Vfx_ID2_E1;
         private System.Windows.Forms.Label label37;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.Label label38;
-        private System.Windows.Forms.ComboBox cbVfxType22;
-        private System.Windows.Forms.TextBox txtVfxId22;
+        private System.Windows.Forms.ComboBox Vfx_Type2_E2;
+        private System.Windows.Forms.TextBox Vfx_ID2_E2;
         private System.Windows.Forms.Label label39;
         private System.Windows.Forms.Label label40;
-        private System.Windows.Forms.TextBox txtAmount22;
+        private System.Windows.Forms.TextBox Amount2_E2;
         private System.Windows.Forms.Label label41;
-        private System.Windows.Forms.TextBox txtAmount12;
-        private System.Windows.Forms.TextBox txtChance2;
+        private System.Windows.Forms.TextBox Amount1_E2;
+        private System.Windows.Forms.TextBox Chance_E2;
         private System.Windows.Forms.Label label42;
-        private System.Windows.Forms.TextBox txtValue12;
+        private System.Windows.Forms.TextBox Value1_E2;
         private System.Windows.Forms.Label label43;
-        private System.Windows.Forms.TextBox txtDuration2;
+        private System.Windows.Forms.TextBox Duration_E2;
         private System.Windows.Forms.Label label44;
-        private System.Windows.Forms.TextBox txtLimit2;
+        private System.Windows.Forms.TextBox Limit_E2;
         private System.Windows.Forms.Label label45;
-        private System.Windows.Forms.ComboBox cbActive2;
+        private System.Windows.Forms.ComboBox Activate_E2;
         private System.Windows.Forms.Label label46;
-        private System.Windows.Forms.ComboBox cbEffect2;
+        private System.Windows.Forms.ComboBox Effect_E2;
         private System.Windows.Forms.Label label47;
-        private System.Windows.Forms.ComboBox cbKiType;
+        private System.Windows.Forms.ComboBox KiBlast;
         private System.Windows.Forms.GroupBox groupBox11;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.TextBox txtRace;
+        private System.Windows.Forms.TextBox Race;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox txtBuyTP;
+        private System.Windows.Forms.TextBox Cost_TP;
         private System.Windows.Forms.GroupBox groupBox12;
         private System.Windows.Forms.Label label49;
-        private System.Windows.Forms.ComboBox cbLBColor;
+        private System.Windows.Forms.ComboBox LB_Color;
         private System.Windows.Forms.Label label50;
         private System.Windows.Forms.Label label48;
         private System.Windows.Forms.Label label51;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.TextBox txtLBSoulID2;
-        private System.Windows.Forms.TextBox txtLBAura;
-        private System.Windows.Forms.TextBox txtLBSoulID1;
-        private System.Windows.Forms.TextBox txtLBDesc;
-        private System.Windows.Forms.TextBox txtLBSoulID3;
+        private System.Windows.Forms.TextBox LB_Soul_ID2;
+        private System.Windows.Forms.TextBox LB_Aura;
+        private System.Windows.Forms.TextBox LB_Soul_ID1;
+        private System.Windows.Forms.TextBox LB_Desc;
+        private System.Windows.Forms.TextBox LB_Soul_ID3;
         private System.Windows.Forms.GroupBox groupBox13;
         private System.Windows.Forms.GroupBox groupBox10;
         private System.Windows.Forms.TextBox txtEditName2;
@@ -3527,43 +3527,43 @@
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.GroupBox groupBox14;
-        private System.Windows.Forms.ComboBox cbTargetb;
+        private System.Windows.Forms.ComboBox Target_EB;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.GroupBox groupBox15;
         private System.Windows.Forms.Label label54;
         private System.Windows.Forms.Label label55;
-        private System.Windows.Forms.TextBox txtAmount4B;
-        private System.Windows.Forms.TextBox txtAmount3B;
+        private System.Windows.Forms.TextBox Amount4_EB;
+        private System.Windows.Forms.TextBox Amount3_EB;
         private System.Windows.Forms.Label label60;
-        private System.Windows.Forms.TextBox txtAmount2B;
+        private System.Windows.Forms.TextBox Amount2_EB;
         private System.Windows.Forms.Label label61;
-        private System.Windows.Forms.TextBox txtAmount1B;
-        private System.Windows.Forms.TextBox txtChanceb;
+        private System.Windows.Forms.TextBox Amount1_EB;
+        private System.Windows.Forms.TextBox Chance_EB;
         private System.Windows.Forms.Label label62;
-        private System.Windows.Forms.TextBox txtValue1B;
+        private System.Windows.Forms.TextBox Value1_EB;
         private System.Windows.Forms.Label label63;
-        private System.Windows.Forms.TextBox txtDurationB;
+        private System.Windows.Forms.TextBox Duration_EB;
         private System.Windows.Forms.Label label64;
-        private System.Windows.Forms.TextBox txtLimitB;
+        private System.Windows.Forms.TextBox Limit_EB;
         private System.Windows.Forms.Label label65;
-        private System.Windows.Forms.ComboBox cbActiveb;
+        private System.Windows.Forms.ComboBox Activate_EB;
         private System.Windows.Forms.Label label66;
-        private System.Windows.Forms.ComboBox cbEffectb;
+        private System.Windows.Forms.ComboBox Effect_EB;
         private System.Windows.Forms.Label label67;
         private System.Windows.Forms.GroupBox groupBox16;
         private System.Windows.Forms.Label label56;
-        private System.Windows.Forms.ComboBox cbVfxType1B;
-        private System.Windows.Forms.TextBox txtVfxId1B;
+        private System.Windows.Forms.ComboBox Vfx_Type1_EB;
+        private System.Windows.Forms.TextBox Vfx_ID1_EB;
         private System.Windows.Forms.Label label57;
         private System.Windows.Forms.GroupBox groupBox17;
         private System.Windows.Forms.Label label58;
-        private System.Windows.Forms.ComboBox cbVfxType2B;
-        private System.Windows.Forms.TextBox txtVfxId2B;
+        private System.Windows.Forms.ComboBox Vfx_Type2_EB;
+        private System.Windows.Forms.TextBox Vfx_ID2_EB;
         private System.Windows.Forms.Label label59;
         private System.Windows.Forms.Label label31;
-        private System.Windows.Forms.ComboBox cbVfxType11;
-        private System.Windows.Forms.TextBox txtShopTest;
-        private System.Windows.Forms.TextBox txtTPTest;
+        private System.Windows.Forms.ComboBox Vfx_Type1_E1;
+        private System.Windows.Forms.TextBox Dlc_Flag;
+        private System.Windows.Forms.TextBox Prog_Flag;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label label96;
         private System.Windows.Forms.TextBox txtMsgLBDesc;
@@ -3588,66 +3588,66 @@
         private System.Windows.Forms.ToolStripMenuItem setAsDefaultProgramForSSFPToolStripMenuItem;
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.TextBox txtAmount41;
-        private System.Windows.Forms.TextBox txtAmount31;
+        private System.Windows.Forms.TextBox Amount4_E1;
+        private System.Windows.Forms.TextBox Amount3_E1;
         private System.Windows.Forms.Label label79;
-        private System.Windows.Forms.TextBox txtUnki881;
+        private System.Windows.Forms.TextBox I_100_E1;
         private System.Windows.Forms.Label label81;
         private System.Windows.Forms.Label label82;
         private System.Windows.Forms.Label label83;
-        private System.Windows.Forms.TextBox txtAmount61;
-        private System.Windows.Forms.TextBox txtAmount51;
-        private System.Windows.Forms.TextBox txtUnki441;
+        private System.Windows.Forms.TextBox Amount6_E1;
+        private System.Windows.Forms.TextBox Amount5_E1;
+        private System.Windows.Forms.TextBox I_48_E1;
         private System.Windows.Forms.Label label78;
-        private System.Windows.Forms.TextBox txtValue61;
+        private System.Windows.Forms.TextBox Value6_E1;
         private System.Windows.Forms.Label label80;
-        private System.Windows.Forms.TextBox txtValue51;
+        private System.Windows.Forms.TextBox Value5_E1;
         private System.Windows.Forms.Label label84;
         private System.Windows.Forms.Label label85;
         private System.Windows.Forms.Label label86;
-        private System.Windows.Forms.TextBox txtValue41;
-        private System.Windows.Forms.TextBox txtValue31;
-        private System.Windows.Forms.TextBox txtValue21;
+        private System.Windows.Forms.TextBox Value4_E1;
+        private System.Windows.Forms.TextBox Value3_E1;
+        private System.Windows.Forms.TextBox Value2_E1;
         private System.Windows.Forms.Label label99;
         private System.Windows.Forms.Label label98;
         private System.Windows.Forms.Label label69;
-        private System.Windows.Forms.TextBox txtValue6B;
+        private System.Windows.Forms.TextBox Value6_EB;
         private System.Windows.Forms.Label label70;
         private System.Windows.Forms.Label label75;
         private System.Windows.Forms.Label label71;
-        private System.Windows.Forms.TextBox txtUnki88b;
+        private System.Windows.Forms.TextBox I_100_EB;
         private System.Windows.Forms.Label label76;
-        private System.Windows.Forms.TextBox txtValue5B;
+        private System.Windows.Forms.TextBox Value5_EB;
         private System.Windows.Forms.Label label77;
         private System.Windows.Forms.Label label74;
         private System.Windows.Forms.Label label73;
         private System.Windows.Forms.Label label72;
-        private System.Windows.Forms.TextBox txtAmount6B;
-        private System.Windows.Forms.TextBox txtAmount5B;
-        private System.Windows.Forms.TextBox txtUnki44b;
-        private System.Windows.Forms.TextBox txtValue4B;
-        private System.Windows.Forms.TextBox txtValue3B;
-        private System.Windows.Forms.TextBox txtValue2B;
+        private System.Windows.Forms.TextBox Amount6_EB;
+        private System.Windows.Forms.TextBox Amount5_EB;
+        private System.Windows.Forms.TextBox I_48_EB;
+        private System.Windows.Forms.TextBox Value4_EB;
+        private System.Windows.Forms.TextBox Value3_EB;
+        private System.Windows.Forms.TextBox Value2_EB;
         private System.Windows.Forms.Label label100;
         private System.Windows.Forms.Label label101;
         private System.Windows.Forms.Label label87;
-        private System.Windows.Forms.TextBox txtValue62;
+        private System.Windows.Forms.TextBox Value6_E2;
         private System.Windows.Forms.Label label89;
         private System.Windows.Forms.Label label88;
         private System.Windows.Forms.Label label93;
-        private System.Windows.Forms.TextBox txtUnki882;
+        private System.Windows.Forms.TextBox I_100_E2;
         private System.Windows.Forms.Label label94;
-        private System.Windows.Forms.TextBox txtValue52;
+        private System.Windows.Forms.TextBox Value5_E2;
         private System.Windows.Forms.Label label95;
         private System.Windows.Forms.Label label90;
         private System.Windows.Forms.Label label91;
         private System.Windows.Forms.Label label92;
-        private System.Windows.Forms.TextBox txtAmount62;
-        private System.Windows.Forms.TextBox txtAmount52;
-        private System.Windows.Forms.TextBox txtUnki442;
-        private System.Windows.Forms.TextBox txtValue42;
-        private System.Windows.Forms.TextBox txtValue32;
-        private System.Windows.Forms.TextBox txtValue22;
+        private System.Windows.Forms.TextBox Amount6_E2;
+        private System.Windows.Forms.TextBox Amount5_E2;
+        private System.Windows.Forms.TextBox I_48_E2;
+        private System.Windows.Forms.TextBox Value4_E2;
+        private System.Windows.Forms.TextBox Value3_E2;
+        private System.Windows.Forms.TextBox Value2_E2;
         private System.Windows.Forms.Label label68;
         private System.Windows.Forms.Label label102;
         private System.Windows.Forms.ToolStripMenuItem addCurrentSuperSoulToShopToolStripMenuItem;
@@ -3663,35 +3663,35 @@
         private System.Windows.Forms.Label label105;
         private System.Windows.Forms.TextBox txtMsgHowDesc;
         private System.Windows.Forms.Label label106;
-        private System.Windows.Forms.TextBox txtNewI36;
+        private System.Windows.Forms.TextBox I_44;
         private System.Windows.Forms.Label label104;
-        private System.Windows.Forms.TextBox txtNewI10;
+        private System.Windows.Forms.TextBox I_10;
         private System.Windows.Forms.Label label103;
-        private System.Windows.Forms.TextBox txtBuySTP;
+        private System.Windows.Forms.TextBox Cost_STP;
         private System.Windows.Forms.Label label52;
-        private System.Windows.Forms.TextBox txtHowID;
-        private System.Windows.Forms.TextBox txtDescID;
-        private System.Windows.Forms.TextBox txtNewI12b;
+        private System.Windows.Forms.TextBox How_ID;
+        private System.Windows.Forms.TextBox Info_ID;
+        private System.Windows.Forms.TextBox I_12_EB;
         private System.Windows.Forms.Label label107;
         private System.Windows.Forms.Label label108;
-        private System.Windows.Forms.TextBox txtNewI121;
+        private System.Windows.Forms.TextBox I_12_E1;
         private System.Windows.Forms.Label label109;
-        private System.Windows.Forms.TextBox txtNewI122;
+        private System.Windows.Forms.TextBox I_12_E2;
         private System.Windows.Forms.Label label111;
-        private System.Windows.Forms.TextBox txtUnk2;
+        private System.Windows.Forms.TextBox I_18;
         private System.Windows.Forms.Label label110;
-        private System.Windows.Forms.TextBox txtUnk1;
+        private System.Windows.Forms.TextBox I_16;
         private System.Windows.Forms.Label label113;
-        private System.Windows.Forms.TextBox txtUnki52b;
+        private System.Windows.Forms.TextBox I_56_EB;
         private System.Windows.Forms.Label label112;
-        private System.Windows.Forms.TextBox txtUnki48b;
+        private System.Windows.Forms.TextBox I_52_EB;
         private System.Windows.Forms.Label label115;
-        private System.Windows.Forms.TextBox txtUnki521;
+        private System.Windows.Forms.TextBox I_56_E1;
         private System.Windows.Forms.Label label114;
-        private System.Windows.Forms.TextBox txtUnki481;
+        private System.Windows.Forms.TextBox I_52_E1;
         private System.Windows.Forms.Label label117;
-        private System.Windows.Forms.TextBox txtUnki522;
+        private System.Windows.Forms.TextBox I_56_E2;
         private System.Windows.Forms.Label label116;
-        private System.Windows.Forms.TextBox txtUnki482;
+        private System.Windows.Forms.TextBox I_52_E2;
     }
 }

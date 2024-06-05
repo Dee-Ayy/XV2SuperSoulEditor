@@ -7,9 +7,6 @@ using System.IO;
 
 namespace XV2SSEdit
 {
-
-
-
     //UNLEASHED: collection of useful methods that can be used anywhere (without creating an instance of this class)
     public static class StaticMethods
     {
@@ -25,12 +22,14 @@ namespace XV2SSEdit
             }
             return Encoding.ASCII.GetString(str.ToArray());
         }
+        
         public static void writeString(ref BinaryWriter br, string str)
         {
             byte[] strbytes = Encoding.ASCII.GetBytes(str);
             br.Write(strbytes);
             br.Write((byte)0x00);
         }
+        
         public static void writeNull(ref BinaryWriter br, int count)
         {
 
@@ -41,6 +40,7 @@ namespace XV2SSEdit
                 br.Write(b);
             }
         }
+        
         public static byte[] getStringBytes(string str)
         {
             List<byte> br = new List<byte>();
@@ -48,6 +48,7 @@ namespace XV2SSEdit
             br.Add(0x00);
             return br.ToArray();
         }
+        
         public static int fixPadding(ref BinaryWriter br, int multiple)
         {
             int address = (int)br.BaseStream.Position;
@@ -86,6 +87,7 @@ namespace XV2SSEdit
             }
             return list;
         }
+    
     }
 }
 
