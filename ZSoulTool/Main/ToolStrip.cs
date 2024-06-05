@@ -101,7 +101,7 @@ namespace XV2SSEdit
             Cost.Text = "0";
             Sell.Text = "0";
             Cost_TP.Text = "0";
-            Rarity.SelectedIndex = 4;
+            Rarity.SelectedIndex = 5;
             LB_Aura.Text = "-1";
             LB_Desc.Text = "0";
             LB_Soul_ID1.Text = "65535";
@@ -216,7 +216,7 @@ namespace XV2SSEdit
             Cost.Text = "10";
             Sell.Text = "100";
             Cost_TP.Text = "1";
-            Rarity.SelectedIndex = 4;
+            Rarity.SelectedIndex = 1;
         }
 
         private void removeCurrentSuperSoulFromShopToolStripMenuItem_Click(object sender, EventArgs e)
@@ -227,7 +227,7 @@ namespace XV2SSEdit
             Cost.Text = "0";
             Sell.Text = "0";
             Cost_TP.Text = "0";
-            Rarity.SelectedIndex = 4;
+            Rarity.SelectedIndex = 5;
         }
 
         //TODO Update with new values

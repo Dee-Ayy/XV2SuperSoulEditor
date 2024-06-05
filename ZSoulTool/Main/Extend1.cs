@@ -23,7 +23,7 @@ namespace XV2SSEdit
 
     struct LBColor
     {
-        public int ID;
+        public short ID;
         public string Description;
     }
 
@@ -132,17 +132,17 @@ namespace XV2SSEdit
             colors = new LBColor[limitcolors.Count];
             for (int i = 0; i < limitcolors.Count; i++)
             {
-                colors[i].ID = int.Parse(limitcolors[i].Attributes["id"].Value);
+                colors[i].ID = short.Parse(limitcolors[i].Attributes["id"].Value);
                 colors[i].Description = limitcolors[i].InnerText;
             }
         }
 
-        public int FindIndex(int ID)
+        public short FindIndex(int ID)
         {
             for (int i = 0; i < colors.Length; i++)
             {
                 if (colors[i].ID == ID)
-                    return i;
+                    return (short)i;
             }
             return 0;
         }

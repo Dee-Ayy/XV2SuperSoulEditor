@@ -62,12 +62,20 @@ namespace XV2SSEdit
         private List<GenericMsgFile> genericMsgListNameBurstBTLHUD = new List<GenericMsgFile>();
         private List<GenericMsgFile> genericMsgListNameBurstPause = new List<GenericMsgFile>();
 
+        private Dictionary<string, List<GenericMsgFile>> fullMsgListNames = new Dictionary<string, List<GenericMsgFile>>
+        {
+
+
+
+        };
+
         //UNLEASHED: helper vars for searching
         private int lastFoundIndex = 0;
         private string lastInputString = "";
         private int currentSuperSoulIndex = -1; //UNLEASHED: helper var for deleting
         private bool hasSavedChanges = true;    //UNLEASHED: remind user to save changes.
         private byte[] clipboardData = null;    //UNLEASHED: copy and paste
+        private bool startup = true;
 
         #endregion
 
@@ -89,6 +97,8 @@ namespace XV2SSEdit
         private void Form1_Load(object sender, EventArgs e)
         {
             settings = ToolSettings.Load();
+            msgLanguageSelect.SelectedIndex = (int)settings.GameLanguage;
+
             InitDirectory();
             InitFileIO();
             LoadFiles();
@@ -96,6 +106,8 @@ namespace XV2SSEdit
             string[] args = Environment.GetCommandLineArgs();
             if (args.Length > 1)
                 installSSPFromArgs(args);
+            
+            startup = false;
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -111,6 +123,7 @@ namespace XV2SSEdit
                 Application.Exit();
         }
 
+
         #region Details Edit
 
         //Basic number values
@@ -118,11 +131,8 @@ namespace XV2SSEdit
         {
             TextBox tb = (TextBox)sender;
             Tuple<string, int> type_off;
-            float numFloat;
-            short numShort;
-            int numInt;
-
             int effectOffset = 0;
+
             if (tb.Name.EndsWith("_EB"))
                 effectOffset = Effect_Start["_EB"];
             else if (tb.Name.EndsWith("_E1"))
@@ -138,19 +148,23 @@ namespace XV2SSEdit
                 type_off = EffectOffsets[tb.Name.Remove(tb.Name.Length - 3)];
 
             //change value
+            effectOffset += type_off.Item2;
             switch (type_off.Item1)
             {
                 case "Int16":
+                    short numShort;
                     if (short.TryParse(tb.Text, out numShort))
-                        Array.Copy(BitConverter.GetBytes(numShort), 0, Items[itemList.SelectedIndex].Data, type_off.Item2 + effectOffset, 2);
+                        Array.Copy(BitConverter.GetBytes(numShort), 0, Items[itemList.SelectedIndex].Data, effectOffset, 2);
                     break;
                 case "Int32":
+                    int numInt;
                     if (int.TryParse(tb.Text, out numInt))
-                        Array.Copy(BitConverter.GetBytes(numInt), 0, Items[itemList.SelectedIndex].Data, type_off.Item2 + effectOffset, 4);
+                        Array.Copy(BitConverter.GetBytes(numInt), 0, Items[itemList.SelectedIndex].Data, effectOffset, 4);
                     break;
                 case "Float":
+                    float numFloat;
                     if (float.TryParse(tb.Text, out numFloat))
-                        Array.Copy(BitConverter.GetBytes(numFloat), 0, Items[itemList.SelectedIndex].Data, type_off.Item2 + effectOffset, 4);
+                        Array.Copy(BitConverter.GetBytes(numFloat), 0, Items[itemList.SelectedIndex].Data, effectOffset, 4);
                     break;
                 default:
                     Console.WriteLine("Unknown type???");
@@ -158,21 +172,104 @@ namespace XV2SSEdit
             }
         }
 
-        //Soul Details
-        private void cbStar_SelectedIndexChanged(object sender, EventArgs e)
+        //comboboxes
+        private void cbIndexChanged(object sender, EventArgs e)
         {
-            Array.Copy(BitConverter.GetBytes((short)(Rarity.SelectedIndex + 1)), 0, Items[itemList.SelectedIndex].Data, 2, 2);
-        }
+            ComboBox cb = (ComboBox)sender;
+            Tuple<string, int> type_off;
 
-        private void cbKiType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int ID = kitList.kitypes[KiBlast.SelectedIndex].ID;
-            byte[] pass;
-            pass = BitConverter.GetBytes(ID);
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 48, 4);
+            //correct offset if from details
+            int offset = 0;
+            if (cb.Name.EndsWith("_EB"))
+                offset = Effect_Start["_EB"];
+            else if (cb.Name.EndsWith("_E1"))
+                offset = Effect_Start["_E1"];
+            else if (cb.Name.EndsWith("_E2"))
+                offset = Effect_Start["_E2"];
+
+            //type and offset for soul details
+            if (offset == 0)
+                type_off = IdbOffsets[cb.Name];
+            //type and offset for effect details
+            else
+                type_off = EffectOffsets[cb.Name.Remove(cb.Name.Length - 3)];
+
+            int numInt;
+            int size = 0;
+
+            //Soul Details
+            if(offset == 0)
+            {
+                if (cb.Name == "Rarity")
+                {
+                    numInt = (short)Rarity.SelectedIndex;
+                    size = 2;
+                }
+                else if (cb.Name == "KiBlast")
+                {
+                    numInt = kitList.kitypes[cb.SelectedIndex].ID;
+                    size = 4;
+                }
+                else if (cb.Name == "LB_Color")
+                {
+                    numInt = (short)lbcList.colors[cb.SelectedIndex].ID;
+                    size = 2;
+                }
+                else
+                {
+                    Console.WriteLine("Unknown combobox name???");
+                    return;
+                }
+            }
+            //Effect 0/1/2 Details
+            else
+            {
+                size = 4;
+                if (cb.Name.StartsWith("Effect"))
+                {
+                    numInt = effList.effects[cb.SelectedIndex].ID;
+                }
+                else if (cb.Name.StartsWith("Activate"))
+                {
+                    numInt = actList.activators[cb.SelectedIndex].ID;
+                }
+                else if (cb.Name.StartsWith("Vfx_Type"))
+                {
+                    numInt = vfxList.vfxtypes[cb.SelectedIndex].ID;
+                }
+                else if (cb.Name.StartsWith("Target"))
+                {
+                    numInt = trgList.targets[cb.SelectedIndex].ID;
+                }
+                else
+                {
+                    Console.WriteLine("Unknown combobox name???");
+                    return;
+                }
+            }
+
+            //extra failsafe i guess.
+            //should be impossible for size to be 0 at this point but whatever
+            if (size <= 0)
+            {
+                Console.WriteLine("Size was still 0?????");
+                return;
+            }
+
+            //get data ready
+            offset += type_off.Item2;
+            byte[] bytes = BitConverter.GetBytes(numInt);
+
+            //write
+            Array.Copy(bytes, 0, Items[itemList.SelectedIndex].Data, offset, size);
         }
 
         // Name, Description, Lookup MSG
+        private void msgChangeLanguage(object sender, EventArgs e)
+        {
+
+        }
+
         public int FindmsgIndex(ref msg msgdata, int id)
         {
             for (int i = 0; i < msgdata.data.Length; i++)
@@ -282,7 +379,6 @@ namespace XV2SSEdit
             }
         }
 
-
         private void updateNameMsgID(object sender, EventArgs e)
         {
             short ID;
@@ -332,7 +428,6 @@ namespace XV2SSEdit
         {
             HowTo.data[Items[itemList.SelectedIndex].msgIndexHow].Lines[0] = txtMsgHowDesc.Text;
         }
-
 
         // Limit Burst data
         private void LB_QuickSelect(object sender, EventArgs e)
@@ -608,14 +703,6 @@ namespace XV2SSEdit
             }
         }
 
-        private void updateBurstColor(object sender, EventArgs e)
-        {
-            int ID = lbcList.colors[LB_Color.SelectedIndex].ID;
-            byte[] pass;
-            pass = BitConverter.GetBytes(ID);
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 54, 2);
-        }
-
         private void updateBurstMsgID(object sender, EventArgs e)
         {
             short ID;
@@ -842,158 +929,6 @@ namespace XV2SSEdit
             }
         }
 
-
-        // Basic Details
-        private void cbEffectb_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int ID = effList.effects[Effect_EB.SelectedIndex].ID;
-            byte[] pass;
-
-            if (ID == -1)
-                pass = new byte[] { 0xFF, 0xFF, 0xFF, 0xFF };
-            else
-                pass = BitConverter.GetBytes(ID);
-
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 64, 4);
-        }
-
-        private void cbActiveb_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int ID = actList.activators[Activate_EB.SelectedIndex].ID;
-            byte[] pass;
-
-            if (ID == -1)
-                pass = new byte[] { 0xFF, 0xFF, 0xFF, 0xFF };
-            else
-                pass = BitConverter.GetBytes(ID);
-
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 68, 4);
-        }
-
-        private void cbVfxType2B_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int ID = vfxList.vfxtypes[Vfx_Type2_EB.SelectedIndex].ID;
-            byte[] pass;
-            pass = BitConverter.GetBytes(ID);
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 148, 4);
-        }
-
-        private void cbVfxType1B_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int ID = vfxList.vfxtypes[Vfx_Type1_EB.SelectedIndex].ID;
-            byte[] pass;
-            pass = BitConverter.GetBytes(ID);
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 156, 4);
-        }
-
-        private void cbTargetb_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int ID = trgList.targets[Target_EB.SelectedIndex].ID;
-            byte[] pass;
-            pass = BitConverter.GetBytes(ID);
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 168, 4);
-        }
-
-        //Effect Details 1
-        private void cbEffect1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int ID = effList.effects[Effect_E1.SelectedIndex].ID;
-            byte[] pass;
-
-            if (ID == -1)
-                pass = new byte[] { 0xFF, 0xFF, 0xFF, 0xFF };
-            else
-                pass = BitConverter.GetBytes(ID);
-
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 300, 4);
-        }
-
-        private void cbActive1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int ID = actList.activators[Activate_E1.SelectedIndex].ID;
-            byte[] pass;
-
-            if (ID == -1)
-                pass = new byte[] { 0xFF, 0xFF, 0xFF, 0xFF };
-            else
-                pass = BitConverter.GetBytes(ID);
-
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 304, 4);
-        }
-
-        private void cbVfxType21_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int ID = vfxList.vfxtypes[Vfx_Type2_E1.SelectedIndex].ID;
-            byte[] pass;
-            pass = BitConverter.GetBytes(ID);
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 384, 4);
-        }
-
-        private void cbVfxType11_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int ID = vfxList.vfxtypes[Vfx_Type1_E1.SelectedIndex].ID;
-            byte[] pass;
-            pass = BitConverter.GetBytes(ID);
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 392, 4);
-        }
-
-        private void cbTarget1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int ID = trgList.targets[Target_E1.SelectedIndex].ID;
-            byte[] pass;
-            pass = BitConverter.GetBytes(ID);
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 404, 4);
-        }
-
-        //Effect Details 2
-        private void cbEffect2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int ID = effList.effects[Effect_E2.SelectedIndex].ID;
-            byte[] pass;
-            if (ID == -1)
-                pass = new byte[] { 0xFF, 0xFF, 0xFF, 0xFF };
-            else
-                pass = BitConverter.GetBytes(ID);
-
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 536, 4);
-        }
-
-        private void cbActive2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int ID = actList.activators[Activate_E2.SelectedIndex].ID;
-            byte[] pass;
-            if (ID == -1)
-                pass = new byte[] { 0xFF, 0xFF, 0xFF, 0xFF };
-            else
-                pass = BitConverter.GetBytes(ID);
-
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 540, 4);
-        }
-
-        private void cbVfxType22_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int ID = vfxList.vfxtypes[Vfx_Type2_E2.SelectedIndex].ID;
-            byte[] pass;
-            pass = BitConverter.GetBytes(ID);
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 620, 4);
-        }
-
-        private void cbVfxType12_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int ID = vfxList.vfxtypes[Vfx_Type1_E2.SelectedIndex].ID;
-            byte[] pass;
-            pass = BitConverter.GetBytes(ID);
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 628, 4);
-        }
-
-        private void cbTarget2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int ID = trgList.targets[Target_E2.SelectedIndex].ID;
-            byte[] pass;
-            pass = BitConverter.GetBytes(ID);
-            Array.Copy(pass, 0, Items[itemList.SelectedIndex].Data, 640, 4);
-        }
-
         //ListBoxes
         private void lstvBasic_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1136,7 +1071,7 @@ namespace XV2SSEdit
                 //combo boxes are unique (for now)
                 if (name == "Rarity")
                 {
-                    Rarity.SelectedIndex = BitConverter.ToUInt16(Items[itemList.SelectedIndex].Data, type_off.Item2) - 1;
+                    Rarity.SelectedIndex = BitConverter.ToUInt16(Items[itemList.SelectedIndex].Data, type_off.Item2);
                     continue;
                 }
                 if (name == "KiBlast")
@@ -1888,6 +1823,7 @@ namespace XV2SSEdit
 
             return new string(chrArray);
         }
+
 
     }
 }
