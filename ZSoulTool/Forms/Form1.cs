@@ -6,8 +6,6 @@ using System.IO;
 using System.Xml;
 using Msgfile;
 using XV2_Serializer.Resource;
-using System.Security.Cryptography;
-using System.Drawing;
 
 namespace XV2SSEdit
 {
@@ -23,6 +21,7 @@ namespace XV2SSEdit
         private readonly Dictionary<string, Tuple<string, int>> EffectOffsets = IDB.EffectOffsets;
         private readonly string[] StatNames = IDB.StatNames;
 
+        public idbItem[] Items;
         EffectList effList;
         ActivatorList actList;
         TargetList trgList;
@@ -30,12 +29,39 @@ namespace XV2SSEdit
         KitypeList kitList;
         VFXList vfxList;
         string FileName;
+
+        //OLD
         //string FileNameMsgN;
         //string FileNameMsgD;
         //string FileNameMsgH;
         //string FileNameMsgB;
         //string FileNameMsgB_BTLHUD;
         //string FileNameMsgB_Pause;
+        //
+        //private struct GenericMsgFile
+        //{
+        //    public string msgPath_m;
+        //    public msg msgFile_m;
+        //    public GenericMsgFile(string msgPath, msg msgFile)
+        //    {
+        //        msgPath_m = msgPath;
+        //        msgFile_m = msgFile;
+        //    }
+        //}
+        //
+        //private List<GenericMsgFile> genericMsgListNames = new List<GenericMsgFile>();
+        //private List<GenericMsgFile> genericMsgListDescs = new List<GenericMsgFile>();
+        //private List<GenericMsgFile> genericMsgListHowTo = new List<GenericMsgFile>();
+        //private List<GenericMsgFile> genericMsgListBurst = new List<GenericMsgFile>();
+        //private List<GenericMsgFile> genericMsgListNameBurstBTLHUD = new List<GenericMsgFile>();
+        //private List<GenericMsgFile> genericMsgListNameBurstPause = new List<GenericMsgFile>();
+
+        private msg Names;
+        private msg Descs;
+        private msg HowTo;
+        private msg Burst;
+        private msg BurstBTLHUD;
+        private msg BurstPause;
 
         //dict full of all msg paths used for each language
         private Dictionary<string, string> fullFileNameMsgN = new Dictionary<string, string>();
@@ -45,34 +71,6 @@ namespace XV2SSEdit
         private Dictionary<string, string> fullFileNameMsgB_BTLHUD = new Dictionary<string, string>();
         private Dictionary<string, string> fullFileNameMsgB_Pause = new Dictionary<string, string>();
 
-
-
-        public idbItem[] Items;
-        
-        private struct GenericMsgFile
-        {
-            public string msgPath_m;
-            public msg msgFile_m;
-            public GenericMsgFile(string msgPath, msg msgFile)
-            {
-                msgPath_m = msgPath;
-                msgFile_m = msgFile;
-            }
-        }
-        
-        private msg Names;
-        private msg Descs;
-        private msg HowTo;
-        private msg Burst;
-        private msg BurstBTLHUD;
-        private msg BurstPause;
-
-        //private List<GenericMsgFile> genericMsgListNames = new List<GenericMsgFile>();
-        //private List<GenericMsgFile> genericMsgListDescs = new List<GenericMsgFile>();
-        //private List<GenericMsgFile> genericMsgListHowTo = new List<GenericMsgFile>();
-        //private List<GenericMsgFile> genericMsgListBurst = new List<GenericMsgFile>();
-        //private List<GenericMsgFile> genericMsgListNameBurstBTLHUD = new List<GenericMsgFile>();
-        //private List<GenericMsgFile> genericMsgListNameBurstPause = new List<GenericMsgFile>();
 
         //dict full of all msg text used for each language
         private Dictionary<string, msg> fullMsgListNames = new Dictionary<string, msg>();
@@ -97,6 +95,7 @@ namespace XV2SSEdit
         {
             InitializeComponent();
 
+            //setup stat list boxes for effect tabs
             foreach (string str in StatNames)
             {
                 var Item = new ListViewItem(new[] { str, "0.0" });
@@ -111,15 +110,18 @@ namespace XV2SSEdit
         private void Form1_Load(object sender, EventArgs e)
         {
             settings = ToolSettings.Load();
-            msgLanguageSelect.SelectedIndex = (int)settings.GameLanguage;
+
+            //set language to default selection on settings window
+            msgLanguageSelect.SelectedIndex = (int)settings.GameLanguage; 
 
             InitDirectory();
             InitFileIO();
             LoadFiles();
 
-            string[] args = Environment.GetCommandLineArgs();
-            if (args.Length > 1)
-                installSSPFromArgs(args);
+            //TODO: do we still want to install by args?
+            //string[] args = Environment.GetCommandLineArgs();
+            //if (args.Length > 1)
+            //    installSSPFromArgs(args);
             
             startup = false;
         }
@@ -281,11 +283,14 @@ namespace XV2SSEdit
         // Name, Description, Lookup MSG
         private void msgChangeLanguage(object sender, EventArgs e)
         {
+            //get current language from language combobox
             currentLanguge = ToolSettings.LanguageSuffix[msgLanguageSelect.SelectedIndex];
 
+            //return if stating up editor (nothing to edit yet)
             if (startup)
                 return;
 
+            //set mgs data for current language
             Names = fullMsgListNames[currentLanguge];
             Descs = fullMsgListDescs[currentLanguge];
             HowTo = fullMsgListHowTo[currentLanguge];
@@ -293,10 +298,10 @@ namespace XV2SSEdit
             BurstBTLHUD = fullMsgListBurstBTLHUD[currentLanguge];
             BurstPause = fullMsgListBurstPause[currentLanguge];
 
+            //update each text field
             txtMsgName_TextChanged(null, null);
             txtMsgDesc_TextChanged(null, null);
             txtMsgHow_TextChanged(null, null);
-
             txtMsgLBDesc_TextChanged(null, null);
             txtMsgLBDescBTL_TextChanged(null, null);
         }
@@ -311,7 +316,7 @@ namespace XV2SSEdit
             return 0;
         }
 
-        //TODO: Update to support ynamic language chainging
+        //TODO: Update to support dynamic language chainging
         //UNLEASHED: function to write empty Msg text for generic Msg files (for syncing purposes)
         void writeToMsgText(int MsgType, string Msg, int OLT_ID = -1)
         {
@@ -473,275 +478,20 @@ namespace XV2SSEdit
         // Limit Burst data
         private void LB_QuickSelect(object sender, EventArgs e)
         {
-            if (debugLBSelect.SelectedIndex == 0)
-            {
-                LB_Aura.Text = "250";
-                LB_Desc.Text = "0";
-                LB_Soul_ID1.Text = "500";
-                LB_Soul_ID2.Text = "501";
-                LB_Soul_ID3.Text = "502";
-                LB_Color.SelectedIndex = 1;
-            }
+            int index = debugLBSelect.SelectedIndex;
 
-            if (debugLBSelect.SelectedIndex == 1)
-            {
-                LB_Aura.Text = "251";
-                LB_Desc.Text = "1";
-                LB_Soul_ID1.Text = "520";
-                LB_Soul_ID2.Text = "521";
-                LB_Soul_ID3.Text = "522";
-                LB_Color.SelectedIndex = 2;
-            }
+            //failsafe i guess. shouldn't happen but can never be too safe i suppose
+            if (index > IDB.LimitBurstList.Count)
+                index = IDB.LimitBurstList.Count;
 
-            if (debugLBSelect.SelectedIndex == 2)
-            {
-                LB_Aura.Text = "252";
-                LB_Desc.Text = "2";
-                LB_Soul_ID1.Text = "540";
-                LB_Soul_ID2.Text = "541";
-                LB_Soul_ID3.Text = "542";
-                LB_Color.SelectedIndex = 3;
-            }
-
-            if (debugLBSelect.SelectedIndex == 3)
-            {
-                LB_Aura.Text = "253";
-                LB_Desc.Text = "3";
-                LB_Soul_ID1.Text = "560";
-                LB_Soul_ID2.Text = "561";
-                LB_Soul_ID3.Text = "562";
-                LB_Color.SelectedIndex = 4;
-            }
-
-            if (debugLBSelect.SelectedIndex == 4)
-            {
-                LB_Aura.Text = "253";
-                LB_Desc.Text = "4";
-                LB_Soul_ID1.Text = "580";
-                LB_Soul_ID2.Text = "581";
-                LB_Soul_ID3.Text = "582";
-                LB_Color.SelectedIndex = 4;
-            }
-
-            if (debugLBSelect.SelectedIndex == 5)
-            {
-                LB_Aura.Text = "253";
-                LB_Desc.Text = "5";
-                LB_Soul_ID1.Text = "600";
-                LB_Soul_ID2.Text = "601";
-                LB_Soul_ID3.Text = "602";
-                LB_Color.SelectedIndex = 4;
-            }
-
-            if (debugLBSelect.SelectedIndex == 6)
-            {
-                LB_Aura.Text = "253";
-                LB_Desc.Text = "6";
-                LB_Soul_ID1.Text = "605";
-                LB_Soul_ID2.Text = "606";
-                LB_Soul_ID3.Text = "607";
-                LB_Color.SelectedIndex = 4;
-            }
-
-            if (debugLBSelect.SelectedIndex == 7)
-            {
-                LB_Aura.Text = "253";
-                LB_Desc.Text = "7";
-                LB_Soul_ID1.Text = "610";
-                LB_Soul_ID2.Text = "611";
-                LB_Soul_ID3.Text = "612";
-                LB_Color.SelectedIndex = 4;
-            }
-
-            if (debugLBSelect.SelectedIndex == 8)
-            {
-                LB_Aura.Text = "253";
-                LB_Desc.Text = "8";
-                LB_Soul_ID1.Text = "615";
-                LB_Soul_ID2.Text = "616";
-                LB_Soul_ID3.Text = "617";
-                LB_Color.SelectedIndex = 4;
-            }
-
-            if (debugLBSelect.SelectedIndex == 9)
-            {
-                LB_Aura.Text = "253";
-                LB_Desc.Text = "9";
-                LB_Soul_ID1.Text = "620";
-                LB_Soul_ID2.Text = "621";
-                LB_Soul_ID3.Text = "622";
-                LB_Color.SelectedIndex = 4;
-            }
-
-            if (debugLBSelect.SelectedIndex == 10)
-            {
-                LB_Aura.Text = "253";
-                LB_Desc.Text = "10";
-                LB_Soul_ID1.Text = "625";
-                LB_Soul_ID2.Text = "626";
-                LB_Soul_ID3.Text = "627";
-                LB_Color.SelectedIndex = 4;
-            }
-
-            if (debugLBSelect.SelectedIndex == 11)
-            {
-                LB_Aura.Text = "253";
-                LB_Desc.Text = "11";
-                LB_Soul_ID1.Text = "630";
-                LB_Soul_ID2.Text = "631";
-                LB_Soul_ID3.Text = "632";
-                LB_Color.SelectedIndex = 4;
-            }
-
-            if (debugLBSelect.SelectedIndex == 12)
-            {
-                LB_Aura.Text = "253";
-                LB_Desc.Text = "12";
-                LB_Soul_ID1.Text = "635";
-                LB_Soul_ID2.Text = "636";
-                LB_Soul_ID3.Text = "637";
-                LB_Color.SelectedIndex = 4;
-            }
-
-            if (debugLBSelect.SelectedIndex == 13)
-            {
-                LB_Aura.Text = "253";
-                LB_Desc.Text = "13";
-                LB_Soul_ID1.Text = "640";
-                LB_Soul_ID2.Text = "641";
-                LB_Soul_ID3.Text = "642";
-                LB_Color.SelectedIndex = 4;
-            }
-
-            if (debugLBSelect.SelectedIndex == 14)
-            {
-                LB_Aura.Text = "253";
-                LB_Desc.Text = "14";
-                LB_Soul_ID1.Text = "645";
-                LB_Soul_ID2.Text = "646";
-                LB_Soul_ID3.Text = "647";
-                LB_Color.SelectedIndex = 4;
-            }
-
-            if (debugLBSelect.SelectedIndex == 15)
-            {
-                LB_Aura.Text = "253";
-                LB_Desc.Text = "15";
-                LB_Soul_ID1.Text = "648";
-                LB_Soul_ID2.Text = "649";
-                LB_Soul_ID3.Text = "650";
-                LB_Color.SelectedIndex = 4;
-            }
-
-            if (debugLBSelect.SelectedIndex == 16)
-            {
-                LB_Aura.Text = "253";
-                LB_Desc.Text = "16";
-                LB_Soul_ID1.Text = "651";
-                LB_Soul_ID2.Text = "652";
-                LB_Soul_ID3.Text = "653";
-                LB_Color.SelectedIndex = 4;
-            }
-
-            if (debugLBSelect.SelectedIndex == 17)
-            {
-                LB_Aura.Text = "253";
-                LB_Desc.Text = "17";
-                LB_Soul_ID1.Text = "654";
-                LB_Soul_ID2.Text = "655";
-                LB_Soul_ID3.Text = "656";
-                LB_Color.SelectedIndex = 4;
-            }
-
-            if (debugLBSelect.SelectedIndex == 18)
-            {
-                LB_Aura.Text = "253";
-                LB_Desc.Text = "18";
-                LB_Soul_ID1.Text = "657";
-                LB_Soul_ID2.Text = "658";
-                LB_Soul_ID3.Text = "659";
-                LB_Color.SelectedIndex = 4;
-            }
-
-            if (debugLBSelect.SelectedIndex == 19)
-            {
-                LB_Aura.Text = "253";
-                LB_Desc.Text = "19";
-                LB_Soul_ID1.Text = "660";
-                LB_Soul_ID2.Text = "661";
-                LB_Soul_ID3.Text = "662";
-                LB_Color.SelectedIndex = 4;
-            }
-
-            if (debugLBSelect.SelectedIndex == 20)
-            {
-                LB_Aura.Text = "253";
-                LB_Desc.Text = "20";
-                LB_Soul_ID1.Text = "663";
-                LB_Soul_ID2.Text = "664";
-                LB_Soul_ID3.Text = "665";
-                LB_Color.SelectedIndex = 4;
-            }
-
-            if (debugLBSelect.SelectedIndex == 21)
-            {
-                LB_Aura.Text = "253";
-                LB_Desc.Text = "21";
-                LB_Soul_ID1.Text = "666";
-                LB_Soul_ID2.Text = "667";
-                LB_Soul_ID3.Text = "668";
-                LB_Color.SelectedIndex = 4;
-            }
-
-            if (debugLBSelect.SelectedIndex == 22)
-            {
-                LB_Aura.Text = "253";
-                LB_Desc.Text = "22";
-                LB_Soul_ID1.Text = "669";
-                LB_Soul_ID2.Text = "670";
-                LB_Soul_ID3.Text = "671";
-                LB_Color.SelectedIndex = 4;
-            }
-
-            if (debugLBSelect.SelectedIndex == 23)
-            {
-                LB_Aura.Text = "253";
-                LB_Desc.Text = "23";
-                LB_Soul_ID1.Text = "672";
-                LB_Soul_ID2.Text = "673";
-                LB_Soul_ID3.Text = "674";
-                LB_Color.SelectedIndex = 4;
-            }
-
-            if (debugLBSelect.SelectedIndex == 24)
-            {
-                LB_Aura.Text = "253";
-                LB_Desc.Text = "24";
-                LB_Soul_ID1.Text = "675";
-                LB_Soul_ID2.Text = "676";
-                LB_Soul_ID3.Text = "677";
-                LB_Color.SelectedIndex = 4;
-            }
-
-            if (debugLBSelect.SelectedIndex == 25)
-            {
-                LB_Aura.Text = "253";
-                LB_Desc.Text = "25";
-                LB_Soul_ID1.Text = "678";
-                LB_Soul_ID2.Text = "679";
-                LB_Soul_ID3.Text = "680";
-                LB_Color.SelectedIndex = 4;
-            }
-
-            if (debugLBSelect.SelectedIndex == 26)
-            {
-                LB_Aura.Text = "-1";
-                LB_Desc.Text = "0";
-                LB_Soul_ID1.Text = "65535";
-                LB_Soul_ID2.Text = "65535";
-                LB_Soul_ID3.Text = "65535";
-                LB_Color.SelectedIndex = 0;
-            }
+            //set data for limit burst
+            var LBdata = IDB.LimitBurstList[index];
+            LB_Aura.Text = LBdata.Item1;
+            LB_Desc.Text = LBdata.Item2;
+            LB_Soul_ID1.Text = LBdata.Item3;
+            LB_Soul_ID2.Text = LBdata.Item4;
+            LB_Soul_ID3.Text = LBdata.Item5;
+            LB_Color.SelectedIndex = LBdata.Item6;
         }
 
         private void updateBurstMsgID(object sender, EventArgs e)
@@ -1571,6 +1321,7 @@ namespace XV2SSEdit
             fs.Write(Finalize.ToArray(), 0, Finalize.Count);
             fs.Close();
 
+            //OLD: REMOVE LATER
             //msgStream.Save(Names, FileNameMsgN);
             //msgStream.Save(Descs, FileNameMsgD);
             //msgStream.Save(Descs, FileNameMsgH);
@@ -1588,6 +1339,17 @@ namespace XV2SSEdit
             //    msgStream.Save(genericMsgListNameBurstBTLHUD[i].msgFile_m, genericMsgListNameBurstBTLHUD[i].msgPath_m);
             //    msgStream.Save(genericMsgListNameBurstPause[i].msgFile_m, genericMsgListNameBurstPause[i].msgPath_m);
             //}
+
+            //Demon: use keys from one of these lists. they are bth the same anyway
+            foreach (string lang in fullMsgListNames.Keys)
+            {
+                msgStream.Save(fullMsgListNames[lang], fullFileNameMsgN[lang]);
+                msgStream.Save(fullMsgListDescs[lang], fullFileNameMsgD[lang]);
+                msgStream.Save(fullMsgListHowTo[lang], fullFileNameMsgH[lang]);
+                msgStream.Save(fullMsgListBurst[lang], fullFileNameMsgB[lang]);
+                msgStream.Save(fullMsgListBurstBTLHUD[lang], fullFileNameMsgB_BTLHUD[lang]);
+                msgStream.Save(fullMsgListBurstPause[lang], fullFileNameMsgB_Pause[lang]);
+            }
         }
 
         //TODO Update

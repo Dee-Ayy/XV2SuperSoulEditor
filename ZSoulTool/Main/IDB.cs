@@ -8,6 +8,7 @@ namespace XV2SSEdit
     public partial class IDB
     {
         public static int Idb_Size = 772;
+        public static int Stats_Start = 108;
         public static Dictionary<string, Tuple<string, int>> IdbOffsets = new Dictionary<string, Tuple<string, int>>
         {
             {"Index",           new Tuple<string, int>("Int16", 0)},
@@ -72,8 +73,6 @@ namespace XV2SSEdit
             {"I_100",       new Tuple<string, int>("Int32", 100)},
             {"Target",      new Tuple<string, int>("Int32", 104)},
         };
-        public static int Stats_Start = 108;
-
         //all stats are floats
         public static string[] StatNames = {
             "Max Health",
@@ -108,6 +107,37 @@ namespace XV2SSEdit
             "Assist Effect 4",
             "Assist Effect 5",
             "Assist Effect 6"
+        };
+
+        public static List<Tuple<string, string, string, string, string, int>> LimitBurstList = new List<Tuple<string, string, string, string, string, int>>
+        {
+            { new Tuple<string, string, string, string, string, int>("250", "0", "500", "501", "502", 1) }, //Atk Up
+            { new Tuple<string, string, string, string, string, int>("251", "1", "520", "521", "522", 2) }, //DEF Up
+            { new Tuple<string, string, string, string, string, int>("252", "2", "540", "541", "542", 3) }, //Auto Health
+            { new Tuple<string, string, string, string, string, int>("253", "3", "560", "561", "562", 4) }, //Auto Just Guard
+            { new Tuple<string, string, string, string, string, int>("253", "4", "580", "581", "582", 4) }, //Revive Gauge Auto-Recovery
+            { new Tuple<string, string, string, string, string, int>("253", "5", "600", "601", "602", 4) }, //Death Beam ATK Up
+            { new Tuple<string, string, string, string, string, int>("253", "6", "605", "606", "607", 4) }, //Full Power Energy Wave ATK Up
+            { new Tuple<string, string, string, string, string, int>("253", "7", "610", "611", "612", 4) }, //Kamehameha ATK Up
+            { new Tuple<string, string, string, string, string, int>("253", "8", "615", "616", "617", 4) }, //Dynamite Kick ATK Up
+            { new Tuple<string, string, string, string, string, int>("253", "9", "620", "621", "622", 4) }, //Spirit Sword ATK Up
+            { new Tuple<string, string, string, string, string, int>("253", "10", "625", "626", "627", 4) }, //Justice Combination ATK Up
+            { new Tuple<string, string, string, string, string, int>("253", "11", "630", "631", "632", 4) }, //Super Kamehameha ATK Up
+            { new Tuple<string, string, string, string, string, int>("253", "12", "635", "636", "637", 4) }, //Time Skip/Molotov ATK Up
+            { new Tuple<string, string, string, string, string, int>("253", "13", "640", "641", "642", 4) }, //Final Kamehameha ATK Up
+            { new Tuple<string, string, string, string, string, int>("253", "14", "645", "646", "647", 4) }, //Sword of Hope ATK Up
+            { new Tuple<string, string, string, string, string, int>("253", "15", "648", "649", "650", 4) }, //Scatter Kamehameha ATK Up
+            { new Tuple<string, string, string, string, string, int>("253", "16", "651", "652", "653", 4) }, //Wolf Fang Fist ATK Up
+            { new Tuple<string, string, string, string, string, int>("253", "17", "654", "655", "656", 4) }, //Volleyball Fist ATK Up
+            { new Tuple<string, string, string, string, string, int>("253", "18", "657", "658", "659", 4) }, //Special Beam Cannon ATK Up
+            { new Tuple<string, string, string, string, string, int>("253", "19", "660", "661", "662", 4) }, //Masenko ATK Up
+            { new Tuple<string, string, string, string, string, int>("253", "20", "663", "664", "665", 4) }, //Double Sunday ATK Up
+            { new Tuple<string, string, string, string, string, int>("253", "21", "666", "667", "668", 4) }, //Arm Crash ATK Up
+            { new Tuple<string, string, string, string, string, int>("253", "22", "669", "670", "671", 4) }, //Galick Gun ATK Up
+            { new Tuple<string, string, string, string, string, int>("253", "23", "672", "673", "674", 4) }, //Cross Arm Dive ATK Up
+            { new Tuple<string, string, string, string, string, int>("253", "24", "675", "676", "677", 4) }, //Dodon Ray ATK Up
+            { new Tuple<string, string, string, string, string, int>("253", "25", "678", "679", "680", 4) }, //Power Pole ATK Up
+            { new Tuple<string, string, string, string, string, int>("-1", "0", "65535", "65535", "65535", 0) } //Nothing
         };
     }
 }
