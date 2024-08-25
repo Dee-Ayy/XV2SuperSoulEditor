@@ -6,6 +6,7 @@ using System.IO;
 using System.Xml;
 using Msgfile;
 using XV2_Serializer.Resource;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace XV2SSEdit
 {
@@ -732,12 +733,12 @@ namespace XV2SSEdit
 
         private void txtEditValueb_TextChanged(object sender, EventArgs e)
         {
-
             lstvBasic.SelectedItems[0].SubItems[1].Text = txtEditValueb.Text;
+            int startOffset = IDB.Stats_Start + Effect_Start["_EB"];
             float n;
 
             if (float.TryParse(txtEditValueb.Text, out n))
-                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 172 + (lstvBasic.SelectedItems[0].Index * 4), 4);
+                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, startOffset + (lstvBasic.SelectedItems[0].Index * 4), 4);
 
         }
 
@@ -753,10 +754,11 @@ namespace XV2SSEdit
         private void txtEditValue1_TextChanged(object sender, EventArgs e)
         {
             lstvEffect1.SelectedItems[0].SubItems[1].Text = txtEditValue1.Text;
+            int startOffset = IDB.Stats_Start + Effect_Start["_E1"];
             float n;
 
             if (float.TryParse(txtEditValue1.Text, out n))
-                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 408 + (lstvEffect1.SelectedItems[0].Index * 4), 4);
+                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, startOffset + (lstvEffect1.SelectedItems[0].Index * 4), 4);
         }
 
         private void lstvEffect2_SelectedIndexChanged(object sender, EventArgs e)
@@ -771,10 +773,11 @@ namespace XV2SSEdit
         private void txtEditValue2_TextChanged(object sender, EventArgs e)
         {
             lstvEffect2.SelectedItems[0].SubItems[1].Text = txtEditValue2.Text;
+            int startOffset = IDB.Stats_Start + Effect_Start["_E2"];
             float n;
 
             if (float.TryParse(txtEditValue2.Text, out n))
-                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 644 + (lstvEffect2.SelectedItems[0].Index * 4), 4);
+                Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, startOffset + (lstvEffect2.SelectedItems[0].Index * 4), 4);
         }
 
         #endregion
