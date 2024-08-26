@@ -852,7 +852,7 @@
             // label52
             // 
             this.label52.AutoSize = true;
-            this.label52.Location = new System.Drawing.Point(183, 18);
+            this.label52.Location = new System.Drawing.Point(153, 18);
             this.label52.Name = "label52";
             this.label52.Size = new System.Drawing.Size(43, 13);
             this.label52.TabIndex = 33;
@@ -860,16 +860,16 @@
             // 
             // How_ID
             // 
-            this.How_ID.Location = new System.Drawing.Point(182, 38);
+            this.How_ID.Location = new System.Drawing.Point(152, 38);
             this.How_ID.Name = "How_ID";
-            this.How_ID.Size = new System.Drawing.Size(75, 20);
+            this.How_ID.Size = new System.Drawing.Size(60, 20);
             this.How_ID.TabIndex = 32;
             this.How_ID.TextChanged += new System.EventHandler(this.updateHowMsgID);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(97, 18);
+            this.label3.Location = new System.Drawing.Point(82, 18);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(46, 13);
             this.label3.TabIndex = 22;
@@ -878,9 +878,9 @@
             // 
             // Info_ID
             // 
-            this.Info_ID.Location = new System.Drawing.Point(98, 38);
+            this.Info_ID.Location = new System.Drawing.Point(83, 38);
             this.Info_ID.Name = "Info_ID";
-            this.Info_ID.Size = new System.Drawing.Size(75, 20);
+            this.Info_ID.Size = new System.Drawing.Size(60, 20);
             this.Info_ID.TabIndex = 21;
             this.Info_ID.TextChanged += new System.EventHandler(this.updateDescMsgID);
             // 
@@ -898,14 +898,14 @@
             // 
             this.Name_ID.Location = new System.Drawing.Point(14, 38);
             this.Name_ID.Name = "Name_ID";
-            this.Name_ID.Size = new System.Drawing.Size(75, 20);
+            this.Name_ID.Size = new System.Drawing.Size(60, 20);
             this.Name_ID.TabIndex = 19;
             this.Name_ID.TextChanged += new System.EventHandler(this.updateNameMsgID);
             // 
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(270, 19);
+            this.label22.Location = new System.Drawing.Point(225, 19);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(69, 13);
             this.label22.TabIndex = 28;
@@ -916,16 +916,16 @@
             // 
             this.KiBlast.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.KiBlast.FormattingEnabled = true;
-            this.KiBlast.Location = new System.Drawing.Point(267, 37);
+            this.KiBlast.Location = new System.Drawing.Point(222, 37);
             this.KiBlast.Name = "KiBlast";
-            this.KiBlast.Size = new System.Drawing.Size(100, 21);
+            this.KiBlast.Size = new System.Drawing.Size(150, 21);
             this.KiBlast.TabIndex = 31;
             this.KiBlast.SelectedIndexChanged += new System.EventHandler(this.cbIndexChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(376, 19);
+            this.label4.Location = new System.Drawing.Point(381, 19);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(31, 13);
             this.label4.TabIndex = 23;
@@ -944,9 +944,9 @@
             "4",
             "5",
             "6"});
-            this.Rarity.Location = new System.Drawing.Point(376, 37);
+            this.Rarity.Location = new System.Drawing.Point(381, 37);
             this.Rarity.Name = "Rarity";
-            this.Rarity.Size = new System.Drawing.Size(55, 21);
+            this.Rarity.Size = new System.Drawing.Size(50, 21);
             this.Rarity.TabIndex = 18;
             this.Rarity.SelectedIndexChanged += new System.EventHandler(this.cbIndexChanged);
             // 

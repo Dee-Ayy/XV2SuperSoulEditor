@@ -7,6 +7,7 @@ using System.Xml;
 using Msgfile;
 using XV2_Serializer.Resource;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using System.Collections;
 
 namespace XV2SSEdit
 {
@@ -27,9 +28,11 @@ namespace XV2SSEdit
         ActivatorList actList;
         TargetList trgList;
         LBColorList lbcList;
-        KitypeList kitList;
+        //KitypeList kitList;
         VFXList vfxList;
         string FileName;
+
+        
 
         //OLD
         //string FileNameMsgN;
@@ -113,7 +116,7 @@ namespace XV2SSEdit
             settings = ToolSettings.Load();
 
             //set language to default selection on settings window
-            msgLanguageSelect.SelectedIndex = (int)settings.GameLanguage; 
+            msgLanguageSelect.SelectedIndex = (int)settings.GameLanguage;
 
             InitDirectory();
             InitFileIO();
@@ -123,7 +126,7 @@ namespace XV2SSEdit
             //string[] args = Environment.GetCommandLineArgs();
             //if (args.Length > 1)
             //    installSSPFromArgs(args);
-            
+
             startup = false;
         }
 
@@ -215,7 +218,7 @@ namespace XV2SSEdit
             int size = 0;
 
             //Soul Details
-            if(offset == 0)
+            if (offset == 0)
             {
                 if (cb.Name == "Rarity")
                 {
@@ -224,7 +227,8 @@ namespace XV2SSEdit
                 }
                 else if (cb.Name == "KiBlast")
                 {
-                    numInt = kitList.kitypes[cb.SelectedIndex].ID;
+                    //numInt = kitList.kitypes[cb.SelectedIndex].ID;
+                    numInt = (int)IDB.KiBlastList[cb.SelectedIndex].Item1;
                     size = 4;
                 }
                 else if (cb.Name == "LB_Color")
@@ -315,6 +319,17 @@ namespace XV2SSEdit
                     return i;
             }
             return 0;
+        }
+
+        //kinda really only for finding custom ki blast names
+        public string FindMsgTextbyNameID(ref msg msgdata, uint id)
+        {
+            for (int i = 0; i < msgdata.data.Length; i++)
+            {
+                if (msgdata.data[i].NameID == "ITM_MODBLT_" + id.ToString("000"))
+                    return msgdata.data[i].Lines[0];
+            }
+            return "Unknown Type " + id.ToString();
         }
 
         //TODO: Update to support dynamic language chainging
@@ -463,7 +478,7 @@ namespace XV2SSEdit
                 {
                     itemList.Items[i] = BitConverter.ToUInt16(Items[i].Data, 0).ToString() + " - " + Names.data[Items[i].msgIndexName].Lines[0];
                 }
-            }    
+            }
         }
 
         private void txtMsgDesc_TextChanged(object sender, EventArgs e)
@@ -870,7 +885,17 @@ namespace XV2SSEdit
                 }
                 if (name == "KiBlast")
                 {
-                    KiBlast.SelectedIndex = kitList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, type_off.Item2));
+                    //KiBlast.SelectedIndex = kitList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, type_off.Item2));
+
+                    int blastID = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, type_off.Item2);
+                    foreach (int index in IDB.KiBlastList.Keys)
+                    {
+                        if (IDB.KiBlastList[index].Item1 == blastID)
+                        {
+                            KiBlast.SelectedIndex = index;
+                            break;
+                        }
+                    }
                     continue;
                 }
                 if (name == "LB_Color")
@@ -881,7 +906,7 @@ namespace XV2SSEdit
 
                 //everything else
                 TextBox textbox = (TextBox)Controls.Find(name, true).FirstOrDefault();
-                switch(type_off.Item1)
+                switch (type_off.Item1)
                 {
                     case "Int16":
                         textbox.Text = BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, type_off.Item2).ToString();
@@ -898,7 +923,6 @@ namespace XV2SSEdit
             //Basic/Effect Details
             foreach (string details in Effect_Start.Keys)
             {
-
                 //each value in current details
                 foreach (string name in EffectOffsets.Keys)
                 {
@@ -1060,7 +1084,7 @@ namespace XV2SSEdit
             actList = new ActivatorList();
             trgList = new TargetList();
             lbcList = new LBColorList();
-            kitList = new KitypeList();
+            //kitList = new KitypeList();
             vfxList = new VFXList();
 
             //Load Talisman IDB
@@ -1068,6 +1092,12 @@ namespace XV2SSEdit
             FileName = String.Format("{0}/data/system/item/talisman_item.idb", settings.GameDir);
             idbfile = fileIO.GetFileFromGame("system/item/talisman_item.idb");
             count = BitConverter.ToInt32(idbfile, 8);
+
+            //in case anyone is crazy enough to get this far...
+            if (count >= 32768)
+            {
+                MessageBox.Show(this, "Super Soul count has surpased the stable limit. You can still install more, but be aware that any more past id 32767 might not be read correctly by the game.", "Super Soul Count", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
 
             #region OLD CODE
             ////UNLEASHED: Load the generic Msg files, and ignore current language suffix
@@ -1133,7 +1163,7 @@ namespace XV2SSEdit
             string filename;
             msg msgFile;
 
-            //loop through and fill dictionaries for each msg
+            //loop through and fill dictionaries for all language msg
             for (int i = 0; i < ToolSettings.LanguageSuffix.Length; i++)
             {
                 //load msg file for names
@@ -1148,7 +1178,7 @@ namespace XV2SSEdit
                 fullMsgListDescs.Add(langsSuffix[i], msgFile);
                 fullFileNameMsgD.Add(langsSuffix[i], filename);
 
-                //load msg file for lookup descriptions
+                //load msg file for "how to get" descriptions
                 filename = String.Format("{0}/data/msg/proper_noun_talisman_how_{1}.msg", settings.GameDir, langsSuffix[i]);
                 msgFile = msgStream.Load(fileIO.GetFileFromGame(String.Format("msg/proper_noun_talisman_how_{0}.msg", langsSuffix[i])));
                 fullMsgListHowTo.Add(langsSuffix[i], msgFile);
@@ -1183,6 +1213,22 @@ namespace XV2SSEdit
             BurstBTLHUD = fullMsgListBurstBTLHUD[currentLanguge];
             BurstPause = fullMsgListBurstPause[currentLanguge];
 
+            //lets add ki blast defaults first
+            var KiTypes = new List<uint>();
+            foreach (var Blt in IDB.KiBlastList.Values)
+            {
+                KiBlast.Items.Add(Blt.Item2);
+                KiTypes.Add(Blt.Item1);
+            }
+
+            //get msg for custom ki blast names
+            //we never edt this so lets only care about the en one
+            {
+                filename = String.Format("{0}/data/msg/menu_shop_text_{1}.msg", settings.GameDir, langsSuffix[0]);
+                msgFile = msgStream.Load(fileIO.GetFileFromGame(String.Format("msg/menu_shop_text_{0}.msg", langsSuffix[0])));
+            }
+
+            bool shouldWarn = false;
             for (int i = 0; i < Items.Length; i++)
             {
                 Items[i].Data = new byte[IDB.Idb_Size];
@@ -1196,15 +1242,37 @@ namespace XV2SSEdit
                 Items[i].msgIndexBurst = FindmsgIndex(ref Burst, BitConverter.ToUInt16(Items[i].Data, IdbOffsets["LB_Desc"].Item2));
                 Items[i].msgIndexBurstBTL = getLB_BTL_Pause_DescID(BurstBTLHUD, Burst.data[Items[i].msgIndexBurst].NameID);
                 Items[i].msgIndexBurstPause = getLB_BTL_Pause_DescID(BurstPause, Burst.data[Items[i].msgIndexBurst].NameID);
+
+                //warn user later that a super soul is outside stable index
+                if (BitConverter.ToUInt16(Items[i].Data, IdbOffsets["Index"].Item2) >= 32768)
+                {
+                    shouldWarn = true;
+                }
+
+                //read ki blast type id and add it to list if unknown
+                uint KiTypeID = BitConverter.ToUInt32(Items[i].Data, IdbOffsets["KiBlast"].Item2);
+                if (!KiTypes.Contains(KiTypeID))
+                {
+                    int cbLastID = KiBlast.Items.Count;
+                    string name = FindMsgTextbyNameID(ref msgFile, KiTypeID);
+                    IDB.KiBlastList.Add(cbLastID, new Tuple<uint, string>(KiTypeID, name));
+                    KiBlast.Items.Add(name);
+                }
             }
 
             itemList.Items.Clear();
 
             for (int i = 0; i < count; i++)
                 itemList.Items.Add(BitConverter.ToUInt16(Items[i].Data, 0).ToString() + " - " + Names.data[Items[i].msgIndexName].Lines[0]);
-            
+
             EffectData();
             itemList.SelectedIndex = 0;
+
+            //for when super souls outside stable range are detected
+            if (shouldWarn)
+            {
+                MessageBox.Show(this, "One or multiple Super Souls are using an ID outside the stable range the game accepts (32768). You can continue to add and edit souls, but be aware that Souls outside this limit may not be read correctly by the game when equipped.", "Super Soul Stability", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
         public void EffectData()
@@ -1219,7 +1287,7 @@ namespace XV2SSEdit
                 actList.ConstructList(ed.SelectSingleNode("EffectData/Activators").ChildNodes);//Changed the section name from "Activations" cause it bothered me
                 trgList.ConstructList(ed.SelectSingleNode("EffectData/Targets").ChildNodes);
                 lbcList.ConstructList(ed.SelectSingleNode("EffectData/Colors").ChildNodes);
-                kitList.ConstructList(ed.SelectSingleNode("EffectData/Kitypes").ChildNodes);
+                //kitList.ConstructList(ed.SelectSingleNode("EffectData/Kitypes").ChildNodes);
                 vfxList.ConstructList(ed.SelectSingleNode("EffectData/Vfxtypes").ChildNodes);////Changed the section name from "Checkboxs" cause typo and to better reflect actual funtion.
             }
 
@@ -1234,7 +1302,7 @@ namespace XV2SSEdit
                 actList.ConstructList(ded.SelectSingleNode("EffectData/Activators").ChildNodes);
                 trgList.ConstructList(ded.SelectSingleNode("EffectData/Targets").ChildNodes);
                 lbcList.ConstructList(ded.SelectSingleNode("EffectData/Colors").ChildNodes);
-                kitList.ConstructList(ded.SelectSingleNode("EffectData/Kitypes").ChildNodes);
+                //kitList.ConstructList(ded.SelectSingleNode("EffectData/Kitypes").ChildNodes);
                 vfxList.ConstructList(ded.SelectSingleNode("EffectData/Vfxtypes").ChildNodes);
             }
 
@@ -1276,22 +1344,13 @@ namespace XV2SSEdit
                 LB_Color.Items.Add(lbcList.colors[i].Description.ToString());
             }
 
-            for (int i = 0; i < kitList.kitypes.Length; i++)
-            {
-                //KiBlast.Items.Add(kitList.kitypes[i].ID.ToString() + " - " + kitList.kitypes[i].Description);
-
-                KiBlast.Items.Add(kitList.kitypes[i].Description.ToString());
-            }
+            //for (int i = 0; i < kitList.kitypes.Length; i++)
+            //{
+            //    KiBlast.Items.Add(kitList.kitypes[i].Description.ToString());
+            //}
 
             for (int i = 0; i < vfxList.vfxtypes.Length; i++)
             {
-                //Vfx_Type1_EB.Items.Add(vfxList.vfxtypes[i].ID.ToString() + " - " + vfxList.vfxtypes[i].Description);
-                //Vfx_Type1_E1.Items.Add(vfxList.vfxtypes[i].ID.ToString() + " - " + vfxList.vfxtypes[i].Description);
-                //Vfx_Type1_E2.Items.Add(vfxList.vfxtypes[i].ID.ToString() + " - " + vfxList.vfxtypes[i].Description);
-                //Vfx_Type2_EB.Items.Add(vfxList.vfxtypes[i].ID.ToString() + " - " + vfxList.vfxtypes[i].Description);
-                //Vfx_Type2_E1.Items.Add(vfxList.vfxtypes[i].ID.ToString() + " - " + vfxList.vfxtypes[i].Description);
-                //Vfx_Type2_E2.Items.Add(vfxList.vfxtypes[i].ID.ToString() + " - " + vfxList.vfxtypes[i].Description);
-
                 Vfx_Type1_EB.Items.Add(vfxList.vfxtypes[i].Description.ToString());
                 Vfx_Type1_E1.Items.Add(vfxList.vfxtypes[i].Description.ToString());
                 Vfx_Type1_E2.Items.Add(vfxList.vfxtypes[i].Description.ToString());

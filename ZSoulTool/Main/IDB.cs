@@ -139,5 +139,22 @@ namespace XV2SSEdit
             { new Tuple<string, string, string, string, string, int>("253", "25", "678", "679", "680", 4) }, //Power Pole ATK Up
             { new Tuple<string, string, string, string, string, int>("-1", "0", "65535", "65535", "65535", 0) } //Nothing
         };
+
+        public static Dictionary<int, Tuple<uint, string>> KiBlastList = new Dictionary<int, Tuple<uint, string>>
+        {
+            { 0,  new Tuple<uint, string>(0, "Race Default") },
+            { 1,  new Tuple<uint, string>(1, "Power") },
+            { 2,  new Tuple<uint, string>(2, "Rush") },
+            { 3,  new Tuple<uint, string>(3, "Bomb") },
+            { 4,  new Tuple<uint, string>(4, "Homing") },
+            { 5,  new Tuple<uint, string>(5, "Paralyze") },
+            { 6,  new Tuple<uint, string>(6, "Golden Form Beam (FRI)") },
+            { 7,  new Tuple<uint, string>(7, "Purification Stomp (MAP)") },
+            { 8,  new Tuple<uint, string>(8, "Rush (Hearts)") },
+            { 9,  new Tuple<uint, string>(9, "Stone") },
+            { 10, new Tuple<uint, string>(10, "Gamma Beam (Red)") },
+            { 11, new Tuple<uint, string>(11, "Gamma Beam (Blue)") }
+        };
+
     }
 }
