@@ -8,6 +8,7 @@ using Msgfile;
 using XV2_Serializer.Resource;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using System.Collections;
+using CriPakTools;
 
 namespace XV2SSEdit
 {
@@ -24,12 +25,12 @@ namespace XV2SSEdit
         private readonly string[] StatNames = IDB.StatNames;
 
         public idbItem[] Items;
-        EffectList effList;
-        ActivatorList actList;
-        TargetList trgList;
-        LBColorList lbcList;
+        //EffectList effList;
+        //ActivatorList actList;
+        //TargetList trgList;
+        //LBColorList lbcList;
         //KitypeList kitList;
-        VFXList vfxList;
+        //VFXList vfxList;
         string FileName;
 
         
@@ -228,12 +229,14 @@ namespace XV2SSEdit
                 else if (cb.Name == "KiBlast")
                 {
                     //numInt = kitList.kitypes[cb.SelectedIndex].ID;
-                    numInt = (int)IDB.KiBlastList[cb.SelectedIndex].Item1;
+                    //numInt = (int)IDB.KiBlastList[cb.SelectedIndex].Item1;
+                    numInt = IDB.KiBlastList.Keys[cb.SelectedIndex];
                     size = 4;
                 }
                 else if (cb.Name == "LB_Color")
                 {
-                    numInt = (short)lbcList.colors[cb.SelectedIndex].ID;
+                    //numInt = (short)lbcList.colors[cb.SelectedIndex].ID;
+                    numInt = IDB.LBColorList.Keys[cb.SelectedIndex];
                     size = 2;
                 }
                 else
@@ -248,19 +251,24 @@ namespace XV2SSEdit
                 size = 4;
                 if (cb.Name.StartsWith("Effect"))
                 {
-                    numInt = effList.effects[cb.SelectedIndex].ID;
+                    //numInt = effList.effects[cb.SelectedIndex].ID;
+                    numInt = IDB.EffectList.Keys[cb.SelectedIndex];
                 }
                 else if (cb.Name.StartsWith("Activate"))
                 {
-                    numInt = actList.activators[cb.SelectedIndex].ID;
+                    //numInt = actList.activators[cb.SelectedIndex].ID;
+                    numInt = IDB.ActivatorList.Keys[cb.SelectedIndex];
                 }
                 else if (cb.Name.StartsWith("Vfx_Type"))
                 {
-                    numInt = vfxList.vfxtypes[cb.SelectedIndex].ID;
+                    //numInt = vfxList.vfxtypes[cb.SelectedIndex].ID;
+                    numInt = IDB.VfxList.Keys[cb.SelectedIndex];
                 }
                 else if (cb.Name.StartsWith("Target"))
                 {
-                    numInt = trgList.targets[cb.SelectedIndex].ID;
+                    //numInt = trgList.targets[cb.SelectedIndex].ID;
+                    //numInt = IDB.TargetList[cb.SelectedIndex].Item1;
+                    numInt = IDB.TargetList.Keys[cb.SelectedIndex];
                 }
                 else
                 {
@@ -322,7 +330,7 @@ namespace XV2SSEdit
         }
 
         //kinda really only for finding custom ki blast names
-        public string FindMsgTextbyNameID(ref msg msgdata, uint id)
+        public string FindMsgTextbyNameID(ref msg msgdata, int id)
         {
             for (int i = 0; i < msgdata.data.Length; i++)
             {
@@ -887,20 +895,25 @@ namespace XV2SSEdit
                 {
                     //KiBlast.SelectedIndex = kitList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, type_off.Item2));
 
-                    int blastID = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, type_off.Item2);
-                    foreach (int index in IDB.KiBlastList.Keys)
-                    {
-                        if (IDB.KiBlastList[index].Item1 == blastID)
-                        {
-                            KiBlast.SelectedIndex = index;
-                            break;
-                        }
-                    }
+                    //int blastID = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, type_off.Item2);
+                    //foreach (int index in IDB.KiBlastList.Keys)
+                    //{
+                    //    if (IDB.KiBlastList[index].Item1 == blastID)
+                    //    {
+                    //        KiBlast.SelectedIndex = index;
+                    //        break;
+                    //    }
+                    //}
+
+                    //KiBlast.SelectedIndex = IDB.KiBlastList.Keys[BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, type_off.Item2)] + 1;
+                    KiBlast.SelectedIndex = IDB.KiBlastList.IndexOfKey(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, type_off.Item2));
                     continue;
                 }
                 if (name == "LB_Color")
                 {
-                    LB_Color.SelectedIndex = lbcList.FindIndex(BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, type_off.Item2));
+                    //LB_Color.SelectedIndex = lbcList.FindIndex(BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, type_off.Item2));
+                    //LB_Color.SelectedIndex = IDB.LBColorList.Keys[BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, type_off.Item2)] + 1;
+                    LB_Color.SelectedIndex = IDB.LBColorList.IndexOfKey(BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, type_off.Item2));
                     continue;
                 }
 
@@ -934,25 +947,36 @@ namespace XV2SSEdit
                     if (name == "Effect")
                     {
                         ComboBox box = (ComboBox)Controls.Find(name + details, true).FirstOrDefault();
-                        box.SelectedIndex = effList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, effectOffset));
+                        //box.SelectedIndex = effList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, effectOffset));
+                        //box.SelectedIndex = IDB.EffectList.Keys[BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, effectOffset)] + 1;
+                        box.SelectedIndex = IDB.EffectList.IndexOfKey(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, effectOffset));
                         continue;
                     }
                     if (name == "Activate")
                     {
                         ComboBox box = (ComboBox)Controls.Find(name + details, true).FirstOrDefault();
-                        box.SelectedIndex = actList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, effectOffset));
+                        //box.SelectedIndex = actList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, effectOffset));
+                        //box.SelectedIndex = IDB.ActivatorList.Keys[BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, effectOffset)] + 1;
+                        box.SelectedIndex = IDB.ActivatorList.IndexOfKey(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, effectOffset));
                         continue;
                     }
                     if (name == "Vfx_Type2" || name == "Vfx_Type1")
                     {
                         ComboBox box = (ComboBox)Controls.Find(name + details, true).FirstOrDefault();
-                        box.SelectedIndex = vfxList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, effectOffset));
+                        //box.SelectedIndex = vfxList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, effectOffset));
+                        //if (BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, effectOffset) == 6)
+                        //    box.SelectedIndex = 4;
+                        //else
+                        //    box.SelectedIndex = IDB.VfxList.Keys[BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, effectOffset)] + 1;
+                        box.SelectedIndex = IDB.VfxList.IndexOfKey(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, effectOffset));
                         continue;
                     }
                     if (name == "Target")
                     {
                         ComboBox box = (ComboBox)Controls.Find(name + details, true).FirstOrDefault();
-                        box.SelectedIndex = trgList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, effectOffset));
+                        //box.SelectedIndex = trgList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, effectOffset));
+                        //box.SelectedIndex = IDB.TargetList.Keys[BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, effectOffset)] + 1;
+                        box.SelectedIndex = IDB.TargetList.IndexOfKey(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, effectOffset));
                         continue;
                     }
 
@@ -1080,12 +1104,12 @@ namespace XV2SSEdit
 
             //TODO: have internal list, but scan through IDB to get any unknown values to add to the lists
             //instead of xml might wanna just have lists or something? i dunno we'll get to it soon
-            effList = new EffectList();
-            actList = new ActivatorList();
-            trgList = new TargetList();
-            lbcList = new LBColorList();
+            //effList = new EffectList();
+            //actList = new ActivatorList();
+            //trgList = new TargetList();
+            //lbcList = new LBColorList();
             //kitList = new KitypeList();
-            vfxList = new VFXList();
+            //vfxList = new VFXList();
 
             //Load Talisman IDB
             int count = 0;
@@ -1201,6 +1225,10 @@ namespace XV2SSEdit
                 fullFileNameMsgB_Pause.Add(langsSuffix[i], filename);
             }
 
+            //get msg for custom ki blast names to use later
+            //we never edt this so lets only care about the en one
+            msgFile = msgStream.Load(fileIO.GetFileFromGame(String.Format("msg/menu_shop_text_{0}.msg", langsSuffix[0])));
+
             //idb items set
             this.addNewXV2SSEditStripMenuItem.Enabled = true;
             this.msgToolStripMenuItem.Enabled = true;
@@ -1213,20 +1241,15 @@ namespace XV2SSEdit
             BurstBTLHUD = fullMsgListBurstBTLHUD[currentLanguge];
             BurstPause = fullMsgListBurstPause[currentLanguge];
 
-            //lets add ki blast defaults first
-            var KiTypes = new List<uint>();
-            foreach (var Blt in IDB.KiBlastList.Values)
-            {
-                KiBlast.Items.Add(Blt.Item2);
-                KiTypes.Add(Blt.Item1);
-            }
+            //these are very unlikely to ever get changes/new entries
+            _ = EffectData("LB_Color");
+            _ = EffectData("Vfx_Type");
 
-            //get msg for custom ki blast names
-            //we never edt this so lets only care about the en one
-            {
-                filename = String.Format("{0}/data/msg/menu_shop_text_{1}.msg", settings.GameDir, langsSuffix[0]);
-                msgFile = msgStream.Load(fileIO.GetFileFromGame(String.Format("msg/menu_shop_text_{0}.msg", langsSuffix[0])));
-            }
+            //these could change in future game updates
+            List<int> KiTypes = EffectData("KiBlast");
+            List<int> Targets = EffectData("Target");
+            List<int> Effects = EffectData("Effect");
+            List<int> Actives = EffectData("Activate");
 
             bool shouldWarn = false;
             for (int i = 0; i < Items.Length; i++)
@@ -1249,15 +1272,111 @@ namespace XV2SSEdit
                     shouldWarn = true;
                 }
 
-                //read ki blast type id and add it to list if unknown
-                uint KiTypeID = BitConverter.ToUInt32(Items[i].Data, IdbOffsets["KiBlast"].Item2);
+                //check for unknowns
+
+                //Kiblasts
+                int KiTypeID = BitConverter.ToInt32(Items[i].Data, IdbOffsets["KiBlast"].Item2);
                 if (!KiTypes.Contains(KiTypeID))
                 {
-                    int cbLastID = KiBlast.Items.Count;
+                    //int cbLastID = KiBlast.Items.Count;
+                    //string name = FindMsgTextbyNameID(ref msgFile, KiTypeID);
+                    //IDB.KiBlastList.Add(cbLastID, new Tuple<int, string>(KiTypeID, name));
+                    //KiBlast.Items.Add(name);
+
                     string name = FindMsgTextbyNameID(ref msgFile, KiTypeID);
-                    IDB.KiBlastList.Add(cbLastID, new Tuple<uint, string>(KiTypeID, name));
+                    IDB.KiBlastList.Add(KiTypeID, name);
                     KiBlast.Items.Add(name);
                 }
+
+                //effect tabs
+                foreach (string effectTab in IDB.Effect_Start.Keys)
+                {
+                    //effect 0 is alwasy the same in vanilla souls
+                    if (effectTab == "_EB")
+                        continue;
+
+                    //Target
+                    int TargetID = BitConverter.ToInt32(Items[i].Data, IDB.Effect_Start[effectTab] + EffectOffsets["Target"].Item2);
+                    if (!Targets.Contains(TargetID))
+                    {
+                        //ComboBox Target = Target_E1;
+                        //if (effectTab == "_E2")
+                        //    Target = Target_E2;
+
+                        //check last id in list and fill in gaps if needed
+                        int LastID = IDB.TargetList.Last().Key;
+                        for (int t = LastID; t <= TargetID; t++)
+                        {
+                            if (Targets.Contains(t))
+                                continue;
+                            IDB.TargetList.Add(t, "Unknown");
+                            Target_EB.Items.Add(t.ToString() + " - Unknown");
+                            Target_E1.Items.Add(t.ToString() + " - Unknown");
+                            Target_E2.Items.Add(t.ToString() + " - Unknown");
+                            Targets.Add(t);
+                        }
+
+                        //finally add actual entry
+                        //IDB.TargetList.Add(Target.Items.Count, new Tuple<int, string>(TargetID, "Unknown"));
+                        //Target.Items.Add("Unknown");
+                        //Targets.Add(TargetID);
+                    }
+
+                    //Effects
+                    int EffectID = BitConverter.ToInt32(Items[i].Data, IDB.Effect_Start[effectTab] + EffectOffsets["Effect"].Item2);
+                    if (!Effects.Contains(EffectID))
+                    {
+                        //ComboBox Effect = Effect_E1;
+                        //if (effectTab == "_E2")
+                        //    Effect = Effect_E2;
+
+                        //check last id in list and fill in gaps if needed
+                        int LastID = IDB.EffectList.Last().Key;
+                        for (int e = LastID; e <= EffectID; e++)
+                        {
+                            if (Effects.Contains(e))
+                                continue;
+                            IDB.EffectList.Add(e, "Unknown");
+                            Effect_EB.Items.Add(e.ToString() + " - Unknown");
+                            Effect_E1.Items.Add(e.ToString() + " - Unknown");
+                            Effect_E2.Items.Add(e.ToString() + " - Unknown");
+                            Effects.Add(e);
+                        }
+
+                        //finally add actual entry
+                        //IDB.EffectList.Add(EffectID, "Unknown");
+                        //Effect.Items.Add("Unknown");
+                        //Effects.Add(EffectID);
+                    }
+
+                    //Activators
+                    int ActiveID = BitConverter.ToInt32(Items[i].Data, IDB.Effect_Start[effectTab] + EffectOffsets["Activate"].Item2);
+                    if (!Actives.Contains(ActiveID))
+                    {
+                        //ComboBox Activator = Activate_E1;
+                        //if (effectTab == "_E2")
+                        //    Activator = Activate_E2;
+
+                        //check last id in list and fill in gaps if needed
+                        int LastID = IDB.EffectList.Last().Key;
+                        for (int a = LastID; a <= ActiveID; a++)
+                        {
+                            if (Actives.Contains(a))
+                                continue;
+                            IDB.ActivatorList.Add(a, "Unknown");
+                            Activate_EB.Items.Add(a.ToString() + " - Unknown");
+                            Activate_E1.Items.Add(a.ToString() + " - Unknown");
+                            Activate_E2.Items.Add(a.ToString() + " - Unknown");
+                            Actives.Add(a);
+                        }
+
+                        //finally add actual entry
+                        //IDB.EffectList.Add(EffectID, "Unknown");
+                        //Effect.Items.Add("Unknown");
+                        //Effects.Add(EffectID);
+                    }
+                }
+
             }
 
             itemList.Items.Clear();
@@ -1265,7 +1384,7 @@ namespace XV2SSEdit
             for (int i = 0; i < count; i++)
                 itemList.Items.Add(BitConverter.ToUInt16(Items[i].Data, 0).ToString() + " - " + Names.data[Items[i].msgIndexName].Lines[0]);
 
-            EffectData();
+            //EffectData();
             itemList.SelectedIndex = 0;
 
             //for when super souls outside stable range are detected
@@ -1275,89 +1394,172 @@ namespace XV2SSEdit
             }
         }
 
-        public void EffectData()
+        public List<int> EffectData(string Type)
         {
-            if (File.Exists(System.IO.Path.GetDirectoryName(Application.ExecutablePath) + @"/" + "EffectData.xml"))
-            {
-                //DEMON: This is now considered a debug feature.
-                //load external EffectData.xml if it is found within the exe directory.
-                XmlDocument ed = new XmlDocument();
-                ed.Load(System.IO.Path.GetDirectoryName(Application.ExecutablePath) + @"/" + "EffectData.xml");
-                effList.ConstructList(ed.SelectSingleNode("EffectData/Effects").ChildNodes);
-                actList.ConstructList(ed.SelectSingleNode("EffectData/Activators").ChildNodes);//Changed the section name from "Activations" cause it bothered me
-                trgList.ConstructList(ed.SelectSingleNode("EffectData/Targets").ChildNodes);
-                lbcList.ConstructList(ed.SelectSingleNode("EffectData/Colors").ChildNodes);
-                //kitList.ConstructList(ed.SelectSingleNode("EffectData/Kitypes").ChildNodes);
-                vfxList.ConstructList(ed.SelectSingleNode("EffectData/Vfxtypes").ChildNodes);////Changed the section name from "Checkboxs" cause typo and to better reflect actual funtion.
-            }
-
-            else
-            {
-                //DEMON: We load an internal effect data now.
-                //No more creating a blank one if the file isn't found within the exe directory.
-                System.Reflection.Assembly dedxml = System.Reflection.Assembly.GetExecutingAssembly();
-                XmlDocument ded = new XmlDocument();
-                ded.Load(dedxml.GetManifestResourceStream("XV2SSEdit.Resources.DefaultEffectData.xml"));
-                effList.ConstructList(ded.SelectSingleNode("EffectData/Effects").ChildNodes);
-                actList.ConstructList(ded.SelectSingleNode("EffectData/Activators").ChildNodes);
-                trgList.ConstructList(ded.SelectSingleNode("EffectData/Targets").ChildNodes);
-                lbcList.ConstructList(ded.SelectSingleNode("EffectData/Colors").ChildNodes);
-                //kitList.ConstructList(ded.SelectSingleNode("EffectData/Kitypes").ChildNodes);
-                vfxList.ConstructList(ded.SelectSingleNode("EffectData/Vfxtypes").ChildNodes);
-            }
-
-            Effect_E1.Items.Clear();
-            Effect_E2.Items.Clear();
-            Activate_E1.Items.Clear();
-            Activate_E2.Items.Clear();
-
-            //Load names from lists
-            for (int i = 0; i < effList.effects.Length; i++)
-            {
-                Effect_EB.Items.Add(effList.effects[i].ID.ToString() + " - " + effList.effects[i].Description);
-                Effect_E1.Items.Add(effList.effects[i].ID.ToString() + " - " + effList.effects[i].Description);
-                Effect_E2.Items.Add(effList.effects[i].ID.ToString() + " - " + effList.effects[i].Description);
-            }
-
-            for (int i = 0; i < actList.activators.Length; i++)
-            {
-                Activate_EB.Items.Add(actList.activators[i].ID.ToString() + " - " + actList.activators[i].Description);
-                Activate_E1.Items.Add(actList.activators[i].ID.ToString() + " - " + actList.activators[i].Description);
-                Activate_E2.Items.Add(actList.activators[i].ID.ToString() + " - " + actList.activators[i].Description);
-            }
-
-            for (int i = 0; i < trgList.targets.Length; i++)
-            {
-                //Target_EB.Items.Add(trgList.targets[i].ID.ToString() + " - " + trgList.targets[i].Description);
-                //Target_E1.Items.Add(trgList.targets[i].ID.ToString() + " - " + trgList.targets[i].Description);
-                //Target_E2.Items.Add(trgList.targets[i].ID.ToString() + " - " + trgList.targets[i].Description);
-
-                Target_EB.Items.Add(trgList.targets[i].Description.ToString());
-                Target_E1.Items.Add(trgList.targets[i].Description.ToString());
-                Target_E2.Items.Add(trgList.targets[i].Description.ToString());
-            }
-
-            for (int i = 0; i < lbcList.colors.Length; i++)
-            {
-                //LB_Color.Items.Add(lbcList.colors[i].ID.ToString() + " - " + lbcList.colors[i].Description);
-
-                LB_Color.Items.Add(lbcList.colors[i].Description.ToString());
-            }
-
-            //for (int i = 0; i < kitList.kitypes.Length; i++)
+            //Data from external EffectData.xml will be used to override internal data
+            //difference from before is that it won't be a full override, it can be used to replace specific entries.
+            //if (File.Exists(System.IO.Path.GetDirectoryName(Application.ExecutablePath) + @"/" + "EffectData.xml"))
             //{
-            //    KiBlast.Items.Add(kitList.kitypes[i].Description.ToString());
+            //    //DEMON: This is now considered a debug feature.
+            //    //load external EffectData.xml if it is found within the exe directory.
+            //    XmlDocument ed = new XmlDocument();
+            //    ed.Load(System.IO.Path.GetDirectoryName(Application.ExecutablePath) + @"/" + "EffectData.xml");
+            //    effList.ConstructList(ed.SelectSingleNode("EffectData/Effects").ChildNodes);
+            //    actList.ConstructList(ed.SelectSingleNode("EffectData/Activators").ChildNodes);//Changed the section name from "Activations" cause it bothered me
+            //    trgList.ConstructList(ed.SelectSingleNode("EffectData/Targets").ChildNodes);
+            //    //lbcList.ConstructList(ed.SelectSingleNode("EffectData/Colors").ChildNodes);
+            //    //kitList.ConstructList(ed.SelectSingleNode("EffectData/Kitypes").ChildNodes);
+            //    //vfxList.ConstructList(ed.SelectSingleNode("EffectData/Vfxtypes").ChildNodes);////Changed the section name from "Checkboxs" cause typo and to better reflect actual funtion.
             //}
 
-            for (int i = 0; i < vfxList.vfxtypes.Length; i++)
+
+            //Get list info from IDB class
+            List<int> KnownList = new List<int>();
+            if (Type == "LB_Color")
             {
-                Vfx_Type1_EB.Items.Add(vfxList.vfxtypes[i].Description.ToString());
-                Vfx_Type1_E1.Items.Add(vfxList.vfxtypes[i].Description.ToString());
-                Vfx_Type1_E2.Items.Add(vfxList.vfxtypes[i].Description.ToString());
-                Vfx_Type2_EB.Items.Add(vfxList.vfxtypes[i].Description.ToString());
-                Vfx_Type2_E1.Items.Add(vfxList.vfxtypes[i].Description.ToString());
-                Vfx_Type2_E2.Items.Add(vfxList.vfxtypes[i].Description.ToString());
+                foreach (var entry in IDB.LBColorList)
+                {
+                    LB_Color.Items.Add(entry.Value);
+                    //KnownList.Add(entry.Item1);
+                }
             }
+            else if (Type == "Vfx_Type")
+            {
+                foreach (var entry in IDB.VfxList)
+                {
+                    Vfx_Type1_EB.Items.Add(entry.Value);
+                    Vfx_Type1_E1.Items.Add(entry.Value);
+                    Vfx_Type1_E2.Items.Add(entry.Value);
+                    Vfx_Type2_EB.Items.Add(entry.Value);
+                    Vfx_Type2_E1.Items.Add(entry.Value);
+                    Vfx_Type2_E2.Items.Add(entry.Value);
+                    //KnownList.Add(entry.Item1);
+                }
+            }
+            else if (Type == "KiBlast")
+            {
+                foreach (var entry in IDB.KiBlastList)
+                {
+                    KiBlast.Items.Add(entry.Value);
+                    KnownList.Add(entry.Key);
+                }
+            }
+            else if (Type == "Target")
+            {
+                foreach (var entry in IDB.TargetList)
+                {
+                    Target_EB.Items.Add(entry.Value);
+                    Target_E1.Items.Add(entry.Value);
+                    Target_E2.Items.Add(entry.Value);
+                    KnownList.Add(entry.Key);
+                }
+            }
+            else if (Type == "Effect")
+            {
+                foreach (var entry in IDB.EffectList)
+                {
+                    Effect_EB.Items.Add(entry.Key.ToString() + " - " + entry.Value);
+                    Effect_E1.Items.Add(entry.Key.ToString() + " - " + entry.Value);
+                    Effect_E2.Items.Add(entry.Key.ToString() + " - " + entry.Value);
+                    KnownList.Add(entry.Key);
+                }
+            }
+            else if (Type == "Activate")
+            {
+                foreach (var entry in IDB.ActivatorList)
+                {
+                    Activate_EB.Items.Add(entry.Key.ToString() + " - " + entry.Value);
+                    Activate_E1.Items.Add(entry.Key.ToString() + " - " + entry.Value);
+                    Activate_E2.Items.Add(entry.Key.ToString() + " - " + entry.Value);
+                    KnownList.Add(entry.Key);
+                }
+            }
+
+            return KnownList;
+
+            #region OLD CODE
+            //if (File.Exists(System.IO.Path.GetDirectoryName(Application.ExecutablePath) + @"/" + "EffectData.xml"))
+            //{
+            //    //DEMON: This is now considered a debug feature.
+            //    //load external EffectData.xml if it is found within the exe directory.
+            //    XmlDocument ed = new XmlDocument();
+            //    ed.Load(System.IO.Path.GetDirectoryName(Application.ExecutablePath) + @"/" + "EffectData.xml");
+            //    effList.ConstructList(ed.SelectSingleNode("EffectData/Effects").ChildNodes);
+            //    actList.ConstructList(ed.SelectSingleNode("EffectData/Activators").ChildNodes);//Changed the section name from "Activations" cause it bothered me
+            //    trgList.ConstructList(ed.SelectSingleNode("EffectData/Targets").ChildNodes);
+            //    lbcList.ConstructList(ed.SelectSingleNode("EffectData/Colors").ChildNodes);
+            //    //kitList.ConstructList(ed.SelectSingleNode("EffectData/Kitypes").ChildNodes);
+            //    vfxList.ConstructList(ed.SelectSingleNode("EffectData/Vfxtypes").ChildNodes);////Changed the section name from "Checkboxs" cause typo and to better reflect actual funtion.
+            //}
+            //
+            //else
+            //{
+            //    //DEMON: We load an internal effect data now.
+            //    //No more creating a blank one if the file isn't found within the exe directory.
+            //    System.Reflection.Assembly dedxml = System.Reflection.Assembly.GetExecutingAssembly();
+            //    XmlDocument ded = new XmlDocument();
+            //    ded.Load(dedxml.GetManifestResourceStream("XV2SSEdit.Resources.DefaultEffectData.xml"));
+            //    effList.ConstructList(ded.SelectSingleNode("EffectData/Effects").ChildNodes);
+            //    actList.ConstructList(ded.SelectSingleNode("EffectData/Activators").ChildNodes);
+            //    trgList.ConstructList(ded.SelectSingleNode("EffectData/Targets").ChildNodes);
+            //    lbcList.ConstructList(ded.SelectSingleNode("EffectData/Colors").ChildNodes);
+            //    //kitList.ConstructList(ded.SelectSingleNode("EffectData/Kitypes").ChildNodes);
+            //    vfxList.ConstructList(ded.SelectSingleNode("EffectData/Vfxtypes").ChildNodes);
+            //}
+            //
+            //Effect_E1.Items.Clear();
+            //Effect_E2.Items.Clear();
+            //Activate_E1.Items.Clear();
+            //Activate_E2.Items.Clear();
+            //
+            ////Load names from lists
+            //for (int i = 0; i < effList.effects.Length; i++)
+            //{
+            //    Effect_EB.Items.Add(effList.effects[i].ID.ToString() + " - " + effList.effects[i].Description);
+            //    Effect_E1.Items.Add(effList.effects[i].ID.ToString() + " - " + effList.effects[i].Description);
+            //    Effect_E2.Items.Add(effList.effects[i].ID.ToString() + " - " + effList.effects[i].Description);
+            //}
+            //
+            //for (int i = 0; i < actList.activators.Length; i++)
+            //{
+            //    Activate_EB.Items.Add(actList.activators[i].ID.ToString() + " - " + actList.activators[i].Description);
+            //    Activate_E1.Items.Add(actList.activators[i].ID.ToString() + " - " + actList.activators[i].Description);
+            //    Activate_E2.Items.Add(actList.activators[i].ID.ToString() + " - " + actList.activators[i].Description);
+            //}
+            //
+            //for (int i = 0; i < trgList.targets.Length; i++)
+            //{
+            //    //Target_EB.Items.Add(trgList.targets[i].ID.ToString() + " - " + trgList.targets[i].Description);
+            //    //Target_E1.Items.Add(trgList.targets[i].ID.ToString() + " - " + trgList.targets[i].Description);
+            //    //Target_E2.Items.Add(trgList.targets[i].ID.ToString() + " - " + trgList.targets[i].Description);
+            //
+            //    Target_EB.Items.Add(trgList.targets[i].Description.ToString());
+            //    Target_E1.Items.Add(trgList.targets[i].Description.ToString());
+            //    Target_E2.Items.Add(trgList.targets[i].Description.ToString());
+            //}
+            //
+            //for (int i = 0; i < lbcList.colors.Length; i++)
+            //{
+            //    //LB_Color.Items.Add(lbcList.colors[i].ID.ToString() + " - " + lbcList.colors[i].Description);
+            //
+            //    LB_Color.Items.Add(lbcList.colors[i].Description.ToString());
+            //}
+            //
+            ////for (int i = 0; i < kitList.kitypes.Length; i++)
+            ////{
+            ////    KiBlast.Items.Add(kitList.kitypes[i].Description.ToString());
+            ////}
+            //
+            //for (int i = 0; i < vfxList.vfxtypes.Length; i++)
+            //{
+            //    Vfx_Type1_EB.Items.Add(vfxList.vfxtypes[i].Description.ToString());
+            //    Vfx_Type1_E1.Items.Add(vfxList.vfxtypes[i].Description.ToString());
+            //    Vfx_Type1_E2.Items.Add(vfxList.vfxtypes[i].Description.ToString());
+            //    Vfx_Type2_EB.Items.Add(vfxList.vfxtypes[i].Description.ToString());
+            //    Vfx_Type2_E1.Items.Add(vfxList.vfxtypes[i].Description.ToString());
+            //    Vfx_Type2_E2.Items.Add(vfxList.vfxtypes[i].Description.ToString());
+            //}
+            #endregion
         }
 
         #endregion
