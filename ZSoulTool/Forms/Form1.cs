@@ -1435,13 +1435,13 @@ namespace XV2SSEdit
             {
                 SoulPos = LimitNum * 772;
                 Array.Copy(SSData, SSData.Length - SoulPos, NewSoulData, 0, 772);
-                Expand[LastUsedIndex + 1 + 1].Data = NewSoulData;
+                Expand[LastUsedIndex + 1 + tmpNum].Data = NewSoulData;
                 tmpNum++;
                 LimitNum--;
             }
 
             //add rest of souls
-            Array.Copy(Items, LastUsedIndex + 1, Expand, LastUsedIndex + LimitNum + 1, Items.Length - (LastUsedIndex + 1));
+            Array.Copy(Items, LastUsedIndex + 1, Expand, LastUsedIndex + 1 + tmpNum, Items.Length - (LastUsedIndex + 1));
 
 
             //start fixing data
