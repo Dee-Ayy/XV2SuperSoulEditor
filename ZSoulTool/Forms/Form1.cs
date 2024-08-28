@@ -33,8 +33,6 @@ namespace XV2SSEdit
         //VFXList vfxList;
         string FileName;
 
-        
-
         //OLD
         //string FileNameMsgN;
         //string FileNameMsgD;
@@ -1394,10 +1392,8 @@ namespace XV2SSEdit
             //backup encase something goes wrong
             idbItem[] items_org = Items;
 
-            //soul data to expand with
-            byte[] blankzss = SSData;
-
-            //search for closest unused id after vanilla ids (should be around 1000+)
+            //search for closest unused id after vanilla ids
+            //should be 1003+, but we start searching from 1000 just because
             ushort FreeID = 1000;
             int LastUsedIndex = 0;
             bool foundProperID = false;
@@ -1409,60 +1405,364 @@ namespace XV2SSEdit
                 }           
                 else
                 {
-                    LastUsedIndex = UsedIDs.IndexOf(FreeID);
+                    LastUsedIndex = UsedIDs.IndexOf(FreeID) + 1;
                     FreeID++;
                 }                
             }
 
-            //get number of souls we are adding
+            //get number of LB souls
             ushort LimitNum = BitConverter.ToUInt16(SSData, 8);
+            bool LimitLv1 = BitConverter.ToInt16(SSData, 10) != -1;
+            bool LimitLv2 = BitConverter.ToInt16(SSData, 12) != -1;
+            bool LimitLv3 = BitConverter.ToInt16(SSData, 14) != -1;
 
             //start expanding
-            idbItem[] Expand = new idbItem[Items.Length + LimitNum + 1];
+            idbItem[] SoulExpand = new idbItem[Items.Length + LimitNum + 1];
 
             //add each soul to new list up to last new index
-            Array.Copy(Items, 0, Expand, 0, LastUsedIndex + 1);
+            Array.Copy(Items, 0, SoulExpand, 0, LastUsedIndex);
+
+            //blank soul for adding
+            byte[] NewSoulData = new byte[772];
 
             //add new super soul data
-            int SoulPos = (LimitNum + 1) * 772;
-            byte[] NewSoulData = new byte[772];
-            Array.Copy(SSData, SSData.Length - SoulPos, NewSoulData, 0, 772);
-            Expand[LastUsedIndex + 1].Data = NewSoulData;
+            int SoulPos = (LimitNum + 1) * 772; //position of the main super soul in SSF
+            Array.Copy(SSData, SSData.Length - SoulPos, NewSoulData, 0, 772); //copy main soul data
+            Array.Copy(BitConverter.GetBytes(FreeID), NewSoulData, 2); //might as well fix main soul id here
+            SoulExpand[LastUsedIndex].Data = NewSoulData; //add it to expand list
 
             //add limit bursts
-            int tmpNum = 1;
+            int tmpNum = 1; //helps keep track of what lb soul we are on
             while (LimitNum > 0)
             {
-                SoulPos = LimitNum * 772;
-                Array.Copy(SSData, SSData.Length - SoulPos, NewSoulData, 0, 772);
-                Expand[LastUsedIndex + 1 + tmpNum].Data = NewSoulData;
+                int LBSoulPos = LimitNum * 772;
+                Array.Copy(SSData, SSData.Length - LBSoulPos, NewSoulData, 0, 772);
+                Array.Copy(BitConverter.GetBytes(FreeID + tmpNum), NewSoulData, 2);
+                SoulExpand[LastUsedIndex + tmpNum].Data = NewSoulData;
+
+                //fix limit burst ids on main soul
+                if (LimitLv1)
+                {
+                    Array.Copy(BitConverter.GetBytes(FreeID + tmpNum), 0, SoulExpand[LastUsedIndex].Data, IdbOffsets["LB_Soul_ID1"].Item2, 2);
+                    LimitLv1 = false;
+                }
+                else if (LimitLv2)
+                {
+                    Array.Copy(BitConverter.GetBytes(FreeID + tmpNum), 0, SoulExpand[LastUsedIndex].Data, IdbOffsets["LB_Soul_ID2"].Item2, 2);
+                    LimitLv2 = false;
+                }
+                else if (LimitLv3)
+                {
+                    Array.Copy(BitConverter.GetBytes(FreeID + tmpNum), 0, SoulExpand[LastUsedIndex].Data, IdbOffsets["LB_Soul_ID3"].Item2, 2);
+                    LimitLv3 = false;
+                }
+
                 tmpNum++;
                 LimitNum--;
             }
 
-            //add rest of souls
-            Array.Copy(Items, LastUsedIndex + 1, Expand, LastUsedIndex + 1 + tmpNum, Items.Length - (LastUsedIndex + 1));
+            //add rest of original souls
+            Array.Copy(Items, LastUsedIndex, SoulExpand, LastUsedIndex + tmpNum, Items.Length - LastUsedIndex);
 
-
-            //start fixing data
-            Array.Copy(BitConverter.GetBytes(FreeID), Expand[LastUsedIndex + 1].Data, 2); //main soul id
+            //finish adding souls
+            Items = SoulExpand;
 
             //TODO:
-            //add code for fixing limit burst ids on main soul
-            //add code for expanding all msg files
+            //At this point souls are added and the main soul should have the correct limit burst ids
+            //next is expanding all msg entries then fixing those msg ids on the main soul
 
 
+            //Expand msg
+            //Demon: We need to worry about every language now...
+            //all msg strings are length followed immediately by string data back-to-back until soul data
+            int currentOffset = 0x10;
+            byte[] MsgText = null;
+            byte[] MsgID = null;
 
-            Items = Expand;
+            //Names
+            foreach (string lang in fullMsgListNames.Keys)
+            {
+                Names = fullMsgListNames[lang];
 
-            //limit burst data
-            //LimitNum = BitConverter.ToUInt16(SSData, 8);
-            //ushort LimitLv1 = BitConverter.ToUInt16(SSData, 10);
-            //ushort LimitLv2 = BitConverter.ToUInt16(SSData, 12);
-            //ushort LimitLv3 = BitConverter.ToUInt16(SSData, 14);
-            //fix limit burst soul ids on main soul
+                msgData[] MsgExpand_Names = new msgData[Names.data.Length + 1]; //create tmp expand
+                Array.Copy(Names.data, MsgExpand_Names, Names.data.Length); //copy all original entries to tmp
 
-            return LastUsedIndex + 1;
+                //UNLEASHED:i'm guessing MSG IDs are zero based so calling length is like IDs + 1
+                MsgExpand_Names[MsgExpand_Names.Length - 1].NameID = "talisman_" + Names.data.Length.ToString("000");
+                MsgExpand_Names[MsgExpand_Names.Length - 1].ID = Names.data.Length;
+
+                //get text data
+                int StrLength = BitConverter.ToInt32(SSData, currentOffset);
+                currentOffset += 4;
+
+                if(StrLength > 0)
+                {
+                    MsgText = new byte[StrLength];
+                    Array.Copy(SSData, currentOffset, MsgText, 0, StrLength);
+                    MsgExpand_Names[MsgExpand_Names.Length - 1].Lines = new string[] { BytetoString(MsgText) };
+                }
+                else
+                {
+                    MsgExpand_Names[MsgExpand_Names.Length - 1].Lines = new string[] { "New Name Entry" };
+                }
+
+                //fix msg id on main soul
+                //we only need to do this once cause shared IDs so just do it for a single language
+                if (lang == "en")
+                {
+                    MsgID = BitConverter.GetBytes((short)MsgExpand_Names[MsgExpand_Names.Length - 1].ID);
+                    Array.Copy(MsgID, 0, Items[LastUsedIndex].Data, IdbOffsets["Name_ID"].Item2, 2);
+                    Items[LastUsedIndex].msgIndexName = BitConverter.ToInt16(MsgID, 0);
+                }
+
+                //finish
+                Names.data = MsgExpand_Names;
+
+                if (StrLength > 0)
+                    writeToMsgText(0, BytetoString(MsgText));
+                else
+                    writeToMsgText(0, "New Name Entry");
+
+                currentOffset += StrLength;
+            }
+
+            //Descriptions
+            foreach (string lang in fullMsgListDescs.Keys)
+            {
+                Descs = fullMsgListDescs[lang];
+
+                msgData[] MsgExpand_Descs = new msgData[Descs.data.Length + 1]; //create tmp expand
+                Array.Copy(Descs.data, MsgExpand_Descs, Descs.data.Length); //copy all original entries to tmp
+
+                //UNLEASHED:i'm guessing MSG IDs are zero based so calling length is like IDs + 1
+                MsgExpand_Descs[MsgExpand_Descs.Length - 1].NameID = "talisman_eff_" + Descs.data.Length.ToString("000");
+                MsgExpand_Descs[MsgExpand_Descs.Length - 1].ID = Descs.data.Length;
+
+                //get text data
+                int StrLength = BitConverter.ToInt32(SSData, currentOffset);
+                currentOffset += 4;
+
+                if (StrLength > 0)
+                {
+                    MsgText = new byte[StrLength];
+                    Array.Copy(SSData, currentOffset, MsgText, 0, StrLength);
+                    MsgExpand_Descs[MsgExpand_Descs.Length - 1].Lines = new string[] { BytetoString(MsgText) };
+                }
+                else
+                {
+                    MsgExpand_Descs[MsgExpand_Descs.Length - 1].Lines = new string[] { "New Description Entry" };
+                }
+
+                //fix msg id on main soul
+                //we only need to do this once cause of shared IDs so just do it for a single language
+                if (lang == "en")
+                {
+                    MsgID = BitConverter.GetBytes((short)MsgExpand_Descs[MsgExpand_Descs.Length - 1].ID);
+                    Array.Copy(MsgID, 0, Items[LastUsedIndex].Data, IdbOffsets["Info_ID"].Item2, 2);
+                    Items[LastUsedIndex].msgIndexDesc = BitConverter.ToInt16(MsgID, 0);
+                }
+
+                //finish
+                Descs.data = MsgExpand_Descs;
+
+                if (StrLength > 0)
+                    writeToMsgText(1, BytetoString(MsgText));
+                else
+                    writeToMsgText(1, "New Description Entry");
+
+                currentOffset += StrLength;
+            }
+
+            //How To
+            foreach (string lang in fullMsgListHowTo.Keys)
+            {
+                HowTo = fullMsgListHowTo[lang];
+
+                msgData[] MsgExpand_HowTo = new msgData[HowTo.data.Length + 1]; //create tmp expand
+                Array.Copy(HowTo.data, MsgExpand_HowTo, HowTo.data.Length); //copy all original entries to tmp
+
+                //UNLEASHED:i'm guessing MSG IDs are zero based so calling length is like IDs + 1
+                MsgExpand_HowTo[MsgExpand_HowTo.Length - 1].NameID = "talisman_how_" + HowTo.data.Length.ToString("000");
+                MsgExpand_HowTo[MsgExpand_HowTo.Length - 1].ID = HowTo.data.Length;
+
+                //get text data
+                int StrLength = BitConverter.ToInt32(SSData, currentOffset);
+                currentOffset += 4;
+
+                if (StrLength > 0)
+                {
+                    MsgText = new byte[StrLength];
+                    Array.Copy(SSData, currentOffset, MsgText, 0, StrLength);
+                    MsgExpand_HowTo[MsgExpand_HowTo.Length - 1].Lines = new string[] { BytetoString(MsgText) };
+                }
+                else
+                {
+                    MsgExpand_HowTo[MsgExpand_HowTo.Length - 1].Lines = new string[] { "New Location Lookup Entry" };
+                }
+
+                //fix msg id on main soul
+                //we only need to do this once cause of shared IDs so just do it for a single language
+                if (lang == "en")
+                {
+                    MsgID = BitConverter.GetBytes((short)MsgExpand_HowTo[MsgExpand_HowTo.Length - 1].ID);
+                    Array.Copy(MsgID, 0, Items[LastUsedIndex].Data, IdbOffsets["How_ID"].Item2, 2);
+                    Items[LastUsedIndex].msgIndexHow = BitConverter.ToInt16(MsgID, 0);
+                }
+
+                //finish
+                HowTo.data = MsgExpand_HowTo;
+
+                if (StrLength > 0)
+                    writeToMsgText(2, BytetoString(MsgText));
+                else
+                    writeToMsgText(2, "New Location Lookup Entry");
+
+                currentOffset += StrLength;
+            }
+
+            //Limit Burst Desctiption
+            foreach (string lang in fullMsgListBurst.Keys)
+            {
+                Burst = fullMsgListBurst[lang];
+
+                msgData[] MsgExpand_Burst = new msgData[Burst.data.Length + 1]; //create tmp expand
+                Array.Copy(Burst.data, MsgExpand_Burst, Burst.data.Length); //copy all original entries to tmp
+
+                //UNLEASHED:i'm guessing MSG IDs are zero based so calling length is like IDs + 1
+                MsgExpand_Burst[MsgExpand_Burst.Length - 1].NameID = "talisman_olt_" + Burst.data.Length.ToString("000");
+                MsgExpand_Burst[MsgExpand_Burst.Length - 1].ID = Burst.data.Length;
+
+                //get text data
+                int StrLength = BitConverter.ToInt32(SSData, currentOffset);
+                currentOffset += 4;
+
+                if (StrLength > 0)
+                {
+                    MsgText = new byte[StrLength];
+                    Array.Copy(SSData, currentOffset, MsgText, 0, StrLength);
+                    MsgExpand_Burst[MsgExpand_Burst.Length - 1].Lines = new string[] { BytetoString(MsgText) };
+                }
+                else
+                {
+                    MsgExpand_Burst[MsgExpand_Burst.Length - 1].Lines = new string[] { "New LB Desc Entry" };
+                }
+
+                //fix msg id on main soul
+                //we only need to do this once cause of shared IDs so just do it for a single language
+                if (lang == "en")
+                {
+                    MsgID = BitConverter.GetBytes((short)MsgExpand_Burst[MsgExpand_Burst.Length - 1].ID);
+                    Array.Copy(MsgID, 0, Items[LastUsedIndex].Data, IdbOffsets["LB_Desc"].Item2, 2);
+                    Items[LastUsedIndex].msgIndexBurst = BitConverter.ToInt16(MsgID, 0);
+                }
+
+                //finish
+                Burst.data = MsgExpand_Burst;
+                
+                if (StrLength > 0)
+                    writeToMsgText(3, BytetoString(MsgText));
+                else
+                    writeToMsgText(3, "New LB Desc Entry");
+
+                currentOffset += StrLength;
+            }
+            //we use this for the other two limit burst descriptions
+            int OLT_ID = Items[LastUsedIndex].msgIndexBurst;
+
+            //Limit Burst Battle Pop-up Text
+            foreach (string lang in fullMsgListBurstBTLHUD.Keys)
+            {
+                BurstBTLHUD = fullMsgListBurstBTLHUD[lang];
+
+                msgData[] MsgExpand_Burst = new msgData[BurstBTLHUD.data.Length + 1]; //create tmp expand
+                Array.Copy(BurstBTLHUD.data, MsgExpand_Burst, BurstBTLHUD.data.Length); //copy all original entries to tmp
+
+                //UNLEASHED:i'm guessing MSG IDs are zero based so calling length is like IDs + 1
+                MsgExpand_Burst[MsgExpand_Burst.Length - 1].NameID = "BHD_OLT_000_" + BurstBTLHUD.data.Length.ToString("000");
+                MsgExpand_Burst[MsgExpand_Burst.Length - 1].ID = BurstBTLHUD.data.Length;
+
+                //get text data
+                int StrLength = BitConverter.ToInt32(SSData, currentOffset);
+                currentOffset += 4;
+
+                if (StrLength > 0)
+                {
+                    MsgText = new byte[StrLength];
+                    Array.Copy(SSData, currentOffset, MsgText, 0, StrLength);
+                    MsgExpand_Burst[MsgExpand_Burst.Length - 1].Lines = new string[] { BytetoString(MsgText) };
+                }
+                else
+                {
+                    MsgExpand_Burst[MsgExpand_Burst.Length - 1].Lines = new string[] { "New LB Battle Desc Entry" };
+                }
+
+                //we only need to do this once cause of shared IDs so just do it for a single language
+                if (lang == "en")
+                {
+                    MsgID = BitConverter.GetBytes((short)MsgExpand_Burst[MsgExpand_Burst.Length - 1].ID);
+                    Items[LastUsedIndex].msgIndexBurstBTL = BitConverter.ToInt16(MsgID, 0);
+                }
+
+                //finish
+                BurstBTLHUD.data = MsgExpand_Burst;
+
+                if (StrLength > 0)
+                    writeToMsgText(4, BytetoString(MsgText), OLT_ID);
+                else
+                    writeToMsgText(4, "New LB Battle Desc Entry", OLT_ID);
+
+                currentOffset += StrLength;
+            }
+
+            //Limit Burst Pause Text
+            foreach (string lang in fullMsgListBurstPause.Keys)
+            {
+                BurstPause = fullMsgListBurstPause[lang];
+
+                msgData[] MsgExpand_Burst = new msgData[BurstPause.data.Length + 1]; //create tmp expand
+                Array.Copy(BurstPause.data, MsgExpand_Burst, BurstPause.data.Length); //copy all original entries to tmp
+
+                //UNLEASHED:i'm guessing MSG IDs are zero based so calling length is like IDs + 1
+                MsgExpand_Burst[MsgExpand_Burst.Length - 1].NameID = "BHD_OLT_000_" + BurstPause.data.Length.ToString("000");
+                MsgExpand_Burst[MsgExpand_Burst.Length - 1].ID = BurstPause.data.Length;
+
+                //get text data
+                int StrLength = BitConverter.ToInt32(SSData, currentOffset);
+                currentOffset += 4;
+
+                if (StrLength > 0)
+                {
+                    MsgText = new byte[StrLength];
+                    Array.Copy(SSData, currentOffset, MsgText, 0, StrLength);
+                    MsgExpand_Burst[MsgExpand_Burst.Length - 1].Lines = new string[] { BytetoString(MsgText) };
+                }
+                else
+                {
+                    MsgExpand_Burst[MsgExpand_Burst.Length - 1].Lines = new string[] { "New LB Battle Desc Entry" };
+                }
+
+                //we only need to do this once cause of shared IDs so just do it for a single language
+                if (lang == "en")
+                {
+                    MsgID = BitConverter.GetBytes((short)MsgExpand_Burst[MsgExpand_Burst.Length - 1].ID);
+                    Items[LastUsedIndex].msgIndexBurstPause = BitConverter.ToInt16(MsgID, 0);
+                }
+
+                //finish
+                BurstPause.data = MsgExpand_Burst;
+
+                if (StrLength > 0)
+                    writeToMsgText(5, BytetoString(MsgText), OLT_ID);
+                else
+                    writeToMsgText(5, "New LB Battle Desc Entry", OLT_ID);
+
+                currentOffset += StrLength;
+            }
+
+            //makes sure text is set back to correct language
+            msgChangeLanguage(null, null);
+
+            return LastUsedIndex;
         }
 
 
