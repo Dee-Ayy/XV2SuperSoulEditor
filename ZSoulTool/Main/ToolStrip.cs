@@ -61,7 +61,7 @@ namespace XV2SSEdit
         /// 
         private void createNewSoulToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int index = AddSS(Properties.Resources.newss);
+            int index = AddSSNew(Properties.Resources.newss);
 
             if (index < 0)
                 return;
@@ -238,40 +238,57 @@ namespace XV2SSEdit
             copiedBytes.AddRange(new byte[] { 0x00, 0x00 }); //LB soul count
             copiedBytes.AddRange(new byte[] { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF }); //Limit Burst Identifiers
 
-            //Demon: use keys from one of these lists. they are bth the same anyway
-            foreach (string lang in fullMsgListNames.Keys)
+            //could be better, but oh well this works
+            List<string> languages = new List<string> { "en", "es", "ca", "fr", "de", "it", "pt", "pl", "ru", "tw", "zh", "kr", "ja" };
+            string MsgText = "";
+            int TextLength = 0;
+            foreach (string lang in languages)
             {
                 //Name
-                string MsgText = fullMsgListNames[lang].data[Items[currentSuperSoulIndex].msgIndexName].Lines[0];
-                int TextLength = MsgText.Length * 2;
+                MsgText = fullMsgListNames[lang].data[Items[currentSuperSoulIndex].msgIndexName].Lines[0];
+                TextLength = MsgText.Length * 2;
                 copiedBytes.AddRange(BitConverter.GetBytes(TextLength));
                 copiedBytes.AddRange(System.Text.Encoding.Unicode.GetBytes(MsgText.ToCharArray()));
+            }
 
+            foreach (string lang in languages)
+            {
                 //Description
                 MsgText = fullMsgListDescs[lang].data[Items[currentSuperSoulIndex].msgIndexDesc].Lines[0];
                 TextLength = MsgText.Length * 2;
                 copiedBytes.AddRange(BitConverter.GetBytes(TextLength));
                 copiedBytes.AddRange(System.Text.Encoding.Unicode.GetBytes(MsgText.ToCharArray()));
+            }
 
+            foreach (string lang in languages)
+            {
                 //HowTo
                 MsgText = fullMsgListHowTo[lang].data[Items[currentSuperSoulIndex].msgIndexHow].Lines[0];
                 TextLength = MsgText.Length * 2;
                 copiedBytes.AddRange(BitConverter.GetBytes(TextLength));
                 copiedBytes.AddRange(System.Text.Encoding.Unicode.GetBytes(MsgText.ToCharArray()));
+            }
 
+            foreach (string lang in languages)
+            {
                 //Burst
                 MsgText = fullMsgListBurst[lang].data[Items[currentSuperSoulIndex].msgIndexBurst].Lines[0];
                 TextLength = MsgText.Length * 2;
                 copiedBytes.AddRange(BitConverter.GetBytes(TextLength));
                 copiedBytes.AddRange(System.Text.Encoding.Unicode.GetBytes(MsgText.ToCharArray()));
+            }
 
+            foreach (string lang in languages)
+            {
                 //Burst HUD
                 MsgText = fullMsgListBurstBTLHUD[lang].data[Items[currentSuperSoulIndex].msgIndexBurstBTL].Lines[0];
                 TextLength = MsgText.Length * 2;
                 copiedBytes.AddRange(BitConverter.GetBytes(TextLength));
                 copiedBytes.AddRange(System.Text.Encoding.Unicode.GetBytes(MsgText.ToCharArray()));
+            }
 
-
+            foreach (string lang in languages)
+            {
                 //Burst Pause
                 MsgText = fullMsgListBurstPause[lang].data[Items[currentSuperSoulIndex].msgIndexBurstPause].Lines[0];
                 TextLength = MsgText.Length * 2;
@@ -308,7 +325,7 @@ namespace XV2SSEdit
             itemList.SelectedIndex = index;
         }
 
-
+        //TODO Update
         ///
         /// Msg Options
         /// 
@@ -321,7 +338,7 @@ namespace XV2SSEdit
             Expand[Expand.Length - 1].ID = Names.data.Length;
             Expand[Expand.Length - 1].Lines = new string[] { "New Name Entry" };
             Names.data = Expand;
-            writeToMsgText(0, "New Name Entry");
+            //writeToMsgText(0, "New Name Entry");
             Name_ID.Text = Names.data[Names.data.Length - 1].ID.ToString();
         }
 
@@ -342,7 +359,7 @@ namespace XV2SSEdit
             Expand[Expand.Length - 1].ID = Descs.data.Length;
             Expand[Expand.Length - 1].Lines = new string[] { "New Description Entry" };
             Descs.data = Expand;
-            writeToMsgText(1, "New Description Entry");
+            //writeToMsgText(1, "New Description Entry");
             Info_ID.Text = Descs.data[Descs.data.Length - 1].ID.ToString();
         }
 
@@ -354,7 +371,6 @@ namespace XV2SSEdit
             Descs.data = reduce;
         }
 
-        //TODO Update
         private void addNewBurstMsg(object sender, EventArgs e)
         {
             byte[] blankzss = Properties.Resources.newss;
@@ -386,10 +402,10 @@ namespace XV2SSEdit
             Burst.data = Expand4;
             Items[currentSuperSoulIndex].msgIndexBurst = BitConverter.ToInt16(newMSGLBDescEntryIDBytes, 0);
 
-            if (LBDescCount > 0)
-                writeToMsgText(2, BytetoString(pass));
-            else
-                writeToMsgText(2, "New LB Desc Entry");
+            //if (LBDescCount > 0)
+            //    writeToMsgText(2, BytetoString(pass));
+            //else
+            //    writeToMsgText(2, "New LB Desc Entry");
 
             int OLT_ID = Items[currentSuperSoulIndex].msgIndexBurst;
             msgData[] Expand5 = new msgData[BurstBTLHUD.data.Length + 1];
@@ -410,10 +426,10 @@ namespace XV2SSEdit
             BurstBTLHUD.data = Expand5;
             Items[currentSuperSoulIndex].msgIndexBurstBTL = BitConverter.ToInt16(newMSGLBDescBtlEntryIDBytes, 0);
 
-            if (LBDescCountBtl > 0)
-                writeToMsgText(3, BytetoString(pass), OLT_ID);
-            else
-                writeToMsgText(3, "New LB Battle Desc Entry", OLT_ID);
+            //if (LBDescCountBtl > 0)
+            //    writeToMsgText(3, BytetoString(pass), OLT_ID);
+            //else
+            //    writeToMsgText(3, "New LB Battle Desc Entry", OLT_ID);
 
             msgData[] Expand6 = new msgData[BurstPause.data.Length + 1];
             Array.Copy(BurstPause.data, Expand6, BurstPause.data.Length);
@@ -431,12 +447,12 @@ namespace XV2SSEdit
 
             byte[] newMSGLBDescPauseEntryIDBytes = BitConverter.GetBytes((short)Expand6[Expand6.Length - 1].ID);
             BurstPause.data = Expand6;
-            Items[currentSuperSoulIndex].msgIndexBurstPause = BitConverter.ToInt16(newMSGLBDescPauseEntryIDBytes, 0);
-            if (LBDescCountPause > 0)
-
-                writeToMsgText(4, BytetoString(pass), OLT_ID);
-            else
-                writeToMsgText(4, "New LB Pause Desc Entry", OLT_ID);
+            //Items[currentSuperSoulIndex].msgIndexBurstPause = BitConverter.ToInt16(newMSGLBDescPauseEntryIDBytes, 0);
+            //if (LBDescCountPause > 0)
+            //
+            //    writeToMsgText(4, BytetoString(pass), OLT_ID);
+            //else
+            //    writeToMsgText(4, "New LB Pause Desc Entry", OLT_ID);
 
             LB_Desc.Text = Expand4[Expand4.Length - 1].ID.ToString();
         }

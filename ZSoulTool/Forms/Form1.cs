@@ -331,105 +331,115 @@ namespace XV2SSEdit
             return "Unknown Type " + id.ToString();
         }
 
-        //TODO: Update to support dynamic language chainging
-        //UNLEASHED: function to write empty Msg text for generic Msg files (for syncing purposes)
-        void writeToMsgText(int MsgType, string Msg, int OLT_ID = -1)
+        public int FindMsgIndexbyNameID(msg msgdata, string id)
         {
-            //switch (MsgType)
-            //{
-            //    case 0:
-            //        {
-            //            for (int i = 0; i < genericMsgListNames.Count; i++)
-            //            {
-            //                GenericMsgFile tmp = genericMsgListNames[i];
-            //                msgData[] Expand2 = new msgData[tmp.msgFile_m.data.Length + 1];
-            //                Array.Copy(tmp.msgFile_m.data, Expand2, tmp.msgFile_m.data.Length);
-            //                Expand2[Expand2.Length - 1].NameID = "talisman_" + tmp.msgFile_m.data.Length.ToString("000");
-            //                Expand2[Expand2.Length - 1].ID = tmp.msgFile_m.data.Length;
-            //                Expand2[Expand2.Length - 1].Lines = new string[] { Msg };
-            //                tmp.msgFile_m.data = Expand2;
-            //                genericMsgListNames[i] = tmp;
-            //            }
-            //            break;
-            //        }
-            //    case 1:
-            //        {
-            //            for (int i = 0; i < genericMsgListDescs.Count; i++)
-            //            {
-            //                GenericMsgFile tmp = genericMsgListDescs[i];
-            //                msgData[] Expand = new msgData[tmp.msgFile_m.data.Length + 1];
-            //                Array.Copy(tmp.msgFile_m.data, Expand, tmp.msgFile_m.data.Length);
-            //                Expand[Expand.Length - 1].NameID = "talisman_eff_" + tmp.msgFile_m.data.Length.ToString("000");
-            //                Expand[Expand.Length - 1].ID = tmp.msgFile_m.data.Length;
-            //                Expand[Expand.Length - 1].Lines = new string[] { Msg };
-            //                tmp.msgFile_m.data = Expand;
-            //                genericMsgListDescs[i] = tmp;
-            //            }
-            //            break;
-            //        }
-            //    case 2:
-            //        {
-            //            for (int i = 0; i < genericMsgListBurst.Count; i++)
-            //            {
-            //                GenericMsgFile tmp = genericMsgListBurst[i];
-            //                msgData[] Expand4 = new msgData[tmp.msgFile_m.data.Length + 1];
-            //                Array.Copy(tmp.msgFile_m.data, Expand4, tmp.msgFile_m.data.Length);
-            //                Expand4[Expand4.Length - 1].NameID = "talisman_olt_" + tmp.msgFile_m.data.Length.ToString("000");
-            //                OLT_ID = tmp.msgFile_m.data.Length;
-            //                Expand4[Expand4.Length - 1].ID = tmp.msgFile_m.data.Length;
-            //                Expand4[Expand4.Length - 1].Lines = new string[] { Msg };
-            //                tmp.msgFile_m.data = Expand4;
-            //                genericMsgListBurst[i] = tmp;
-            //            }
-            //            break;
-            //        }
-            //    case 3:
-            //        {
-            //            for (int i = 0; i < genericMsgListNameBurstBTLHUD.Count; i++)
-            //            {
-            //                GenericMsgFile tmp = genericMsgListNameBurstBTLHUD[i];
-            //                msgData[] Expand5 = new msgData[tmp.msgFile_m.data.Length + 1];
-            //                Array.Copy(tmp.msgFile_m.data, Expand5, tmp.msgFile_m.data.Length);
-            //                Expand5[Expand5.Length - 1].NameID = "BHD_OLT_000_" + OLT_ID.ToString();
-            //                Expand5[Expand5.Length - 1].ID = tmp.msgFile_m.data.Length;
-            //                Expand5[Expand5.Length - 1].Lines = new string[] { Msg };
-            //                tmp.msgFile_m.data = Expand5;
-            //                genericMsgListNameBurstBTLHUD[i] = tmp;
-            //            }
-            //            break;
-            //        }
-            //    case 4:
-            //        {
-            //            for (int i = 0; i < genericMsgListNameBurstPause.Count; i++)
-            //            {
-            //                GenericMsgFile tmp = genericMsgListNameBurstPause[i];
-            //                msgData[] Expand6 = new msgData[tmp.msgFile_m.data.Length + 1];
-            //                Array.Copy(tmp.msgFile_m.data, Expand6, tmp.msgFile_m.data.Length);
-            //                Expand6[Expand6.Length - 1].NameID = "BHD_OLT_000_" + OLT_ID.ToString();
-            //                Expand6[Expand6.Length - 1].ID = tmp.msgFile_m.data.Length;
-            //                Expand6[Expand6.Length - 1].Lines = new string[] { Msg };
-            //                tmp.msgFile_m.data = Expand6;
-            //                genericMsgListNameBurstPause[i] = tmp;
-            //            }
-            //            break;
-            //        }
-            //    case 5:
-            //        {
-            //            for (int i = 0; i < genericMsgListHowTo.Count; i++)
-            //            {
-            //                GenericMsgFile tmp = genericMsgListHowTo[i];
-            //                msgData[] Expand = new msgData[tmp.msgFile_m.data.Length + 1];
-            //                Array.Copy(tmp.msgFile_m.data, Expand, tmp.msgFile_m.data.Length);
-            //                Expand[Expand.Length - 1].NameID = "talisman_how_" + tmp.msgFile_m.data.Length.ToString("000");
-            //                Expand[Expand.Length - 1].ID = tmp.msgFile_m.data.Length;
-            //                Expand[Expand.Length - 1].Lines = new string[] { Msg };
-            //                tmp.msgFile_m.data = Expand;
-            //                genericMsgListHowTo[i] = tmp;
-            //            }
-            //            break;
-            //        }
-            //}
+            for (int i = 0; i < msgdata.data.Length; i++)
+            {
+                if (msgdata.data[i].NameID == id)
+                    return i;
+            }
+            return -1;
         }
+
+        //Demon: uneeded. tool now supports editing every language
+        //UNLEASHED: function to write empty Msg text for generic Msg files (for syncing purposes)
+        //void writeToMsgText(int MsgType, string Msg, int OLT_ID = -1)
+        //{
+        //    switch (MsgType)
+        //    {
+        //        case 0:
+        //            {
+        //                for (int i = 0; i < genericMsgListNames.Count; i++)
+        //                {
+        //                    GenericMsgFile tmp = genericMsgListNames[i];
+        //                    msgData[] Expand2 = new msgData[tmp.msgFile_m.data.Length + 1];
+        //                    Array.Copy(tmp.msgFile_m.data, Expand2, tmp.msgFile_m.data.Length);
+        //                    Expand2[Expand2.Length - 1].NameID = "talisman_" + tmp.msgFile_m.data.Length.ToString("000");
+        //                    Expand2[Expand2.Length - 1].ID = tmp.msgFile_m.data.Length;
+        //                    Expand2[Expand2.Length - 1].Lines = new string[] { Msg };
+        //                    tmp.msgFile_m.data = Expand2;
+        //                    genericMsgListNames[i] = tmp;
+        //                }
+        //                break;
+        //            }
+        //        case 1:
+        //            {
+        //                for (int i = 0; i < genericMsgListDescs.Count; i++)
+        //                {
+        //                    GenericMsgFile tmp = genericMsgListDescs[i];
+        //                    msgData[] Expand = new msgData[tmp.msgFile_m.data.Length + 1];
+        //                    Array.Copy(tmp.msgFile_m.data, Expand, tmp.msgFile_m.data.Length);
+        //                    Expand[Expand.Length - 1].NameID = "talisman_eff_" + tmp.msgFile_m.data.Length.ToString("000");
+        //                    Expand[Expand.Length - 1].ID = tmp.msgFile_m.data.Length;
+        //                    Expand[Expand.Length - 1].Lines = new string[] { Msg };
+        //                    tmp.msgFile_m.data = Expand;
+        //                    genericMsgListDescs[i] = tmp;
+        //                }
+        //                break;
+        //            }
+        //        case 2:
+        //            {
+        //                for (int i = 0; i < genericMsgListBurst.Count; i++)
+        //                {
+        //                    GenericMsgFile tmp = genericMsgListBurst[i];
+        //                    msgData[] Expand4 = new msgData[tmp.msgFile_m.data.Length + 1];
+        //                    Array.Copy(tmp.msgFile_m.data, Expand4, tmp.msgFile_m.data.Length);
+        //                    Expand4[Expand4.Length - 1].NameID = "talisman_olt_" + tmp.msgFile_m.data.Length.ToString("000");
+        //                    OLT_ID = tmp.msgFile_m.data.Length;
+        //                    Expand4[Expand4.Length - 1].ID = tmp.msgFile_m.data.Length;
+        //                    Expand4[Expand4.Length - 1].Lines = new string[] { Msg };
+        //                    tmp.msgFile_m.data = Expand4;
+        //                    genericMsgListBurst[i] = tmp;
+        //                }
+        //                break;
+        //            }
+        //        case 3:
+        //            {
+        //                for (int i = 0; i < genericMsgListNameBurstBTLHUD.Count; i++)
+        //                {
+        //                    GenericMsgFile tmp = genericMsgListNameBurstBTLHUD[i];
+        //                    msgData[] Expand5 = new msgData[tmp.msgFile_m.data.Length + 1];
+        //                    Array.Copy(tmp.msgFile_m.data, Expand5, tmp.msgFile_m.data.Length);
+        //                    Expand5[Expand5.Length - 1].NameID = "BHD_OLT_000_" + OLT_ID.ToString();
+        //                    Expand5[Expand5.Length - 1].ID = tmp.msgFile_m.data.Length;
+        //                    Expand5[Expand5.Length - 1].Lines = new string[] { Msg };
+        //                    tmp.msgFile_m.data = Expand5;
+        //                    genericMsgListNameBurstBTLHUD[i] = tmp;
+        //                }
+        //                break;
+        //            }
+        //        case 4:
+        //            {
+        //                for (int i = 0; i < genericMsgListNameBurstPause.Count; i++)
+        //                {
+        //                    GenericMsgFile tmp = genericMsgListNameBurstPause[i];
+        //                    msgData[] Expand6 = new msgData[tmp.msgFile_m.data.Length + 1];
+        //                    Array.Copy(tmp.msgFile_m.data, Expand6, tmp.msgFile_m.data.Length);
+        //                    Expand6[Expand6.Length - 1].NameID = "BHD_OLT_000_" + OLT_ID.ToString();
+        //                    Expand6[Expand6.Length - 1].ID = tmp.msgFile_m.data.Length;
+        //                    Expand6[Expand6.Length - 1].Lines = new string[] { Msg };
+        //                    tmp.msgFile_m.data = Expand6;
+        //                    genericMsgListNameBurstPause[i] = tmp;
+        //                }
+        //                break;
+        //            }
+        //        case 5:
+        //            {
+        //                for (int i = 0; i < genericMsgListHowTo.Count; i++)
+        //                {
+        //                    GenericMsgFile tmp = genericMsgListHowTo[i];
+        //                    msgData[] Expand = new msgData[tmp.msgFile_m.data.Length + 1];
+        //                    Array.Copy(tmp.msgFile_m.data, Expand, tmp.msgFile_m.data.Length);
+        //                    Expand[Expand.Length - 1].NameID = "talisman_how_" + tmp.msgFile_m.data.Length.ToString("000");
+        //                    Expand[Expand.Length - 1].ID = tmp.msgFile_m.data.Length;
+        //                    Expand[Expand.Length - 1].Lines = new string[] { Msg };
+        //                    tmp.msgFile_m.data = Expand;
+        //                    genericMsgListHowTo[i] = tmp;
+        //                }
+        //                break;
+        //            }
+        //    }
+        //}
 
         private void updateNameMsgID(object sender, EventArgs e)
         {
@@ -519,9 +529,11 @@ namespace XV2SSEdit
             Items[itemList.SelectedIndex].msgIndexBurst = FindmsgIndex(ref Burst, BitConverter.ToUInt16(Items[itemList.SelectedIndex].Data, 56));
             txtMsgLBDesc.Text = Burst.data[Items[itemList.SelectedIndex].msgIndexBurst].Lines[0];
 
+            //TODO: commented out cause it's buggy (when manually changing lb desc id). try to fix later
+
             //Demon: updates the in battle description text when the description id is changed
-            Items[itemList.SelectedIndex].msgIndexBurstBTL = getLB_BTL_Pause_DescID(BurstBTLHUD, Burst.data[Items[itemList.SelectedIndex].msgIndexBurst].NameID);
-            Items[itemList.SelectedIndex].msgIndexBurstPause = getLB_BTL_Pause_DescID(BurstPause, Burst.data[Items[itemList.SelectedIndex].msgIndexBurst].NameID);
+            //Items[itemList.SelectedIndex].msgIndexBurstBTL = getLB_BTL_Pause_DescID(BurstBTLHUD, Burst.data[Items[itemList.SelectedIndex].msgIndexBurst].NameID);
+            //Items[itemList.SelectedIndex].msgIndexBurstPause = getLB_BTL_Pause_DescID(BurstPause, Burst.data[Items[itemList.SelectedIndex].msgIndexBurst].NameID);
             txtMsgLBDescBTL.Text = BurstBTLHUD.data[Items[itemList.SelectedIndex].msgIndexBurstBTL].Lines[0];
         }
 
@@ -554,13 +566,13 @@ namespace XV2SSEdit
             else
                 BurstBTLHUDName += BurstID.ToString(); //hopefully we can have IDs above 99 that don't need that 000 prefix
 
-            for (int i = 0; i < extraBurstMsgFile.data.Length; i++)
-            {
-                if (extraBurstMsgFile.data[i].NameID == BurstBTLHUDName)
-                    return i;
-            }
+            //for (int i = 0; i < extraBurstMsgFile.data.Length; i++)
+            //{
+            //    if (extraBurstMsgFile.data[i].NameID == BurstBTLHUDName)
+            //        return i;
+            //}
 
-            return -1;
+            return FindMsgIndexbyNameID(extraBurstMsgFile, BurstBTLHUDName);
         }
 
         //TODO: update addresses
@@ -1389,9 +1401,6 @@ namespace XV2SSEdit
                 return -1;
             }
 
-            //backup encase something goes wrong
-            idbItem[] items_org = Items;
-
             //search for closest unused id after vanilla ids
             //should be 1003+, but we start searching from 1000 just because
             ushort FreeID = 1000;
@@ -1467,20 +1476,15 @@ namespace XV2SSEdit
             //finish adding souls
             Items = SoulExpand;
 
-            //TODO:
-            //At this point souls are added and the main soul should have the correct limit burst ids
-            //next is expanding all msg entries then fixing those msg ids on the main soul
-
-
             //Expand msg
-            //Demon: We need to worry about every language now...
-            //all msg strings are length followed immediately by string data back-to-back until soul data
+            //reminder: all msg strings are length followed immediately by string data back-to-back until soul data
             int currentOffset = 0x10;
             byte[] MsgText = null;
             byte[] MsgID = null;
+            List<string> languages = new List<string> { "en", "es", "ca", "fr", "de", "it", "pt", "pl", "ru", "tw", "zh", "kr", "ja" };
 
             //Names
-            foreach (string lang in fullMsgListNames.Keys)
+            foreach (string lang in languages)
             {
                 Names = fullMsgListNames[lang];
 
@@ -1517,17 +1521,12 @@ namespace XV2SSEdit
 
                 //finish
                 Names.data = MsgExpand_Names;
-
-                if (StrLength > 0)
-                    writeToMsgText(0, BytetoString(MsgText));
-                else
-                    writeToMsgText(0, "New Name Entry");
-
+                fullMsgListNames[lang] = Names;
                 currentOffset += StrLength;
             }
 
             //Descriptions
-            foreach (string lang in fullMsgListDescs.Keys)
+            foreach (string lang in languages)
             {
                 Descs = fullMsgListDescs[lang];
 
@@ -1564,17 +1563,12 @@ namespace XV2SSEdit
 
                 //finish
                 Descs.data = MsgExpand_Descs;
-
-                if (StrLength > 0)
-                    writeToMsgText(1, BytetoString(MsgText));
-                else
-                    writeToMsgText(1, "New Description Entry");
-
+                fullMsgListDescs[lang] = Descs;
                 currentOffset += StrLength;
             }
 
             //How To
-            foreach (string lang in fullMsgListHowTo.Keys)
+            foreach (string lang in languages)
             {
                 HowTo = fullMsgListHowTo[lang];
 
@@ -1611,17 +1605,12 @@ namespace XV2SSEdit
 
                 //finish
                 HowTo.data = MsgExpand_HowTo;
-
-                if (StrLength > 0)
-                    writeToMsgText(2, BytetoString(MsgText));
-                else
-                    writeToMsgText(2, "New Location Lookup Entry");
-
+                fullMsgListHowTo[lang] = HowTo;
                 currentOffset += StrLength;
             }
 
             //Limit Burst Desctiption
-            foreach (string lang in fullMsgListBurst.Keys)
+            foreach (string lang in languages)
             {
                 Burst = fullMsgListBurst[lang];
 
@@ -1658,28 +1647,21 @@ namespace XV2SSEdit
 
                 //finish
                 Burst.data = MsgExpand_Burst;
-                
-                if (StrLength > 0)
-                    writeToMsgText(3, BytetoString(MsgText));
-                else
-                    writeToMsgText(3, "New LB Desc Entry");
-
+                fullMsgListBurst[lang] = Burst;
                 currentOffset += StrLength;
             }
-            //we use this for the other two limit burst descriptions
-            int OLT_ID = Items[LastUsedIndex].msgIndexBurst;
 
             //Limit Burst Battle Pop-up Text
-            foreach (string lang in fullMsgListBurstBTLHUD.Keys)
+            foreach (string lang in languages)
             {
                 BurstBTLHUD = fullMsgListBurstBTLHUD[lang];
 
-                msgData[] MsgExpand_Burst = new msgData[BurstBTLHUD.data.Length + 1]; //create tmp expand
-                Array.Copy(BurstBTLHUD.data, MsgExpand_Burst, BurstBTLHUD.data.Length); //copy all original entries to tmp
+                msgData[] MsgExpand_BurstBTL = new msgData[BurstBTLHUD.data.Length + 1]; //create tmp expand
+                Array.Copy(BurstBTLHUD.data, MsgExpand_BurstBTL, BurstBTLHUD.data.Length); //copy all original entries to tmp
 
                 //UNLEASHED:i'm guessing MSG IDs are zero based so calling length is like IDs + 1
-                MsgExpand_Burst[MsgExpand_Burst.Length - 1].NameID = "BHD_OLT_000_" + BurstBTLHUD.data.Length.ToString("000");
-                MsgExpand_Burst[MsgExpand_Burst.Length - 1].ID = BurstBTLHUD.data.Length;
+                MsgExpand_BurstBTL[MsgExpand_BurstBTL.Length - 1].NameID = "BHD_OLT_000_" + BurstBTLHUD.data.Length.ToString("000");
+                MsgExpand_BurstBTL[MsgExpand_BurstBTL.Length - 1].ID = BurstBTLHUD.data.Length;
 
                 //get text data
                 int StrLength = BitConverter.ToInt32(SSData, currentOffset);
@@ -1689,33 +1671,28 @@ namespace XV2SSEdit
                 {
                     MsgText = new byte[StrLength];
                     Array.Copy(SSData, currentOffset, MsgText, 0, StrLength);
-                    MsgExpand_Burst[MsgExpand_Burst.Length - 1].Lines = new string[] { BytetoString(MsgText) };
+                    MsgExpand_BurstBTL[MsgExpand_BurstBTL.Length - 1].Lines = new string[] { BytetoString(MsgText) };
                 }
                 else
                 {
-                    MsgExpand_Burst[MsgExpand_Burst.Length - 1].Lines = new string[] { "New LB Battle Desc Entry" };
+                    MsgExpand_BurstBTL[MsgExpand_BurstBTL.Length - 1].Lines = new string[] { "New LB Battle Desc Entry" };
                 }
 
                 //we only need to do this once cause of shared IDs so just do it for a single language
                 if (lang == "en")
                 {
-                    MsgID = BitConverter.GetBytes((short)MsgExpand_Burst[MsgExpand_Burst.Length - 1].ID);
+                    MsgID = BitConverter.GetBytes((short)MsgExpand_BurstBTL[MsgExpand_BurstBTL.Length - 1].ID);
                     Items[LastUsedIndex].msgIndexBurstBTL = BitConverter.ToInt16(MsgID, 0);
                 }
 
                 //finish
-                BurstBTLHUD.data = MsgExpand_Burst;
-
-                if (StrLength > 0)
-                    writeToMsgText(4, BytetoString(MsgText), OLT_ID);
-                else
-                    writeToMsgText(4, "New LB Battle Desc Entry", OLT_ID);
-
+                BurstBTLHUD.data = MsgExpand_BurstBTL;
+                fullMsgListBurstBTLHUD[lang] = BurstBTLHUD;
                 currentOffset += StrLength;
             }
 
             //Limit Burst Pause Text
-            foreach (string lang in fullMsgListBurstPause.Keys)
+            foreach (string lang in languages)
             {
                 BurstPause = fullMsgListBurstPause[lang];
 
@@ -1750,297 +1727,293 @@ namespace XV2SSEdit
 
                 //finish
                 BurstPause.data = MsgExpand_Burst;
-
-                if (StrLength > 0)
-                    writeToMsgText(5, BytetoString(MsgText), OLT_ID);
-                else
-                    writeToMsgText(5, "New LB Battle Desc Entry", OLT_ID);
-
+                fullMsgListBurstPause[lang] = BurstPause;
                 currentOffset += StrLength;
             }
 
             //makes sure text is set back to correct language
-            msgChangeLanguage(null, null);
+            Names = fullMsgListNames[currentLanguge];
+            Descs = fullMsgListDescs[currentLanguge];
+            HowTo = fullMsgListHowTo[currentLanguge];
+            Burst = fullMsgListBurst[currentLanguge];
+            BurstBTLHUD = fullMsgListBurstBTLHUD[currentLanguge];
+            BurstPause = fullMsgListBurstPause[currentLanguge];
 
             return LastUsedIndex;
         }
 
-
-
-
-
-
-        //TODO Update
+        ///OLD
         //UNLEASHED: decided to wrap this in 1 function so that we don't need to repeat same code for creating new SSF and importing SSP
-        private int AddSS(byte[] SSData)
-        {
-            //UNLEASHED: this function will return the ItemList index of the latest installed Super Soul
-            //if the returned int is "-1" then Super Soul failed to install.
+        //private int AddSS(byte[] SSData)
+        //{
+        //    //UNLEASHED: this function will return the ItemList index of the latest installed Super Soul
+        //    //if the returned int is "-1" then Super Soul failed to install.
+        //
+        //    //Create and add Blank Super Soul (its not actually blank, it uses Raditz Super Soul as a base, which is a functional soul that has no effects)
+        //    //loading
+        //    // OpenFileDialog browseFile = new OpenFileDialog();
+        //    // browseFile.Filter = "Super Soul Share File | *.zss";
+        //    // browseFile.Title = "Select the Super Soul you want to import.";
+        //    // if (browseFile.ShowDialog() == DialogResult.Cancel)
+        //    //     return;
+        //
+        //    idbItem[] items_org = Items;
+        //    byte[] blankzss = SSData;
+        //    int nameCount = BitConverter.ToInt32(blankzss, 4);
+        //    int DescCount = BitConverter.ToInt32(blankzss, 8);
+        //    int LBDescCount = BitConverter.ToInt32(blankzss, 16);
+        //    int LBDescCountBtl = BitConverter.ToInt32(blankzss, 20);
+        //    int LBDescCountPause = BitConverter.ToInt32(blankzss, 24);
+        //
+        //    //UNLEASHED: we are gonna skip expanding itemlist until later..
+        //
+        //    //==================================EXPAND ITEMS CODE=========================
+        //
+        //    ////expand the item array
+        //    //idbItem[] Expand = new idbItem[Items.Length + 1];
+        //    ////copy the current items to the expanded array
+        //    //Array.Copy(Items, Expand, Items.Length);
+        //    ////add blank IDB data
+        //    //Expand[Expand.Length - 1].Data = new byte[748];
+        //    //Items = Expand;
+        //
+        //    //==================================EXPAND ITEMS CODE=========================
+        //
+        //    //UNLEASHED: first, lets the get the ID of the last SS's ID and increment by 1
+        //    ushort ID = BitConverter.ToUInt16(Items[Items.Length - 1].Data, 0);
+        //    ID++;
+        //    bool foundProperID = true;
+        //    int newPos = Items.Length; //UNLEASHED: Length = current items count + 1 (which is a  proper ID after we expand the list)
+        //
+        //    //UNLEASHED: after incrementing by 1, we check if its above 32700 (very close to Int16.MaxValue)
+        //    if (ID > 32700)
+        //    {
+        //        foundProperID = false;
+        //        int currentItemIndex = Items.Length - 1;
+        //
+        //        while ((currentItemIndex - 1) > 0)
+        //        {
+        //            currentItemIndex--; //UNLEASHED: skiping last SS
+        //            ushort currID = BitConverter.ToUInt16(Items[currentItemIndex].Data, 0);
+        //            ushort nextID = BitConverter.ToUInt16(Items[currentItemIndex + 1].Data, 0);
+        //
+        //            if (currID + 1 < nextID && ((currID + 1) <= 32700)) // our new ID can go in the middle
+        //            {
+        //                foundProperID = true;
+        //                newPos = currentItemIndex + 1;
+        //                ID = (ushort)(currID + 1);
+        //                break;
+        //            }
+        //        }
+        //    }
+        //
+        //    if (foundProperID)
+        //    {
+        //        //expand the item array
+        //        idbItem[] Expand = new idbItem[Items.Length + 1];
+        //
+        //        //copy the current items to the expanded array
+        //        Array.Copy(Items, Expand, Items.Length);
+        //
+        //        //add blank IDB data
+        //        Expand[Expand.Length - 1].Data = new byte[772];
+        //
+        //        //UNLEASHED: finally, set the new array with proper IDs
+        //        Items = Expand;
+        //        int currentIndex = Items.Length - 1;
+        //        int prevIndex = Items.Length - 2;
+        //        if (prevIndex < 0) //UNLEASHED: incase something went very wrong (corrupt IDB file?)
+        //        {
+        //            MessageBox.Show("Cannot add new Super Soul");
+        //            Items = items_org;
+        //            return -1;
+        //        }
+        //
+        //        //UNLEASHED: Swap items until we reach newPos
+        //        while (currentIndex != newPos)
+        //        {
+        //            idbItem tempIDBItem = Items[currentIndex];
+        //            Items[currentIndex] = Items[prevIndex];
+        //            Items[prevIndex] = tempIDBItem;
+        //            currentIndex--;
+        //            prevIndex--;
+        //        }
+        //    }
+        //
+        //    else
+        //    {
+        //        MessageBox.Show("Cannot add new Super Soul");
+        //        Items = items_org;
+        //        return -1;
+        //    }
+        //
+        //    Array.Copy(BitConverter.GetBytes(ID), Items[newPos].Data, 2);
+        //
+        //    //apply Zss data to added z-soul
+        //    //UNLEASHED: original code was multiplying lengths by 2 (this is because of unicode names)
+        //    //instead, when exporting the SS get the length of the strings and multiy them by 2 before writing to binary
+        //    //so here we read the number normally
+        //    //Array.Copy(blankzss, 12 + (nameCount * 2) + (DescCount * 2), Items[newPos].Data, 2, 718);
+        //
+        //    //UNLEASHED: + (4) is for limit burst linker 4 bytes, only useful in SSP
+        //    Array.Copy(blankzss, 0x1C + (nameCount) + (DescCount) + (LBDescCount) + (LBDescCountBtl) + (LBDescCountPause), Items[newPos].Data, 2, 746);
+        //
+        //    //expand Names msg
+        //    //UNLEASHED we shouldn't worry about Msg IDs.. i think......
+        //    byte[] pass = null;
+        //    msgData[] Expand2 = new msgData[Names.data.Length + 1];
+        //    Array.Copy(Names.data, Expand2, Names.data.Length);
+        //
+        //    //UNLEASHED:i'm guessing MSG IDs are zero based so calling length is like IDs + 1
+        //    Expand2[Expand2.Length - 1].NameID = "talisman_" + Names.data.Length.ToString("000");
+        //    Expand2[Expand2.Length - 1].ID = Names.data.Length;
+        //
+        //    if (nameCount > 0)
+        //    {
+        //        pass = new byte[nameCount];
+        //        Array.Copy(blankzss, 0x1C, pass, 0, nameCount);
+        //        Expand2[Expand2.Length - 1].Lines = new string[] { BytetoString(pass) };
+        //    }
+        //
+        //    else
+        //        Expand2[Expand2.Length - 1].Lines = new string[] { "New Name Entry" };
+        //
+        //    byte[] newMSGNameEntryIDBytes = BitConverter.GetBytes((short)Expand2[Expand2.Length - 1].ID);
+        //    Array.Copy(newMSGNameEntryIDBytes, 0, Items[newPos].Data, 4, 2);
+        //    Names.data = Expand2;
+        //
+        //    //UNLEASHED: using FindmsgIndex again is pointless, we already have the MSG ID
+        //    //Items[newPos].msgIndexName = FindmsgIndex(ref Names, Names.data[Names.data.Length - 1].ID);
+        //    Items[newPos].msgIndexName = BitConverter.ToInt16(newMSGNameEntryIDBytes, 0);
+        //
+        //    if (nameCount > 0)
+        //        writeToMsgText(0, BytetoString(pass));
+        //    else
+        //        writeToMsgText(0, "New Name Entry");
+        //
+        //    //expand description msg
+        //    msgData[] Expand3 = new msgData[Descs.data.Length + 1];
+        //    Array.Copy(Descs.data, Expand3, Descs.data.Length);
+        //    Expand3[Expand3.Length - 1].NameID = "talisman_eff_" + Descs.data.Length.ToString("000");
+        //    Expand3[Expand3.Length - 1].ID = Descs.data.Length;
+        //
+        //    if (DescCount > 0)
+        //    {
+        //        pass = new byte[DescCount];
+        //        Array.Copy(blankzss, 0x1C + (nameCount), pass, 0, DescCount);
+        //        Expand3[Expand3.Length - 1].Lines = new string[] { BytetoString(pass) };
+        //    }
+        //
+        //    else
+        //        Expand3[Expand3.Length - 1].Lines = new string[] { "New Description Entry" };
+        //
+        //    byte[] newMSGDescEntryIDBytes = BitConverter.GetBytes((short)Expand3[Expand3.Length - 1].ID);
+        //    Array.Copy(newMSGDescEntryIDBytes, 0, Items[newPos].Data, 6, 2);
+        //    Descs.data = Expand3;
+        //
+        //    //UNLEASHED: using FindmsgIndex again is pointless, we already have the MSG ID
+        //    //Items[newPos].msgIndexDesc = FindmsgIndex(ref Descs, Descs.data[Descs.data.Length - 1].ID);
+        //    Items[newPos].msgIndexDesc = BitConverter.ToInt16(newMSGDescEntryIDBytes, 0);
+        //
+        //    if (DescCount > 0)
+        //        writeToMsgText(1, BytetoString(pass));
+        //    else
+        //        writeToMsgText(1, "New Description Entry");
+        //
+        //    //UNLEASHED: expand LB Desc / LB DescBTL MSG
+        //    msgData[] Expand4 = new msgData[Burst.data.Length + 1];
+        //    Array.Copy(Burst.data, Expand4, Burst.data.Length);
+        //    Expand4[Expand4.Length - 1].NameID = "talisman_olt_" + Burst.data.Length.ToString("000");
+        //    Expand4[Expand4.Length - 1].ID = Burst.data.Length;
+        //
+        //    if (LBDescCount > 0)
+        //    {
+        //        pass = new byte[LBDescCount];
+        //        Array.Copy(blankzss, 0x1C + (nameCount) + (DescCount), pass, 0, LBDescCount);
+        //        Expand4[Expand4.Length - 1].Lines = new string[] { BytetoString(pass) };
+        //    }
+        //
+        //    else
+        //        Expand4[Expand4.Length - 1].Lines = new string[] { "New LB Desc Entry" };
+        //
+        //    byte[] newMSGLBDescEntryIDBytes = BitConverter.GetBytes((short)Expand4[Expand4.Length - 1].ID);
+        //    Array.Copy(newMSGLBDescEntryIDBytes, 0, Items[newPos].Data, 40, 2);
+        //    Burst.data = Expand4;
+        //
+        //    //UNLEASHED: using FindmsgIndex again is pointless, we already have the MSG ID
+        //    //Items[newPos].msgIndexDesc = FindmsgIndex(ref Descs, Descs.data[Descs.data.Length - 1].ID);
+        //    Items[newPos].msgIndexBurst = BitConverter.ToInt16(newMSGLBDescEntryIDBytes, 0);
+        //
+        //    if (LBDescCount > 0)
+        //        writeToMsgText(2, BytetoString(pass));
+        //    else
+        //        writeToMsgText(2, "New LB Desc Entry");
+        //
+        //    int OLT_ID = Items[newPos].msgIndexBurst;
+        //    msgData[] Expand5 = new msgData[BurstBTLHUD.data.Length + 1];
+        //    Array.Copy(BurstBTLHUD.data, Expand5, BurstBTLHUD.data.Length);
+        //    Expand5[Expand5.Length - 1].NameID = "BHD_OLT_000_" + Items[newPos].msgIndexBurst.ToString();// +BurstBTLHUD.data.Length.ToString("000");
+        //    Expand5[Expand5.Length - 1].ID = BurstBTLHUD.data.Length;
+        //
+        //    if (LBDescCountBtl > 0)
+        //    {
+        //        pass = new byte[LBDescCountBtl];
+        //        Array.Copy(blankzss, 0x1C + (nameCount) + (DescCount) + (LBDescCount), pass, 0, LBDescCountBtl);
+        //        Expand5[Expand5.Length - 1].Lines = new string[] { BytetoString(pass) };
+        //    }
+        //
+        //    else
+        //        Expand5[Expand5.Length - 1].Lines = new string[] { "New LB Battle Desc Entry" };
+        //
+        //    byte[] newMSGLBDescBtlEntryIDBytes = BitConverter.GetBytes((short)Expand5[Expand5.Length - 1].ID);
+        //
+        //    //UNLEASHED: the LBDescBtl MSG ID doesn't actually exist in the skill, so no need to copy
+        //    //Array.Copy(newMSGLBDescEntryIDBytes, 0, Items[newPos].Data, 40, 2);
+        //    BurstBTLHUD.data = Expand5;
+        //
+        //    //UNLEASHED: using FindmsgIndex again is pointless, we already have the MSG ID
+        //    //Items[newPos].msgIndexDesc = FindmsgIndex(ref Descs, Descs.data[Descs.data.Length - 1].ID);
+        //    Items[newPos].msgIndexBurstBTL = BitConverter.ToInt16(newMSGLBDescBtlEntryIDBytes, 0);
+        //
+        //    if (LBDescCountBtl > 0)
+        //        writeToMsgText(3, BytetoString(pass), OLT_ID);
+        //    else
+        //        writeToMsgText(3, "New LB Battle Desc Entry", OLT_ID);
+        //
+        //    msgData[] Expand6 = new msgData[BurstPause.data.Length + 1];
+        //    Array.Copy(BurstPause.data, Expand6, BurstPause.data.Length);
+        //    Expand6[Expand6.Length - 1].NameID = "BHD_OLT_000_" + Items[newPos].msgIndexBurst.ToString();// +BurstBTLHUD.data.Length.ToString("000");
+        //    Expand6[Expand6.Length - 1].ID = BurstPause.data.Length;
+        //
+        //    if (LBDescCountPause > 0)
+        //    {
+        //        pass = new byte[LBDescCountPause];
+        //        Array.Copy(blankzss, 0x1C + (nameCount) + (DescCount) + (LBDescCount) + (LBDescCountBtl), pass, 0, LBDescCountPause);
+        //        Expand6[Expand6.Length - 1].Lines = new string[] { BytetoString(pass) };
+        //    }
+        //
+        //    else
+        //        Expand6[Expand6.Length - 1].Lines = new string[] { "New LB Pause Desc Entry" };
+        //
+        //    byte[] newMSGLBDescPauseEntryIDBytes = BitConverter.GetBytes((short)Expand6[Expand6.Length - 1].ID);
+        //
+        //    //UNLEASHED: the LBDescBtl MSG ID doesn't actually exist in the skill, so no need to copy
+        //    //Array.Copy(newMSGLBDescEntryIDBytes, 0, Items[newPos].Data, 40, 2);
+        //    BurstPause.data = Expand6;
+        //
+        //    //UNLEASHED: using FindmsgIndex again is pointless, we already have the MSG ID
+        //    //Items[newPos].msgIndexDesc = FindmsgIndex(ref Descs, Descs.data[Descs.data.Length - 1].ID);
+        //    Items[newPos].msgIndexBurstPause = BitConverter.ToInt16(newMSGLBDescPauseEntryIDBytes, 0);
+        //
+        //    if (LBDescCountPause > 0)
+        //        writeToMsgText(4, BytetoString(pass), OLT_ID);
+        //    else
+        //        writeToMsgText(4, "New LB Pause Desc Entry", OLT_ID);
+        //
+        //    return newPos;
+        //}
 
-            //Create and add Blank Super Soul (its not actually blank, it uses Raditz Super Soul as a base, which is a functional soul that has no effects)
-            //loading
-            // OpenFileDialog browseFile = new OpenFileDialog();
-            // browseFile.Filter = "Super Soul Share File | *.zss";
-            // browseFile.Title = "Select the Super Soul you want to import.";
-            // if (browseFile.ShowDialog() == DialogResult.Cancel)
-            //     return;
-
-            idbItem[] items_org = Items;
-            byte[] blankzss = SSData;
-            int nameCount = BitConverter.ToInt32(blankzss, 4);
-            int DescCount = BitConverter.ToInt32(blankzss, 8);
-            int LBDescCount = BitConverter.ToInt32(blankzss, 16);
-            int LBDescCountBtl = BitConverter.ToInt32(blankzss, 20);
-            int LBDescCountPause = BitConverter.ToInt32(blankzss, 24);
-
-            //UNLEASHED: we are gonna skip expanding itemlist until later..
-
-            //==================================EXPAND ITEMS CODE=========================
-
-            ////expand the item array
-            //idbItem[] Expand = new idbItem[Items.Length + 1];
-            ////copy the current items to the expanded array
-            //Array.Copy(Items, Expand, Items.Length);
-            ////add blank IDB data
-            //Expand[Expand.Length - 1].Data = new byte[748];
-            //Items = Expand;
-
-            //==================================EXPAND ITEMS CODE=========================
-
-            //UNLEASHED: first, lets the get the ID of the last SS's ID and increment by 1
-            ushort ID = BitConverter.ToUInt16(Items[Items.Length - 1].Data, 0);
-            ID++;
-            bool foundProperID = true;
-            int newPos = Items.Length; //UNLEASHED: Length = current items count + 1 (which is a  proper ID after we expand the list)
-
-            //UNLEASHED: after incrementing by 1, we check if its above 32700 (very close to Int16.MaxValue)
-            if (ID > 32700)
-            {
-                foundProperID = false;
-                int currentItemIndex = Items.Length - 1;
-
-                while ((currentItemIndex - 1) > 0)
-                {
-                    currentItemIndex--; //UNLEASHED: skiping last SS
-                    ushort currID = BitConverter.ToUInt16(Items[currentItemIndex].Data, 0);
-                    ushort nextID = BitConverter.ToUInt16(Items[currentItemIndex + 1].Data, 0);
-
-                    if (currID + 1 < nextID && ((currID + 1) <= 32700)) // our new ID can go in the middle
-                    {
-                        foundProperID = true;
-                        newPos = currentItemIndex + 1;
-                        ID = (ushort)(currID + 1);
-                        break;
-                    }
-                }
-            }
-
-            if (foundProperID)
-            {
-                //expand the item array
-                idbItem[] Expand = new idbItem[Items.Length + 1];
-
-                //copy the current items to the expanded array
-                Array.Copy(Items, Expand, Items.Length);
-
-                //add blank IDB data
-                Expand[Expand.Length - 1].Data = new byte[772];
-
-                //UNLEASHED: finally, set the new array with proper IDs
-                Items = Expand;
-                int currentIndex = Items.Length - 1;
-                int prevIndex = Items.Length - 2;
-                if (prevIndex < 0) //UNLEASHED: incase something went very wrong (corrupt IDB file?)
-                {
-                    MessageBox.Show("Cannot add new Super Soul");
-                    Items = items_org;
-                    return -1;
-                }
-
-                //UNLEASHED: Swap items until we reach newPos
-                while (currentIndex != newPos)
-                {
-                    idbItem tempIDBItem = Items[currentIndex];
-                    Items[currentIndex] = Items[prevIndex];
-                    Items[prevIndex] = tempIDBItem;
-                    currentIndex--;
-                    prevIndex--;
-                }
-            }
-
-            else
-            {
-                MessageBox.Show("Cannot add new Super Soul");
-                Items = items_org;
-                return -1;
-            }
-
-            Array.Copy(BitConverter.GetBytes(ID), Items[newPos].Data, 2);
-
-            //apply Zss data to added z-soul
-            //UNLEASHED: original code was multiplying lengths by 2 (this is because of unicode names)
-            //instead, when exporting the SS get the length of the strings and multiy them by 2 before writing to binary
-            //so here we read the number normally
-            //Array.Copy(blankzss, 12 + (nameCount * 2) + (DescCount * 2), Items[newPos].Data, 2, 718);
-
-            //UNLEASHED: + (4) is for limit burst linker 4 bytes, only useful in SSP
-            Array.Copy(blankzss, 0x1C + (nameCount) + (DescCount) + (LBDescCount) + (LBDescCountBtl) + (LBDescCountPause), Items[newPos].Data, 2, 746);
-
-            //expand Names msg
-            //UNLEASHED we shouldn't worry about Msg IDs.. i think......
-            byte[] pass = null;
-            msgData[] Expand2 = new msgData[Names.data.Length + 1];
-            Array.Copy(Names.data, Expand2, Names.data.Length);
-
-            //UNLEASHED:i'm guessing MSG IDs are zero based so calling length is like IDs + 1
-            Expand2[Expand2.Length - 1].NameID = "talisman_" + Names.data.Length.ToString("000");
-            Expand2[Expand2.Length - 1].ID = Names.data.Length;
-
-            if (nameCount > 0)
-            {
-                pass = new byte[nameCount];
-                Array.Copy(blankzss, 0x1C, pass, 0, nameCount);
-                Expand2[Expand2.Length - 1].Lines = new string[] { BytetoString(pass) };
-            }
-
-            else
-                Expand2[Expand2.Length - 1].Lines = new string[] { "New Name Entry" };
-
-            byte[] newMSGNameEntryIDBytes = BitConverter.GetBytes((short)Expand2[Expand2.Length - 1].ID);
-            Array.Copy(newMSGNameEntryIDBytes, 0, Items[newPos].Data, 4, 2);
-            Names.data = Expand2;
-
-            //UNLEASHED: using FindmsgIndex again is pointless, we already have the MSG ID
-            //Items[newPos].msgIndexName = FindmsgIndex(ref Names, Names.data[Names.data.Length - 1].ID);
-            Items[newPos].msgIndexName = BitConverter.ToInt16(newMSGNameEntryIDBytes, 0);
-
-            if (nameCount > 0)
-                writeToMsgText(0, BytetoString(pass));
-            else
-                writeToMsgText(0, "New Name Entry");
-
-            //expand description msg
-            msgData[] Expand3 = new msgData[Descs.data.Length + 1];
-            Array.Copy(Descs.data, Expand3, Descs.data.Length);
-            Expand3[Expand3.Length - 1].NameID = "talisman_eff_" + Descs.data.Length.ToString("000");
-            Expand3[Expand3.Length - 1].ID = Descs.data.Length;
-
-            if (DescCount > 0)
-            {
-                pass = new byte[DescCount];
-                Array.Copy(blankzss, 0x1C + (nameCount), pass, 0, DescCount);
-                Expand3[Expand3.Length - 1].Lines = new string[] { BytetoString(pass) };
-            }
-
-            else
-                Expand3[Expand3.Length - 1].Lines = new string[] { "New Description Entry" };
-
-            byte[] newMSGDescEntryIDBytes = BitConverter.GetBytes((short)Expand3[Expand3.Length - 1].ID);
-            Array.Copy(newMSGDescEntryIDBytes, 0, Items[newPos].Data, 6, 2);
-            Descs.data = Expand3;
-
-            //UNLEASHED: using FindmsgIndex again is pointless, we already have the MSG ID
-            //Items[newPos].msgIndexDesc = FindmsgIndex(ref Descs, Descs.data[Descs.data.Length - 1].ID);
-            Items[newPos].msgIndexDesc = BitConverter.ToInt16(newMSGDescEntryIDBytes, 0);
-
-            if (DescCount > 0)
-                writeToMsgText(1, BytetoString(pass));
-            else
-                writeToMsgText(1, "New Description Entry");
-
-            //UNLEASHED: expand LB Desc / LB DescBTL MSG
-            msgData[] Expand4 = new msgData[Burst.data.Length + 1];
-            Array.Copy(Burst.data, Expand4, Burst.data.Length);
-            Expand4[Expand4.Length - 1].NameID = "talisman_olt_" + Burst.data.Length.ToString("000");
-            Expand4[Expand4.Length - 1].ID = Burst.data.Length;
-
-            if (LBDescCount > 0)
-            {
-                pass = new byte[LBDescCount];
-                Array.Copy(blankzss, 0x1C + (nameCount) + (DescCount), pass, 0, LBDescCount);
-                Expand4[Expand4.Length - 1].Lines = new string[] { BytetoString(pass) };
-            }
-
-            else
-                Expand4[Expand4.Length - 1].Lines = new string[] { "New LB Desc Entry" };
-
-            byte[] newMSGLBDescEntryIDBytes = BitConverter.GetBytes((short)Expand4[Expand4.Length - 1].ID);
-            Array.Copy(newMSGLBDescEntryIDBytes, 0, Items[newPos].Data, 40, 2);
-            Burst.data = Expand4;
-
-            //UNLEASHED: using FindmsgIndex again is pointless, we already have the MSG ID
-            //Items[newPos].msgIndexDesc = FindmsgIndex(ref Descs, Descs.data[Descs.data.Length - 1].ID);
-            Items[newPos].msgIndexBurst = BitConverter.ToInt16(newMSGLBDescEntryIDBytes, 0);
-
-            if (LBDescCount > 0)
-                writeToMsgText(2, BytetoString(pass));
-            else
-                writeToMsgText(2, "New LB Desc Entry");
-
-            int OLT_ID = Items[newPos].msgIndexBurst;
-            msgData[] Expand5 = new msgData[BurstBTLHUD.data.Length + 1];
-            Array.Copy(BurstBTLHUD.data, Expand5, BurstBTLHUD.data.Length);
-            Expand5[Expand5.Length - 1].NameID = "BHD_OLT_000_" + Items[newPos].msgIndexBurst.ToString();// +BurstBTLHUD.data.Length.ToString("000");
-            Expand5[Expand5.Length - 1].ID = BurstBTLHUD.data.Length;
-
-            if (LBDescCountBtl > 0)
-            {
-                pass = new byte[LBDescCountBtl];
-                Array.Copy(blankzss, 0x1C + (nameCount) + (DescCount) + (LBDescCount), pass, 0, LBDescCountBtl);
-                Expand5[Expand5.Length - 1].Lines = new string[] { BytetoString(pass) };
-            }
-
-            else
-                Expand5[Expand5.Length - 1].Lines = new string[] { "New LB Battle Desc Entry" };
-
-            byte[] newMSGLBDescBtlEntryIDBytes = BitConverter.GetBytes((short)Expand5[Expand5.Length - 1].ID);
-
-            //UNLEASHED: the LBDescBtl MSG ID doesn't actually exist in the skill, so no need to copy
-            //Array.Copy(newMSGLBDescEntryIDBytes, 0, Items[newPos].Data, 40, 2);
-            BurstBTLHUD.data = Expand5;
-
-            //UNLEASHED: using FindmsgIndex again is pointless, we already have the MSG ID
-            //Items[newPos].msgIndexDesc = FindmsgIndex(ref Descs, Descs.data[Descs.data.Length - 1].ID);
-            Items[newPos].msgIndexBurstBTL = BitConverter.ToInt16(newMSGLBDescBtlEntryIDBytes, 0);
-
-            if (LBDescCountBtl > 0)
-                writeToMsgText(3, BytetoString(pass), OLT_ID);
-            else
-                writeToMsgText(3, "New LB Battle Desc Entry", OLT_ID);
-
-            msgData[] Expand6 = new msgData[BurstPause.data.Length + 1];
-            Array.Copy(BurstPause.data, Expand6, BurstPause.data.Length);
-            Expand6[Expand6.Length - 1].NameID = "BHD_OLT_000_" + Items[newPos].msgIndexBurst.ToString();// +BurstBTLHUD.data.Length.ToString("000");
-            Expand6[Expand6.Length - 1].ID = BurstPause.data.Length;
-
-            if (LBDescCountPause > 0)
-            {
-                pass = new byte[LBDescCountPause];
-                Array.Copy(blankzss, 0x1C + (nameCount) + (DescCount) + (LBDescCount) + (LBDescCountBtl), pass, 0, LBDescCountPause);
-                Expand6[Expand6.Length - 1].Lines = new string[] { BytetoString(pass) };
-            }
-
-            else
-                Expand6[Expand6.Length - 1].Lines = new string[] { "New LB Pause Desc Entry" };
-
-            byte[] newMSGLBDescPauseEntryIDBytes = BitConverter.GetBytes((short)Expand6[Expand6.Length - 1].ID);
-
-            //UNLEASHED: the LBDescBtl MSG ID doesn't actually exist in the skill, so no need to copy
-            //Array.Copy(newMSGLBDescEntryIDBytes, 0, Items[newPos].Data, 40, 2);
-            BurstPause.data = Expand6;
-
-            //UNLEASHED: using FindmsgIndex again is pointless, we already have the MSG ID
-            //Items[newPos].msgIndexDesc = FindmsgIndex(ref Descs, Descs.data[Descs.data.Length - 1].ID);
-            Items[newPos].msgIndexBurstPause = BitConverter.ToInt16(newMSGLBDescPauseEntryIDBytes, 0);
-
-            if (LBDescCountPause > 0)
-                writeToMsgText(4, BytetoString(pass), OLT_ID);
-            else
-                writeToMsgText(4, "New LB Pause Desc Entry", OLT_ID);
-
-            return newPos;
-        }
-
+        //FIX for new format
         private bool importSSP(string sspPath)
         {
             SSP sspFile = new SSP();
@@ -2065,7 +2038,7 @@ namespace XV2SSEdit
             for (int i = 0; i < sspFile.Souls.Count(); i++)
             {
                 tempData = sspFile.Souls[i].m_data;
-                index = AddSS(tempData);
+                //index = AddSS(tempData);
 
                 if (index < 0)
                 {
