@@ -74,7 +74,7 @@ namespace XV2SSEdit
             {"I_100",       new Tuple<string, int>("Int32", 100)},
             {"Target",      new Tuple<string, int>("Int32", 104)},
         };
-        
+
         //all stats are floats
         public static string[] StatNames = {
             "Max Health",

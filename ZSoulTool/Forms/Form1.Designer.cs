@@ -1079,7 +1079,6 @@
             // 
             this.LB_Desc.Location = new System.Drawing.Point(187, 48);
             this.LB_Desc.Name = "LB_Desc";
-            this.LB_Desc.ReadOnly = true;
             this.LB_Desc.Size = new System.Drawing.Size(80, 20);
             this.LB_Desc.TabIndex = 36;
             this.LB_Desc.TextChanged += new System.EventHandler(this.updateBurstMsgID);
@@ -3230,6 +3229,7 @@
             this.msgToolStripMenuItem.Name = "msgToolStripMenuItem";
             this.msgToolStripMenuItem.Size = new System.Drawing.Size(87, 20);
             this.msgToolStripMenuItem.Text = "Msg Options";
+            this.msgToolStripMenuItem.Visible = false;
             // 
             // addNewToolStripMenuItem
             // 
@@ -3237,7 +3237,7 @@
             this.nameToolStripMenuItem,
             this.descriptionToolStripMenuItem});
             this.addNewToolStripMenuItem.Name = "addNewToolStripMenuItem";
-            this.addNewToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.addNewToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.addNewToolStripMenuItem.Text = "Name";
             // 
             // nameToolStripMenuItem
@@ -3261,7 +3261,7 @@
             this.nameToolStripMenuItem1,
             this.descriptionToolStripMenuItem1});
             this.removeToolStripMenuItem1.Name = "removeToolStripMenuItem1";
-            this.removeToolStripMenuItem1.Size = new System.Drawing.Size(134, 22);
+            this.removeToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.removeToolStripMenuItem1.Text = "Description";
             // 
             // nameToolStripMenuItem1
@@ -3284,7 +3284,7 @@
             this.limitBurstToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addNewEntryToolStripMenuItem});
             this.limitBurstToolStripMenuItem.Name = "limitBurstToolStripMenuItem";
-            this.limitBurstToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.limitBurstToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.limitBurstToolStripMenuItem.Text = "Limit Burst";
             // 
             // addNewEntryToolStripMenuItem

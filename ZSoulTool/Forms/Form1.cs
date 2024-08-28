@@ -93,6 +93,7 @@ namespace XV2SSEdit
         private byte[] clipboardData = null;    //UNLEASHED: copy and paste
         private bool startup = true;
         private string currentLanguge = "en";
+        private List<ushort> UsedIDs = new List<ushort>();
 
         #endregion
 
@@ -228,14 +229,11 @@ namespace XV2SSEdit
                 }
                 else if (cb.Name == "KiBlast")
                 {
-                    //numInt = kitList.kitypes[cb.SelectedIndex].ID;
-                    //numInt = (int)IDB.KiBlastList[cb.SelectedIndex].Item1;
                     numInt = IDB.KiBlastList.Keys[cb.SelectedIndex];
                     size = 4;
                 }
                 else if (cb.Name == "LB_Color")
                 {
-                    //numInt = (short)lbcList.colors[cb.SelectedIndex].ID;
                     numInt = IDB.LBColorList.Keys[cb.SelectedIndex];
                     size = 2;
                 }
@@ -251,23 +249,18 @@ namespace XV2SSEdit
                 size = 4;
                 if (cb.Name.StartsWith("Effect"))
                 {
-                    //numInt = effList.effects[cb.SelectedIndex].ID;
                     numInt = IDB.EffectList.Keys[cb.SelectedIndex];
                 }
                 else if (cb.Name.StartsWith("Activate"))
                 {
-                    //numInt = actList.activators[cb.SelectedIndex].ID;
                     numInt = IDB.ActivatorList.Keys[cb.SelectedIndex];
                 }
                 else if (cb.Name.StartsWith("Vfx_Type"))
                 {
-                    //numInt = vfxList.vfxtypes[cb.SelectedIndex].ID;
                     numInt = IDB.VfxList.Keys[cb.SelectedIndex];
                 }
                 else if (cb.Name.StartsWith("Target"))
                 {
-                    //numInt = trgList.targets[cb.SelectedIndex].ID;
-                    //numInt = IDB.TargetList[cb.SelectedIndex].Item1;
                     numInt = IDB.TargetList.Keys[cb.SelectedIndex];
                 }
                 else
@@ -893,26 +886,11 @@ namespace XV2SSEdit
                 }
                 if (name == "KiBlast")
                 {
-                    //KiBlast.SelectedIndex = kitList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, type_off.Item2));
-
-                    //int blastID = BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, type_off.Item2);
-                    //foreach (int index in IDB.KiBlastList.Keys)
-                    //{
-                    //    if (IDB.KiBlastList[index].Item1 == blastID)
-                    //    {
-                    //        KiBlast.SelectedIndex = index;
-                    //        break;
-                    //    }
-                    //}
-
-                    //KiBlast.SelectedIndex = IDB.KiBlastList.Keys[BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, type_off.Item2)] + 1;
                     KiBlast.SelectedIndex = IDB.KiBlastList.IndexOfKey(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, type_off.Item2));
                     continue;
                 }
                 if (name == "LB_Color")
                 {
-                    //LB_Color.SelectedIndex = lbcList.FindIndex(BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, type_off.Item2));
-                    //LB_Color.SelectedIndex = IDB.LBColorList.Keys[BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, type_off.Item2)] + 1;
                     LB_Color.SelectedIndex = IDB.LBColorList.IndexOfKey(BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, type_off.Item2));
                     continue;
                 }
@@ -947,35 +925,24 @@ namespace XV2SSEdit
                     if (name == "Effect")
                     {
                         ComboBox box = (ComboBox)Controls.Find(name + details, true).FirstOrDefault();
-                        //box.SelectedIndex = effList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, effectOffset));
-                        //box.SelectedIndex = IDB.EffectList.Keys[BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, effectOffset)] + 1;
                         box.SelectedIndex = IDB.EffectList.IndexOfKey(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, effectOffset));
                         continue;
                     }
                     if (name == "Activate")
                     {
                         ComboBox box = (ComboBox)Controls.Find(name + details, true).FirstOrDefault();
-                        //box.SelectedIndex = actList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, effectOffset));
-                        //box.SelectedIndex = IDB.ActivatorList.Keys[BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, effectOffset)] + 1;
                         box.SelectedIndex = IDB.ActivatorList.IndexOfKey(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, effectOffset));
                         continue;
                     }
                     if (name == "Vfx_Type2" || name == "Vfx_Type1")
                     {
                         ComboBox box = (ComboBox)Controls.Find(name + details, true).FirstOrDefault();
-                        //box.SelectedIndex = vfxList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, effectOffset));
-                        //if (BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, effectOffset) == 6)
-                        //    box.SelectedIndex = 4;
-                        //else
-                        //    box.SelectedIndex = IDB.VfxList.Keys[BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, effectOffset)] + 1;
                         box.SelectedIndex = IDB.VfxList.IndexOfKey(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, effectOffset));
                         continue;
                     }
                     if (name == "Target")
                     {
                         ComboBox box = (ComboBox)Controls.Find(name + details, true).FirstOrDefault();
-                        //box.SelectedIndex = trgList.FindIndex(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, effectOffset));
-                        //box.SelectedIndex = IDB.TargetList.Keys[BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, effectOffset)] + 1;
                         box.SelectedIndex = IDB.TargetList.IndexOfKey(BitConverter.ToInt32(Items[itemList.SelectedIndex].Data, effectOffset));
                         continue;
                     }
@@ -1102,15 +1069,6 @@ namespace XV2SSEdit
         {
             byte[] idbfile = new byte[1];
 
-            //TODO: have internal list, but scan through IDB to get any unknown values to add to the lists
-            //instead of xml might wanna just have lists or something? i dunno we'll get to it soon
-            //effList = new EffectList();
-            //actList = new ActivatorList();
-            //trgList = new TargetList();
-            //lbcList = new LBColorList();
-            //kitList = new KitypeList();
-            //vfxList = new VFXList();
-
             //Load Talisman IDB
             int count = 0;
             FileName = String.Format("{0}/data/system/item/talisman_item.idb", settings.GameDir);
@@ -1122,65 +1080,6 @@ namespace XV2SSEdit
             {
                 MessageBox.Show(this, "Super Soul count has surpased the stable limit. You can still install more, but be aware that any more past id 32767 might not be read correctly by the game.", "Super Soul Count", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-
-            #region OLD CODE
-            ////UNLEASHED: Load the generic Msg files, and ignore current language suffix
-            //List<string> langsSuffix = ToolSettings.LanguageSuffix.ToList<string>();
-            //
-            ////UNLEASHED: loop through and find our current language's index
-            //for (int i = 0; i < ToolSettings.LanguageSuffix.Length; i++)
-            //{
-            //    if (ToolSettings.LanguageSuffix[i] == settings.LanguagePrefix)
-            //    {
-            //        //UNLEASHED: remove the language suffix that is used for the current activate language
-            //        langsSuffix.RemoveAt(i);
-            //        break;
-            //    }
-            //}
-            //for (int i = 0; i < langsSuffix.Count; i++)
-            //{
-            //    //SS Names
-            //    genericMsgListNames.Add(new GenericMsgFile(String.Format("{0}/data/msg/proper_noun_talisman_name_{1}.msg", settings.GameDir, langsSuffix[i]),
-            //    msgStream.Load(fileIO.GetFileFromGame(String.Format("msg/proper_noun_talisman_name_{0}.msg", langsSuffix[i])))));
-            //    //SS Descriptions
-            //    genericMsgListDescs.Add(new GenericMsgFile(String.Format("{0}/data/msg/proper_noun_talisman_info_{1}.msg", settings.GameDir, langsSuffix[i]),
-            //    msgStream.Load(fileIO.GetFileFromGame(String.Format("msg/proper_noun_talisman_info_{0}.msg", langsSuffix[i])))));
-            //    //SS Lookup Description
-            //    genericMsgListHowTo.Add(new GenericMsgFile(String.Format("{0}/data/msg/proper_noun_talisman_how_{1}.msg", settings.GameDir, langsSuffix[i]),
-            //    msgStream.Load(fileIO.GetFileFromGame(String.Format("msg/proper_noun_talisman_how_{0}.msg", langsSuffix[i])))));
-            //    //LB Desciptions (Menu)
-            //    genericMsgListBurst.Add(new GenericMsgFile(String.Format("{0}/data/msg/proper_noun_talisman_info_olt_{1}.msg", settings.GameDir, langsSuffix[i]),
-            //    msgStream.Load(fileIO.GetFileFromGame(String.Format("msg/proper_noun_talisman_info_olt_{0}.msg", langsSuffix[i])))));
-            //    //LB Descriptions (Battle)
-            //    genericMsgListNameBurstBTLHUD.Add(new GenericMsgFile(String.Format("{0}/data/msg/quest_btlhud_{1}.msg", settings.GameDir, langsSuffix[i]),
-            //    msgStream.Load(fileIO.GetFileFromGame(String.Format("msg/quest_btlhud_{0}.msg", langsSuffix[i])))));
-            //    //LB Descriptions (Battle2)
-            //    genericMsgListNameBurstPause.Add(new GenericMsgFile(String.Format("{0}/data/msg/pause_text_{1}.msg", settings.GameDir, langsSuffix[i]),
-            //    msgStream.Load(fileIO.GetFileFromGame(String.Format("msg/pause_text_{0}.msg", langsSuffix[i])))));
-            //}
-
-            ////load msg file for names
-            //FileNameMsgN = String.Format("{0}/data/msg/proper_noun_talisman_name_{1}.msg", settings.GameDir, settings.LanguagePrefix);
-            //Names = msgStream.Load(fileIO.GetFileFromGame(String.Format("msg/proper_noun_talisman_name_{0}.msg", settings.LanguagePrefix)));
-
-            ////load msg file for descriptions
-            //FileNameMsgD = String.Format("{0}/data/msg/proper_noun_talisman_info_{1}.msg", settings.GameDir, settings.LanguagePrefix);
-            //Descs = msgStream.Load(fileIO.GetFileFromGame(String.Format("msg/proper_noun_talisman_info_{0}.msg", settings.LanguagePrefix)));
-
-            ////load msg file for lookup descriptions
-            //FileNameMsgH = String.Format("{0}/data/msg/proper_noun_talisman_how_{1}.msg", settings.GameDir, settings.LanguagePrefix);
-            //HowTo = msgStream.Load(fileIO.GetFileFromGame(String.Format("msg/proper_noun_talisman_how_{0}.msg", settings.LanguagePrefix)));
-
-            ////load msgfile for limit burst descriptions
-            ////UNLEASHED: btlhud/Pause is a shared MSG for various battle text
-            //FileNameMsgB = String.Format("{0}/data/msg/proper_noun_talisman_info_olt_{1}.msg", settings.GameDir, settings.LanguagePrefix);
-            //FileNameMsgB_BTLHUD = String.Format("{0}/data/msg/quest_btlhud_{1}.msg", settings.GameDir, settings.LanguagePrefix);
-            //FileNameMsgB_Pause = String.Format("{0}/data/msg/pause_text_{1}.msg", settings.GameDir, settings.LanguagePrefix);
-            //Burst = msgStream.Load(fileIO.GetFileFromGame(String.Format("msg/proper_noun_talisman_info_olt_{0}.msg", settings.LanguagePrefix)));
-            //BurstBTLHUD = msgStream.Load(fileIO.GetFileFromGame(String.Format("msg/quest_btlhud_{0}.msg", settings.LanguagePrefix)));
-            //BurstPause = msgStream.Load(fileIO.GetFileFromGame(String.Format("msg/pause_text_{0}.msg", settings.LanguagePrefix)));
-
-            #endregion
 
             //Load the Msg files
             List<string> langsSuffix = ToolSettings.LanguageSuffix.ToList<string>();
@@ -1226,7 +1125,7 @@ namespace XV2SSEdit
             }
 
             //get msg for custom ki blast names to use later
-            //we never edt this so lets only care about the en one
+            //we never edit this so lets only care about the en one
             msgFile = msgStream.Load(fileIO.GetFileFromGame(String.Format("msg/menu_shop_text_{0}.msg", langsSuffix[0])));
 
             //idb items set
@@ -1266,6 +1165,8 @@ namespace XV2SSEdit
                 Items[i].msgIndexBurstBTL = getLB_BTL_Pause_DescID(BurstBTLHUD, Burst.data[Items[i].msgIndexBurst].NameID);
                 Items[i].msgIndexBurstPause = getLB_BTL_Pause_DescID(BurstPause, Burst.data[Items[i].msgIndexBurst].NameID);
 
+                UsedIDs.Add(BitConverter.ToUInt16(Items[i].Data, IdbOffsets["Index"].Item2));
+
                 //warn user later that a super soul is outside stable index
                 if (BitConverter.ToUInt16(Items[i].Data, IdbOffsets["Index"].Item2) >= 32768)
                 {
@@ -1278,11 +1179,6 @@ namespace XV2SSEdit
                 int KiTypeID = BitConverter.ToInt32(Items[i].Data, IdbOffsets["KiBlast"].Item2);
                 if (!KiTypes.Contains(KiTypeID))
                 {
-                    //int cbLastID = KiBlast.Items.Count;
-                    //string name = FindMsgTextbyNameID(ref msgFile, KiTypeID);
-                    //IDB.KiBlastList.Add(cbLastID, new Tuple<int, string>(KiTypeID, name));
-                    //KiBlast.Items.Add(name);
-
                     string name = FindMsgTextbyNameID(ref msgFile, KiTypeID);
                     IDB.KiBlastList.Add(KiTypeID, name);
                     KiBlast.Items.Add(name);
@@ -1299,10 +1195,6 @@ namespace XV2SSEdit
                     int TargetID = BitConverter.ToInt32(Items[i].Data, IDB.Effect_Start[effectTab] + EffectOffsets["Target"].Item2);
                     if (!Targets.Contains(TargetID))
                     {
-                        //ComboBox Target = Target_E1;
-                        //if (effectTab == "_E2")
-                        //    Target = Target_E2;
-
                         //check last id in list and fill in gaps if needed
                         int LastID = IDB.TargetList.Last().Key;
                         for (int t = LastID; t <= TargetID; t++)
@@ -1315,21 +1207,12 @@ namespace XV2SSEdit
                             Target_E2.Items.Add(t.ToString() + " - Unknown");
                             Targets.Add(t);
                         }
-
-                        //finally add actual entry
-                        //IDB.TargetList.Add(Target.Items.Count, new Tuple<int, string>(TargetID, "Unknown"));
-                        //Target.Items.Add("Unknown");
-                        //Targets.Add(TargetID);
                     }
 
                     //Effects
                     int EffectID = BitConverter.ToInt32(Items[i].Data, IDB.Effect_Start[effectTab] + EffectOffsets["Effect"].Item2);
                     if (!Effects.Contains(EffectID))
                     {
-                        //ComboBox Effect = Effect_E1;
-                        //if (effectTab == "_E2")
-                        //    Effect = Effect_E2;
-
                         //check last id in list and fill in gaps if needed
                         int LastID = IDB.EffectList.Last().Key;
                         for (int e = LastID; e <= EffectID; e++)
@@ -1342,21 +1225,12 @@ namespace XV2SSEdit
                             Effect_E2.Items.Add(e.ToString() + " - Unknown");
                             Effects.Add(e);
                         }
-
-                        //finally add actual entry
-                        //IDB.EffectList.Add(EffectID, "Unknown");
-                        //Effect.Items.Add("Unknown");
-                        //Effects.Add(EffectID);
                     }
 
                     //Activators
                     int ActiveID = BitConverter.ToInt32(Items[i].Data, IDB.Effect_Start[effectTab] + EffectOffsets["Activate"].Item2);
                     if (!Actives.Contains(ActiveID))
                     {
-                        //ComboBox Activator = Activate_E1;
-                        //if (effectTab == "_E2")
-                        //    Activator = Activate_E2;
-
                         //check last id in list and fill in gaps if needed
                         int LastID = IDB.EffectList.Last().Key;
                         for (int a = LastID; a <= ActiveID; a++)
@@ -1369,14 +1243,8 @@ namespace XV2SSEdit
                             Activate_E2.Items.Add(a.ToString() + " - Unknown");
                             Actives.Add(a);
                         }
-
-                        //finally add actual entry
-                        //IDB.EffectList.Add(EffectID, "Unknown");
-                        //Effect.Items.Add("Unknown");
-                        //Effects.Add(EffectID);
                     }
                 }
-
             }
 
             itemList.Items.Clear();
@@ -1411,7 +1279,6 @@ namespace XV2SSEdit
             //    //kitList.ConstructList(ed.SelectSingleNode("EffectData/Kitypes").ChildNodes);
             //    //vfxList.ConstructList(ed.SelectSingleNode("EffectData/Vfxtypes").ChildNodes);////Changed the section name from "Checkboxs" cause typo and to better reflect actual funtion.
             //}
-
 
             //Get list info from IDB class
             List<int> KnownList = new List<int>();
@@ -1476,90 +1343,6 @@ namespace XV2SSEdit
             }
 
             return KnownList;
-
-            #region OLD CODE
-            //if (File.Exists(System.IO.Path.GetDirectoryName(Application.ExecutablePath) + @"/" + "EffectData.xml"))
-            //{
-            //    //DEMON: This is now considered a debug feature.
-            //    //load external EffectData.xml if it is found within the exe directory.
-            //    XmlDocument ed = new XmlDocument();
-            //    ed.Load(System.IO.Path.GetDirectoryName(Application.ExecutablePath) + @"/" + "EffectData.xml");
-            //    effList.ConstructList(ed.SelectSingleNode("EffectData/Effects").ChildNodes);
-            //    actList.ConstructList(ed.SelectSingleNode("EffectData/Activators").ChildNodes);//Changed the section name from "Activations" cause it bothered me
-            //    trgList.ConstructList(ed.SelectSingleNode("EffectData/Targets").ChildNodes);
-            //    lbcList.ConstructList(ed.SelectSingleNode("EffectData/Colors").ChildNodes);
-            //    //kitList.ConstructList(ed.SelectSingleNode("EffectData/Kitypes").ChildNodes);
-            //    vfxList.ConstructList(ed.SelectSingleNode("EffectData/Vfxtypes").ChildNodes);////Changed the section name from "Checkboxs" cause typo and to better reflect actual funtion.
-            //}
-            //
-            //else
-            //{
-            //    //DEMON: We load an internal effect data now.
-            //    //No more creating a blank one if the file isn't found within the exe directory.
-            //    System.Reflection.Assembly dedxml = System.Reflection.Assembly.GetExecutingAssembly();
-            //    XmlDocument ded = new XmlDocument();
-            //    ded.Load(dedxml.GetManifestResourceStream("XV2SSEdit.Resources.DefaultEffectData.xml"));
-            //    effList.ConstructList(ded.SelectSingleNode("EffectData/Effects").ChildNodes);
-            //    actList.ConstructList(ded.SelectSingleNode("EffectData/Activators").ChildNodes);
-            //    trgList.ConstructList(ded.SelectSingleNode("EffectData/Targets").ChildNodes);
-            //    lbcList.ConstructList(ded.SelectSingleNode("EffectData/Colors").ChildNodes);
-            //    //kitList.ConstructList(ded.SelectSingleNode("EffectData/Kitypes").ChildNodes);
-            //    vfxList.ConstructList(ded.SelectSingleNode("EffectData/Vfxtypes").ChildNodes);
-            //}
-            //
-            //Effect_E1.Items.Clear();
-            //Effect_E2.Items.Clear();
-            //Activate_E1.Items.Clear();
-            //Activate_E2.Items.Clear();
-            //
-            ////Load names from lists
-            //for (int i = 0; i < effList.effects.Length; i++)
-            //{
-            //    Effect_EB.Items.Add(effList.effects[i].ID.ToString() + " - " + effList.effects[i].Description);
-            //    Effect_E1.Items.Add(effList.effects[i].ID.ToString() + " - " + effList.effects[i].Description);
-            //    Effect_E2.Items.Add(effList.effects[i].ID.ToString() + " - " + effList.effects[i].Description);
-            //}
-            //
-            //for (int i = 0; i < actList.activators.Length; i++)
-            //{
-            //    Activate_EB.Items.Add(actList.activators[i].ID.ToString() + " - " + actList.activators[i].Description);
-            //    Activate_E1.Items.Add(actList.activators[i].ID.ToString() + " - " + actList.activators[i].Description);
-            //    Activate_E2.Items.Add(actList.activators[i].ID.ToString() + " - " + actList.activators[i].Description);
-            //}
-            //
-            //for (int i = 0; i < trgList.targets.Length; i++)
-            //{
-            //    //Target_EB.Items.Add(trgList.targets[i].ID.ToString() + " - " + trgList.targets[i].Description);
-            //    //Target_E1.Items.Add(trgList.targets[i].ID.ToString() + " - " + trgList.targets[i].Description);
-            //    //Target_E2.Items.Add(trgList.targets[i].ID.ToString() + " - " + trgList.targets[i].Description);
-            //
-            //    Target_EB.Items.Add(trgList.targets[i].Description.ToString());
-            //    Target_E1.Items.Add(trgList.targets[i].Description.ToString());
-            //    Target_E2.Items.Add(trgList.targets[i].Description.ToString());
-            //}
-            //
-            //for (int i = 0; i < lbcList.colors.Length; i++)
-            //{
-            //    //LB_Color.Items.Add(lbcList.colors[i].ID.ToString() + " - " + lbcList.colors[i].Description);
-            //
-            //    LB_Color.Items.Add(lbcList.colors[i].Description.ToString());
-            //}
-            //
-            ////for (int i = 0; i < kitList.kitypes.Length; i++)
-            ////{
-            ////    KiBlast.Items.Add(kitList.kitypes[i].Description.ToString());
-            ////}
-            //
-            //for (int i = 0; i < vfxList.vfxtypes.Length; i++)
-            //{
-            //    Vfx_Type1_EB.Items.Add(vfxList.vfxtypes[i].Description.ToString());
-            //    Vfx_Type1_E1.Items.Add(vfxList.vfxtypes[i].Description.ToString());
-            //    Vfx_Type1_E2.Items.Add(vfxList.vfxtypes[i].Description.ToString());
-            //    Vfx_Type2_EB.Items.Add(vfxList.vfxtypes[i].Description.ToString());
-            //    Vfx_Type2_E1.Items.Add(vfxList.vfxtypes[i].Description.ToString());
-            //    Vfx_Type2_E2.Items.Add(vfxList.vfxtypes[i].Description.ToString());
-            //}
-            #endregion
         }
 
         #endregion
@@ -1585,26 +1368,7 @@ namespace XV2SSEdit
             fs.Write(Finalize.ToArray(), 0, Finalize.Count);
             fs.Close();
 
-            //OLD: REMOVE LATER
-            //msgStream.Save(Names, FileNameMsgN);
-            //msgStream.Save(Descs, FileNameMsgD);
-            //msgStream.Save(Descs, FileNameMsgH);
-            //msgStream.Save(Burst, FileNameMsgB);
-            //msgStream.Save(BurstBTLHUD, FileNameMsgB_BTLHUD);
-            //msgStream.Save(BurstPause, FileNameMsgB_Pause);
-            //
-            ////UNLEASHED: write all generic msg files, lets use "Names" as the counter since they all share the same length anyway.
-            //for (int i = 0; i < genericMsgListNames.Count; i++)
-            //{
-            //    msgStream.Save(genericMsgListNames[i].msgFile_m, genericMsgListNames[i].msgPath_m);
-            //    msgStream.Save(genericMsgListDescs[i].msgFile_m, genericMsgListDescs[i].msgPath_m);
-            //    msgStream.Save(genericMsgListHowTo[i].msgFile_m, genericMsgListDescs[i].msgPath_m);
-            //    msgStream.Save(genericMsgListBurst[i].msgFile_m, genericMsgListBurst[i].msgPath_m);
-            //    msgStream.Save(genericMsgListNameBurstBTLHUD[i].msgFile_m, genericMsgListNameBurstBTLHUD[i].msgPath_m);
-            //    msgStream.Save(genericMsgListNameBurstPause[i].msgFile_m, genericMsgListNameBurstPause[i].msgPath_m);
-            //}
-
-            //Demon: use keys from one of these lists. they are bth the same anyway
+            //Demon: use keys from one of these lists. they are both the same anyway
             foreach (string lang in fullMsgListNames.Keys)
             {
                 msgStream.Save(fullMsgListNames[lang], fullFileNameMsgN[lang]);
@@ -1615,6 +1379,96 @@ namespace XV2SSEdit
                 msgStream.Save(fullMsgListBurstPause[lang], fullFileNameMsgB_Pause[lang]);
             }
         }
+
+        private int AddSSNew(byte[] SSData)
+        {
+            //UNLEASHED: this function will return the ItemList index of the latest installed Super Soul
+            //if the returned int is "-1" then Super Soul failed to install.
+
+            if (BitConverter.ToInt32(SSData, 0) != 843469603)
+            {
+                MessageBox.Show("Not Valid Super Soul Data.");
+                return -1;
+            }
+
+            //backup encase something goes wrong
+            idbItem[] items_org = Items;
+
+            //soul data to expand with
+            byte[] blankzss = SSData;
+
+            //search for closest unused id after vanilla ids (should be around 1000+)
+            ushort FreeID = 1000;
+            int LastUsedIndex = 0;
+            bool foundProperID = false;
+            while (!foundProperID)
+            {
+                if (!UsedIDs.Contains(FreeID))
+                {
+                    foundProperID = true;
+                }           
+                else
+                {
+                    LastUsedIndex = UsedIDs.IndexOf(FreeID);
+                    FreeID++;
+                }                
+            }
+
+            //get number of souls we are adding
+            ushort LimitNum = BitConverter.ToUInt16(SSData, 8);
+
+            //start expanding
+            idbItem[] Expand = new idbItem[Items.Length + LimitNum + 1];
+
+            //add each soul to new list up to last new index
+            Array.Copy(Items, 0, Expand, 0, LastUsedIndex + 1);
+
+            //add new super soul data
+            int SoulPos = (LimitNum + 1) * 772;
+            byte[] NewSoulData = new byte[772];
+            Array.Copy(SSData, SSData.Length - SoulPos, NewSoulData, 0, 772);
+            Expand[LastUsedIndex + 1].Data = NewSoulData;
+
+            //add limit bursts
+            int tmpNum = 1;
+            while (LimitNum > 0)
+            {
+                SoulPos = LimitNum * 772;
+                Array.Copy(SSData, SSData.Length - SoulPos, NewSoulData, 0, 772);
+                Expand[LastUsedIndex + 1 + 1].Data = NewSoulData;
+                tmpNum++;
+                LimitNum--;
+            }
+
+            //add rest of souls
+            Array.Copy(Items, LastUsedIndex + 1, Expand, LastUsedIndex + LimitNum + 1, Items.Length - (LastUsedIndex + 1));
+
+
+            //start fixing data
+            Array.Copy(BitConverter.GetBytes(FreeID), Expand[LastUsedIndex + 1].Data, 2); //main soul id
+
+            //TODO:
+            //add code for fixing limit burst ids on main soul
+            //add code for expanding all msg files
+
+
+
+            Items = Expand;
+
+            //limit burst data
+            //LimitNum = BitConverter.ToUInt16(SSData, 8);
+            //ushort LimitLv1 = BitConverter.ToUInt16(SSData, 10);
+            //ushort LimitLv2 = BitConverter.ToUInt16(SSData, 12);
+            //ushort LimitLv3 = BitConverter.ToUInt16(SSData, 14);
+            //fix limit burst soul ids on main soul
+
+            return LastUsedIndex + 1;
+        }
+
+
+
+
+
 
         //TODO Update
         //UNLEASHED: decided to wrap this in 1 function so that we don't need to repeat same code for creating new SSF and importing SSP

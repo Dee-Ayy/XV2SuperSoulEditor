@@ -213,10 +213,10 @@ namespace XV2SSEdit
             Race.Text = "255";
             Dlc_Flag.Text = "-1";
             Prog_Flag.Text = "30";
-            Cost.Text = "10";
+            Cost.Text = "1000";
             Sell.Text = "100";
             Cost_TP.Text = "1";
-            Rarity.SelectedIndex = 1;
+            //Rarity.SelectedIndex = 1;
         }
 
         private void removeCurrentSuperSoulFromShopToolStripMenuItem_Click(object sender, EventArgs e)
@@ -227,42 +227,60 @@ namespace XV2SSEdit
             Cost.Text = "0";
             Sell.Text = "0";
             Cost_TP.Text = "0";
-            Rarity.SelectedIndex = 5;
+            //Rarity.SelectedIndex = 5;
         }
 
-        //TODO Update with new values
         private void copyCurrentSuperSoulToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
             List<byte> copiedBytes = new List<byte>();
+            copiedBytes.AddRange(new byte[] { 0x23, 0x53, 0x46, 0x32 }); //#SF2
+            copiedBytes.AddRange(new byte[] { 0x02, 0x00, 0x00, 0x00 }); //Version number
+            copiedBytes.AddRange(new byte[] { 0x00, 0x00 }); //LB soul count
+            copiedBytes.AddRange(new byte[] { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF }); //Limit Burst Identifiers
 
-            string nameText = Names.data[Items[currentSuperSoulIndex].msgIndexName].Lines[0];
-            string DescText = Descs.data[Items[currentSuperSoulIndex].msgIndexDesc].Lines[0];
-            string LBDescText = Burst.data[Items[currentSuperSoulIndex].msgIndexBurst].Lines[0];
-            string LBBTLHUDDescText = BurstBTLHUD.data[Items[currentSuperSoulIndex].msgIndexBurstBTL].Lines[0];
-            string LBPauseDescText = BurstPause.data[Items[currentSuperSoulIndex].msgIndexBurstPause].Lines[0];
+            //Demon: use keys from one of these lists. they are bth the same anyway
+            foreach (string lang in fullMsgListNames.Keys)
+            {
+                //Name
+                string MsgText = fullMsgListNames[lang].data[Items[currentSuperSoulIndex].msgIndexName].Lines[0];
+                int TextLength = MsgText.Length * 2;
+                copiedBytes.AddRange(BitConverter.GetBytes(TextLength));
+                copiedBytes.AddRange(System.Text.Encoding.Unicode.GetBytes(MsgText.ToCharArray()));
 
-            int nameCount = nameText.Length * 2;
-            int DescCount = DescText.Length * 2;
-            int LBDescCount = LBDescText.Length * 2;
-            int LBBTLHUDDescCount = LBBTLHUDDescText.Length * 2;
-            int LBPauseDescCount = LBPauseDescText.Length * 2;
+                //Description
+                MsgText = fullMsgListDescs[lang].data[Items[currentSuperSoulIndex].msgIndexDesc].Lines[0];
+                TextLength = MsgText.Length * 2;
+                copiedBytes.AddRange(BitConverter.GetBytes(TextLength));
+                copiedBytes.AddRange(System.Text.Encoding.Unicode.GetBytes(MsgText.ToCharArray()));
 
-            copiedBytes.AddRange(new byte[] { 0x23, 0x53, 0x53, 0x46 });
-            copiedBytes.AddRange(BitConverter.GetBytes(nameCount));
-            copiedBytes.AddRange(BitConverter.GetBytes(DescCount));
-            copiedBytes.AddRange(BitConverter.GetBytes(LBDescCount));
-            copiedBytes.AddRange(BitConverter.GetBytes(LBBTLHUDDescCount));
-            copiedBytes.AddRange(BitConverter.GetBytes(LBPauseDescCount));
+                //HowTo
+                MsgText = fullMsgListHowTo[lang].data[Items[currentSuperSoulIndex].msgIndexHow].Lines[0];
+                TextLength = MsgText.Length * 2;
+                copiedBytes.AddRange(BitConverter.GetBytes(TextLength));
+                copiedBytes.AddRange(System.Text.Encoding.Unicode.GetBytes(MsgText.ToCharArray()));
 
-            copiedBytes.AddRange(new byte[] { 0xFF, 0xFF, 0xFF, 0xFF });
-            copiedBytes.AddRange(System.Text.Encoding.Unicode.GetBytes(nameText.ToCharArray()));
-            copiedBytes.AddRange(System.Text.Encoding.Unicode.GetBytes(DescText.ToCharArray()));
-            copiedBytes.AddRange(System.Text.Encoding.Unicode.GetBytes(LBDescText.ToCharArray()));
-            copiedBytes.AddRange(System.Text.Encoding.Unicode.GetBytes(LBBTLHUDDescText.ToCharArray()));
-            copiedBytes.AddRange(System.Text.Encoding.Unicode.GetBytes(LBPauseDescText.ToCharArray()));
+                //Burst
+                MsgText = fullMsgListBurst[lang].data[Items[currentSuperSoulIndex].msgIndexBurst].Lines[0];
+                TextLength = MsgText.Length * 2;
+                copiedBytes.AddRange(BitConverter.GetBytes(TextLength));
+                copiedBytes.AddRange(System.Text.Encoding.Unicode.GetBytes(MsgText.ToCharArray()));
 
-            byte[] tmp = new byte[718];
-            Array.Copy(Items[currentSuperSoulIndex].Data, 2, tmp, 0, 746);
+                //Burst HUD
+                MsgText = fullMsgListBurstBTLHUD[lang].data[Items[currentSuperSoulIndex].msgIndexBurstBTL].Lines[0];
+                TextLength = MsgText.Length * 2;
+                copiedBytes.AddRange(BitConverter.GetBytes(TextLength));
+                copiedBytes.AddRange(System.Text.Encoding.Unicode.GetBytes(MsgText.ToCharArray()));
+
+
+                //Burst Pause
+                MsgText = fullMsgListBurstPause[lang].data[Items[currentSuperSoulIndex].msgIndexBurstPause].Lines[0];
+                TextLength = MsgText.Length * 2;
+                copiedBytes.AddRange(BitConverter.GetBytes(TextLength));
+                copiedBytes.AddRange(System.Text.Encoding.Unicode.GetBytes(MsgText.ToCharArray()));
+            }
+
+            byte[] tmp = new byte[IDB.Idb_Size];
+            Array.Copy(Items[currentSuperSoulIndex].Data, 0, tmp, 0, IDB.Idb_Size);
             copiedBytes.AddRange(tmp);
             clipboardData = copiedBytes.ToArray();
             MessageBox.Show("Super Soul copied successfully");
@@ -276,7 +294,7 @@ namespace XV2SSEdit
                 return;
             }
 
-            int index = AddSS(clipboardData);
+            int index = AddSSNew(clipboardData);
 
             if (index < 0)
                 return;
