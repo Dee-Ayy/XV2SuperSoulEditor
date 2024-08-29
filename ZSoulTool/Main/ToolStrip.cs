@@ -72,6 +72,92 @@ namespace XV2SSEdit
             itemList.SelectedIndex = index;
         }
 
+        private void createNewLimitBurstToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //search for closest unused id after vanilla ids
+            //should be 1003+, but we start searching from 1000 just because
+            ushort FreeID = 1000;
+            int LastUsedIndex = 0;
+            bool foundProperID = false;
+            while (!foundProperID)
+            {
+                if (FreeID == 0xFFFF )
+                {
+                    MessageBox.Show(this, "Could not find enough free space avaiable for Limit Bursts!", "No Room", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (!UsedIDs.Contains(FreeID))
+                {
+                    //check the next two after this to see if they are free
+                    bool FreeID2 = UsedIDs.Contains((ushort)(FreeID + 1));
+                    bool FreeID3 = UsedIDs.Contains((ushort)(FreeID + 2));
+
+                    if (!FreeID2 && !FreeID3)
+                        foundProperID = true;
+                    else
+                        FreeID++;
+                }
+                else
+                {
+                    LastUsedIndex = UsedIDs.IndexOf(FreeID) + 1;
+                    FreeID++;
+                }
+            }
+
+            //start expanding
+            idbItem[] SoulExpand = new idbItem[Items.Length + 3];
+
+            //add each soul to new list up to last new index
+            Array.Copy(Items, 0, SoulExpand, 0, LastUsedIndex);
+
+            //add new souls
+            byte[] tmp = new byte[IDB.Idb_Size];
+            for (int i = 0; i < 3; i++)
+            {
+                int soulPos = i * IDB.Idb_Size;
+
+                //copy soul data
+                Array.Copy(Properties.Resources.BlankLB, soulPos, tmp, 0, IDB.Idb_Size);
+
+                //fix soul id
+                Array.Copy(BitConverter.GetBytes(FreeID + i), tmp, 2);
+
+                //add it to expand list
+                SoulExpand[LastUsedIndex + i].Data = new byte[IDB.Idb_Size];
+                Array.Copy(tmp, SoulExpand[LastUsedIndex + i].Data, IDB.Idb_Size);
+                //SoulExpand[LastUsedIndex + i].Data = tmp;
+
+                //copy what limit bursts use
+                SoulExpand[LastUsedIndex + i].msgIndexName = 0;
+                SoulExpand[LastUsedIndex + i].msgIndexDesc = 0;
+                SoulExpand[LastUsedIndex + i].msgIndexHow = 0;
+                SoulExpand[LastUsedIndex + i].msgIndexBurst = 0;
+                SoulExpand[LastUsedIndex + i].msgIndexBurstBTL = 0xD2;
+                SoulExpand[LastUsedIndex + i].msgIndexBurstPause = 0xA0;
+            }
+
+            //add rest of original souls
+            Array.Copy(Items, LastUsedIndex, SoulExpand, LastUsedIndex + 3, Items.Length - LastUsedIndex);
+
+            //finish adding souls
+            Items = SoulExpand;
+
+            itemList.Items.Clear();
+            for (int i = 0; i < Items.Length; i++)
+            {
+                itemList.Items.Add(BitConverter.ToUInt16(Items[i].Data, 0).ToString() + " - " + Names.data[Items[i].msgIndexName].Lines[0]);
+            }
+
+            //remember to add new id to used ids list
+            UsedIDs.Insert(LastUsedIndex, FreeID);
+            UsedIDs.Insert(LastUsedIndex + 1, (ushort)(FreeID + 1));
+            UsedIDs.Insert(LastUsedIndex + 2, (ushort)(FreeID + 2));
+
+            //go to new soul
+            itemList.SelectedIndex = LastUsedIndex;
+        }
+
         private void removeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var result = MessageBox.Show(this, "Are you sure you want to remove this Super Soul?", "Remove", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);

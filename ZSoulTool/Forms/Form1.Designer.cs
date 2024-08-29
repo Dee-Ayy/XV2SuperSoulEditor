@@ -309,6 +309,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportToXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.addCurrentSuperSoulToShopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeCurrentSuperSoulFromShopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -316,7 +317,6 @@
             this.copyCurrentSuperSoulToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createNewSoulFromClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.replaceCurrentSoulFromClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportToXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msgToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addNewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -330,6 +330,7 @@
             this.label53 = new System.Windows.Forms.Label();
             this.Index = new System.Windows.Forms.TextBox();
             this.caseSensetiveCheckBox = new System.Windows.Forms.CheckBox();
+            this.createNewLimitBurstSetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox9.SuspendLayout();
@@ -3114,6 +3115,7 @@
             // 
             this.addNewXV2SSEditStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.createNewSoulToolStripMenuItem,
+            this.createNewLimitBurstSetToolStripMenuItem,
             this.duplicateCurrentSoulToolStripMenuItem,
             this.removeToolStripMenuItem,
             this.toolStripSeparator1,
@@ -3172,6 +3174,13 @@
             this.exportToolStripMenuItem1.Text = "Export Super Soul Package File (*.ssp)";
             this.exportToolStripMenuItem1.Click += new System.EventHandler(this.exportToolStripMenuItem1_Click);
             // 
+            // exportToXMLToolStripMenuItem
+            // 
+            this.exportToXMLToolStripMenuItem.Name = "exportToXMLToolStripMenuItem";
+            this.exportToXMLToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
+            this.exportToXMLToolStripMenuItem.Text = "Export Current Super Soul to Lazybone XML";
+            this.exportToXMLToolStripMenuItem.Click += new System.EventHandler(this.exportSoulasXml);
+            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
@@ -3216,13 +3225,6 @@
             this.replaceCurrentSoulFromClipboardToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
             this.replaceCurrentSoulFromClipboardToolStripMenuItem.Text = "Replace Current Soul From Clipboard";
             this.replaceCurrentSoulFromClipboardToolStripMenuItem.Click += new System.EventHandler(this.replaceCurrentSoulFromClipboardToolStripMenuItem_Click);
-            // 
-            // exportToXMLToolStripMenuItem
-            // 
-            this.exportToXMLToolStripMenuItem.Name = "exportToXMLToolStripMenuItem";
-            this.exportToXMLToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
-            this.exportToXMLToolStripMenuItem.Text = "Export Current Super Soul to Lazybone XML";
-            this.exportToXMLToolStripMenuItem.Click += new System.EventHandler(this.exportSoulasXml);
             // 
             // msgToolStripMenuItem
             // 
@@ -3327,6 +3329,13 @@
             this.caseSensetiveCheckBox.TabIndex = 43;
             this.caseSensetiveCheckBox.Text = "Case Sensitive";
             this.caseSensetiveCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // createNewLimitBurstSetToolStripMenuItem
+            // 
+            this.createNewLimitBurstSetToolStripMenuItem.Name = "createNewLimitBurstSetToolStripMenuItem";
+            this.createNewLimitBurstSetToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
+            this.createNewLimitBurstSetToolStripMenuItem.Text = "Create New Limit Burst Set";
+            this.createNewLimitBurstSetToolStripMenuItem.Click += new System.EventHandler(this.createNewLimitBurstToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -3700,5 +3709,6 @@
         private System.Windows.Forms.CheckBox caseSensetiveCheckBox;
         private System.Windows.Forms.ToolStripMenuItem addNewLocationLookupToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportToXMLToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem createNewLimitBurstSetToolStripMenuItem;
     }
 }

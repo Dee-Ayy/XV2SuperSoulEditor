@@ -25,40 +25,7 @@ namespace XV2SSEdit
         private readonly string[] StatNames = IDB.StatNames;
 
         public idbItem[] Items;
-        //EffectList effList;
-        //ActivatorList actList;
-        //TargetList trgList;
-        //LBColorList lbcList;
-        //KitypeList kitList;
-        //VFXList vfxList;
         string FileName;
-
-        //OLD
-        //string FileNameMsgN;
-        //string FileNameMsgD;
-        //string FileNameMsgH;
-        //string FileNameMsgB;
-        //string FileNameMsgB_BTLHUD;
-        //string FileNameMsgB_Pause;
-        //
-        //private struct GenericMsgFile
-        //{
-        //    public string msgPath_m;
-        //    public msg msgFile_m;
-        //    public GenericMsgFile(string msgPath, msg msgFile)
-        //    {
-        //        msgPath_m = msgPath;
-        //        msgFile_m = msgFile;
-        //    }
-        //}
-        //
-        //private List<GenericMsgFile> genericMsgListNames = new List<GenericMsgFile>();
-        //private List<GenericMsgFile> genericMsgListDescs = new List<GenericMsgFile>();
-        //private List<GenericMsgFile> genericMsgListHowTo = new List<GenericMsgFile>();
-        //private List<GenericMsgFile> genericMsgListBurst = new List<GenericMsgFile>();
-        //private List<GenericMsgFile> genericMsgListNameBurstBTLHUD = new List<GenericMsgFile>();
-        //private List<GenericMsgFile> genericMsgListNameBurstPause = new List<GenericMsgFile>();
-
         private msg Names;
         private msg Descs;
         private msg HowTo;
@@ -76,12 +43,12 @@ namespace XV2SSEdit
 
 
         //dict full of all msg text used for each language
-        private Dictionary<string, msg> fullMsgListNames = new Dictionary<string, msg>();
-        private Dictionary<string, msg> fullMsgListDescs = new Dictionary<string, msg>();
-        private Dictionary<string, msg> fullMsgListHowTo = new Dictionary<string, msg>();
-        private Dictionary<string, msg> fullMsgListBurst = new Dictionary<string, msg>();
-        private Dictionary<string, msg> fullMsgListBurstBTLHUD = new Dictionary<string, msg>();
-        private Dictionary<string, msg> fullMsgListBurstPause = new Dictionary<string, msg>();
+        public Dictionary<string, msg> fullMsgListNames = new Dictionary<string, msg>();
+        public Dictionary<string, msg> fullMsgListDescs = new Dictionary<string, msg>();
+        public Dictionary<string, msg> fullMsgListHowTo = new Dictionary<string, msg>();
+        public Dictionary<string, msg> fullMsgListBurst = new Dictionary<string, msg>();
+        public Dictionary<string, msg> fullMsgListBurstBTLHUD = new Dictionary<string, msg>();
+        public Dictionary<string, msg> fullMsgListBurstPause = new Dictionary<string, msg>();
 
         //UNLEASHED: helper vars for searching
         private int lastFoundIndex = 0;
@@ -90,7 +57,7 @@ namespace XV2SSEdit
         private bool hasSavedChanges = true;    //UNLEASHED: remind user to save changes.
         private byte[] clipboardData = null;    //UNLEASHED: copy and paste
         private bool startup = true;
-        private string currentLanguge = "en";
+        public string currentLanguge = "en";
         private List<ushort> UsedIDs = new List<ushort>();
 
         #endregion
@@ -341,106 +308,6 @@ namespace XV2SSEdit
             return -1;
         }
 
-        //Demon: uneeded. tool now supports editing every language
-        //UNLEASHED: function to write empty Msg text for generic Msg files (for syncing purposes)
-        //void writeToMsgText(int MsgType, string Msg, int OLT_ID = -1)
-        //{
-        //    switch (MsgType)
-        //    {
-        //        case 0:
-        //            {
-        //                for (int i = 0; i < genericMsgListNames.Count; i++)
-        //                {
-        //                    GenericMsgFile tmp = genericMsgListNames[i];
-        //                    msgData[] Expand2 = new msgData[tmp.msgFile_m.data.Length + 1];
-        //                    Array.Copy(tmp.msgFile_m.data, Expand2, tmp.msgFile_m.data.Length);
-        //                    Expand2[Expand2.Length - 1].NameID = "talisman_" + tmp.msgFile_m.data.Length.ToString("000");
-        //                    Expand2[Expand2.Length - 1].ID = tmp.msgFile_m.data.Length;
-        //                    Expand2[Expand2.Length - 1].Lines = new string[] { Msg };
-        //                    tmp.msgFile_m.data = Expand2;
-        //                    genericMsgListNames[i] = tmp;
-        //                }
-        //                break;
-        //            }
-        //        case 1:
-        //            {
-        //                for (int i = 0; i < genericMsgListDescs.Count; i++)
-        //                {
-        //                    GenericMsgFile tmp = genericMsgListDescs[i];
-        //                    msgData[] Expand = new msgData[tmp.msgFile_m.data.Length + 1];
-        //                    Array.Copy(tmp.msgFile_m.data, Expand, tmp.msgFile_m.data.Length);
-        //                    Expand[Expand.Length - 1].NameID = "talisman_eff_" + tmp.msgFile_m.data.Length.ToString("000");
-        //                    Expand[Expand.Length - 1].ID = tmp.msgFile_m.data.Length;
-        //                    Expand[Expand.Length - 1].Lines = new string[] { Msg };
-        //                    tmp.msgFile_m.data = Expand;
-        //                    genericMsgListDescs[i] = tmp;
-        //                }
-        //                break;
-        //            }
-        //        case 2:
-        //            {
-        //                for (int i = 0; i < genericMsgListBurst.Count; i++)
-        //                {
-        //                    GenericMsgFile tmp = genericMsgListBurst[i];
-        //                    msgData[] Expand4 = new msgData[tmp.msgFile_m.data.Length + 1];
-        //                    Array.Copy(tmp.msgFile_m.data, Expand4, tmp.msgFile_m.data.Length);
-        //                    Expand4[Expand4.Length - 1].NameID = "talisman_olt_" + tmp.msgFile_m.data.Length.ToString("000");
-        //                    OLT_ID = tmp.msgFile_m.data.Length;
-        //                    Expand4[Expand4.Length - 1].ID = tmp.msgFile_m.data.Length;
-        //                    Expand4[Expand4.Length - 1].Lines = new string[] { Msg };
-        //                    tmp.msgFile_m.data = Expand4;
-        //                    genericMsgListBurst[i] = tmp;
-        //                }
-        //                break;
-        //            }
-        //        case 3:
-        //            {
-        //                for (int i = 0; i < genericMsgListNameBurstBTLHUD.Count; i++)
-        //                {
-        //                    GenericMsgFile tmp = genericMsgListNameBurstBTLHUD[i];
-        //                    msgData[] Expand5 = new msgData[tmp.msgFile_m.data.Length + 1];
-        //                    Array.Copy(tmp.msgFile_m.data, Expand5, tmp.msgFile_m.data.Length);
-        //                    Expand5[Expand5.Length - 1].NameID = "BHD_OLT_000_" + OLT_ID.ToString();
-        //                    Expand5[Expand5.Length - 1].ID = tmp.msgFile_m.data.Length;
-        //                    Expand5[Expand5.Length - 1].Lines = new string[] { Msg };
-        //                    tmp.msgFile_m.data = Expand5;
-        //                    genericMsgListNameBurstBTLHUD[i] = tmp;
-        //                }
-        //                break;
-        //            }
-        //        case 4:
-        //            {
-        //                for (int i = 0; i < genericMsgListNameBurstPause.Count; i++)
-        //                {
-        //                    GenericMsgFile tmp = genericMsgListNameBurstPause[i];
-        //                    msgData[] Expand6 = new msgData[tmp.msgFile_m.data.Length + 1];
-        //                    Array.Copy(tmp.msgFile_m.data, Expand6, tmp.msgFile_m.data.Length);
-        //                    Expand6[Expand6.Length - 1].NameID = "BHD_OLT_000_" + OLT_ID.ToString();
-        //                    Expand6[Expand6.Length - 1].ID = tmp.msgFile_m.data.Length;
-        //                    Expand6[Expand6.Length - 1].Lines = new string[] { Msg };
-        //                    tmp.msgFile_m.data = Expand6;
-        //                    genericMsgListNameBurstPause[i] = tmp;
-        //                }
-        //                break;
-        //            }
-        //        case 5:
-        //            {
-        //                for (int i = 0; i < genericMsgListHowTo.Count; i++)
-        //                {
-        //                    GenericMsgFile tmp = genericMsgListHowTo[i];
-        //                    msgData[] Expand = new msgData[tmp.msgFile_m.data.Length + 1];
-        //                    Array.Copy(tmp.msgFile_m.data, Expand, tmp.msgFile_m.data.Length);
-        //                    Expand[Expand.Length - 1].NameID = "talisman_how_" + tmp.msgFile_m.data.Length.ToString("000");
-        //                    Expand[Expand.Length - 1].ID = tmp.msgFile_m.data.Length;
-        //                    Expand[Expand.Length - 1].Lines = new string[] { Msg };
-        //                    tmp.msgFile_m.data = Expand;
-        //                    genericMsgListHowTo[i] = tmp;
-        //                }
-        //                break;
-        //            }
-        //    }
-        //}
-
         private void updateNameMsgID(object sender, EventArgs e)
         {
             short ID;
@@ -571,179 +438,6 @@ namespace XV2SSEdit
             //}
 
             return FindMsgIndexbyNameID(extraBurstMsgFile, BurstBTLHUDName);
-        }
-
-        //TODO: update addresses
-        private int AddLB(byte[] SSData)
-
-        {
-            //UNLEASHED: this function will return the ItemList index of the latest installed Super Soul
-            //if the returned int is "-1" then Super Soul failed to install.
-
-            //Create and add Blank Super Soul (its not actually blank, it uses Raditz Super Soul as a base, which is a functional soul that has no effects)
-            //loading
-            // OpenFileDialog browseFile = new OpenFileDialog();
-            // browseFile.Filter = "Super Soul Share File | *.zss";
-            // browseFile.Title = "Select the Super Soul you want to import.";
-            // if (browseFile.ShowDialog() == DialogResult.Cancel)
-            //     return;
-
-            idbItem[] items_org = Items;
-            byte[] blankzss = SSData;
-
-            int nameCount = BitConverter.ToInt32(blankzss, 4);
-            int DescCount = BitConverter.ToInt32(blankzss, 8);
-            int LBDescCount = BitConverter.ToInt32(blankzss, 16);
-            int LBDescCountBtl = BitConverter.ToInt32(blankzss, 20);
-            int LBDescCountPause = BitConverter.ToInt32(blankzss, 24);
-
-
-
-            //UNLEASHED: we are gonna skip expanding itemlist until later..
-
-            //==================================EXPAND ITEMS CODE=========================
-            ////expand the item array
-            //idbItem[] Expand = new idbItem[Items.Length + 1];
-            ////copy the current items to the expanded array
-            //Array.Copy(Items, Expand, Items.Length);
-            ////add blank IDB data
-            //Expand[Expand.Length - 1].Data = new byte[748];
-
-
-            //Items = Expand;
-
-            //==================================EXPAND ITEMS CODE=========================
-
-            //UNLEASHED: first, lets the get the ID of the last SS's ID and increment by 1
-            ushort ID = BitConverter.ToUInt16(Items[Items.Length - 1].Data, 0);
-            ID++;
-
-            bool foundProperID = true;
-            int newPos = Items.Length; //UNLEASHED: Length = current items count + 1 (which is a  proper ID after we expand the list)
-
-            //UNLEASHED: after incrementing by 1, we check if its above 32700 (very close to Int16.MaxValue)
-            if (ID > 32700)
-            {
-                foundProperID = false;
-                int currentItemIndex = Items.Length - 1;
-                while ((currentItemIndex - 1) > 0)
-                {
-                    currentItemIndex--; //UNLEASHED: skiping last SS
-                    ushort currID = BitConverter.ToUInt16(Items[currentItemIndex].Data, 0);
-                    ushort nextID = BitConverter.ToUInt16(Items[currentItemIndex + 1].Data, 0);
-
-                    if (currID + 1 < nextID && ((currID + 1) <= 32700)) // our new ID can go in the middle
-                    {
-                        foundProperID = true;
-                        newPos = currentItemIndex + 1;
-                        ID = (ushort)(currID + 1);
-                        break;
-                    }
-                }
-            }
-
-            if (foundProperID)
-            {
-                //expand the item array
-                idbItem[] Expand = new idbItem[Items.Length + 1];
-
-                //copy the current items to the expanded array
-                Array.Copy(Items, Expand, Items.Length);
-
-                //add blank IDB data
-                Expand[Expand.Length - 1].Data = new byte[772];
-
-                //UNLEASHED: finally, set the new array with proper IDs
-                Items = Expand;
-
-                int currentIndex = Items.Length - 1;
-                int prevIndex = Items.Length - 2;
-
-                if (prevIndex < 0) //UNLEASHED: incase something went very wrong (corrupt IDB file?)
-                {
-                    MessageBox.Show("Cannot add new Super Soul");
-                    Items = items_org;
-                    return -1;
-                }
-
-                //UNLEASHED: Swap items until we reach newPos
-                while (currentIndex != newPos)
-                {
-                    idbItem tempIDBItem = Items[currentIndex];
-                    Items[currentIndex] = Items[prevIndex];
-                    Items[prevIndex] = tempIDBItem;
-                    currentIndex--;
-                    prevIndex--;
-                }
-            }
-
-            else
-            {
-                MessageBox.Show("Cannot add new Super Soul");
-                Items = items_org;
-                return -1;
-            }
-
-            Array.Copy(BitConverter.GetBytes(ID), Items[newPos].Data, 2);
-
-            //apply Zss data to added z-soul
-            //UNLEASHED: original code was multiplying lengths by 2 (this is because of unicode names)
-            //instead, when exporting the SS get the length of the strings and multiy them by 2 before writing to binary
-            //so here we read the number normally
-            //Array.Copy(blankzss, 12 + (nameCount * 2) + (DescCount * 2), Items[newPos].Data, 2, 718);
-
-            //UNLEASHED: + (4) is for limit burst linker 4 bytes, only useful in SSP
-            Array.Copy(blankzss, 0x1C + (nameCount) + (DescCount) + (LBDescCount) + (LBDescCountBtl) + (LBDescCountPause), Items[newPos].Data, 2, 746);
-
-            Items[newPos].msgIndexName = 0;
-            Items[newPos].msgIndexDesc = 0;
-            Items[newPos].msgIndexBurst = 0;
-            Items[newPos].msgIndexBurstBTL = getLB_BTL_Pause_DescID(BurstBTLHUD, Burst.data[Items[newPos].msgIndexBurst].NameID);
-            Items[newPos].msgIndexBurstPause = getLB_BTL_Pause_DescID(BurstPause, Burst.data[Items[newPos].msgIndexBurst].NameID);
-
-            return newPos;
-        }
-
-        //TODO: Do we still need this? I think I handle LBs good enough.
-        private bool isLimitBurst(byte[] SSFData)
-        {
-            if (BitConverter.ToUInt32(SSFData, 0x18) == 0xFFFFFFFF)
-                return false;
-
-            return true;
-        }
-
-        //TODO: Again, do we need this?
-        private void resolveLBIDsForParentSS(ref List<int> indexCollections, byte[] SSFData, ushort LBID)
-        {
-            ushort parentSSIndex = BitConverter.ToUInt16(SSFData, 28);
-            ushort burstSlot = BitConverter.ToUInt16(SSFData, 30);
-            //
-            int parentSSItemIndex = indexCollections[parentSSIndex];
-
-            switch (burstSlot)
-            {
-                case 1:
-                    {
-                        byte[] changedBytes = BitConverter.GetBytes(LBID);
-                        Items[parentSSItemIndex].Data = StaticMethods.replaceBytesInByteArray(Items[parentSSItemIndex].Data, changedBytes, 58);
-                        break;
-                    }
-
-                case 2:
-                    {
-                        byte[] changedBytes = BitConverter.GetBytes(LBID);
-                        Items[parentSSItemIndex].Data = StaticMethods.replaceBytesInByteArray(Items[parentSSItemIndex].Data, changedBytes, 60);
-                        break;
-                    }
-
-                case 3:
-                    {
-                        byte[] changedBytes = BitConverter.GetBytes(LBID);
-                        Items[parentSSItemIndex].Data = StaticMethods.replaceBytesInByteArray(Items[parentSSItemIndex].Data, changedBytes, 62);
-                        break;
-                    }
-            }
         }
 
         //ListBoxes
@@ -1017,7 +711,6 @@ namespace XV2SSEdit
             }
         }
 
-        //TODO: Do we still want this
         private void installSSPFromArgs(string[] sspArgsPath)
         {
             if (Path.GetExtension(sspArgsPath[1].ToLower()) == ".ssp")
@@ -1178,7 +871,7 @@ namespace XV2SSEdit
                 UsedIDs.Add(BitConverter.ToUInt16(Items[i].Data, IdbOffsets["Index"].Item2));
 
                 //warn user later that a super soul is outside stable index
-                if (BitConverter.ToUInt16(Items[i].Data, IdbOffsets["Index"].Item2) >= 32768)
+                if (BitConverter.ToUInt16(Items[i].Data, IdbOffsets["Index"].Item2) < 0)
                 {
                     shouldWarn = true;
                 }
@@ -1407,11 +1100,28 @@ namespace XV2SSEdit
             ushort FreeID = 1000;
             int LastUsedIndex = 0;
             bool foundProperID = false;
+
+            //TODO: we don't always need 4 slots free for souls.
+            //at least the main and limit bursts don't need to be together
             while (!foundProperID)
             {
+                if (FreeID == 0xFFFF)
+                {
+                    MessageBox.Show(this, "Could not find enough free space avaiable new Super Soul!", "No Room", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return -1;
+                }
+
                 if (!UsedIDs.Contains(FreeID))
                 {
-                    foundProperID = true;
+                    //check the next 3 after this to see if they are free
+                    bool FreeID2 = UsedIDs.Contains((ushort)(FreeID + 1));
+                    bool FreeID3 = UsedIDs.Contains((ushort)(FreeID + 2));
+                    bool FreeID4 = UsedIDs.Contains((ushort)(FreeID + 3));
+
+                    if (!FreeID2 && !FreeID3 && !FreeID4)
+                        foundProperID = true;
+                    else
+                        FreeID++;
                 }
                 else
                 {
@@ -1765,12 +1475,12 @@ namespace XV2SSEdit
 
             //UNLEASHED: before we import, lets create a backup for all MSG files and the IDB
             //so we can revert back incase anything happens (mostly if there is not enough space to install SS)
-
-            msg orgNames = Names;
-            msg orgDescs = Descs;
-            msg orgBurst = Burst;
-            msg orgBurstBTLHUD = BurstBTLHUD;
-            msg orgBurstPause = BurstPause;
+            Dictionary<string, msg> origMsgListNames = fullMsgListNames;
+            Dictionary<string, msg> origMsgListDescs = fullMsgListDescs;
+            Dictionary<string, msg> origMsgListHowTo = fullMsgListHowTo;
+            Dictionary<string, msg> origMsgListBurst = fullMsgListBurst;
+            Dictionary<string, msg> origMsgListBurstBTLHUD = fullMsgListBurstBTLHUD;
+            Dictionary<string, msg> origMsgListBurstPause = fullMsgListBurstPause;
             idbItem[] orgItems = Items;
 
             List<int> indexCollections = new List<int>();
@@ -1782,25 +1492,26 @@ namespace XV2SSEdit
             for (int i = 0; i < sspFile.Souls.Count(); i++)
             {
                 tempData = sspFile.Souls[i].m_data;
-                //index = AddSS(tempData);
+                index = AddSSNew(tempData);
 
                 if (index < 0)
                 {
-                    Names = orgNames;
-                    Descs = orgDescs;
-                    Burst = orgBurst;
-                    BurstBTLHUD = orgBurstBTLHUD;
-                    BurstPause = orgBurstPause;
+                    fullMsgListNames = origMsgListNames;
+                    fullMsgListDescs = origMsgListDescs;
+                    fullMsgListHowTo = origMsgListHowTo;
+                    fullMsgListBurst = origMsgListBurst;
+                    fullMsgListBurstBTLHUD = origMsgListBurstBTLHUD;
+                    fullMsgListBurstPause = origMsgListBurstPause;
                     Items = orgItems;
                     return false;
                 }
 
-                intIDofLB = BitConverter.ToUInt16(Items[index].Data, 0);
-
-                if (!isLimitBurst(tempData))
-                    indexCollections.Add(index);
-                else
-                    resolveLBIDsForParentSS(ref indexCollections, tempData, intIDofLB);
+                //intIDofLB = BitConverter.ToUInt16(Items[index].Data, 0);
+                //
+                //if (!isLimitBurst(tempData))
+                //    indexCollections.Add(index);
+                //else
+                //    resolveLBIDsForParentSS(ref indexCollections, tempData, intIDofLB);
             }
             return true;
         }

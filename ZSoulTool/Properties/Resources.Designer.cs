@@ -63,6 +63,16 @@ namespace XV2SSEdit.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] BlankLB {
+            get {
+                object obj = ResourceManager.GetObject("BlankLB", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] newss {
             get {
                 object obj = ResourceManager.GetObject("newss", resourceCulture);

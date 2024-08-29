@@ -152,7 +152,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <EmbeddedResource Include="Resources\newzss" />
-    <None Include="Resources\Blank.122" />
+    <None Include="Resources\BlankLB" />
     <None Include="Resources\newss" />
     <Resource Include="Resources\Soul_BlankText.SSF" />
   </ItemGroup>

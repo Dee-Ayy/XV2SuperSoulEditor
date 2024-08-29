@@ -14,6 +14,15 @@ namespace XV2SSEdit
         private msg BurstBTLHUD;
         private msg BurstPause;
         private msg HowTo;
+
+        //dict full of all msg text used for each language
+        //private Dictionary<string, msg> fullMsgListNames = new Dictionary<string, msg>();
+        //private Dictionary<string, msg> fullMsgListDescs = new Dictionary<string, msg>();
+        //private Dictionary<string, msg> fullMsgListHowTo = new Dictionary<string, msg>();
+        //private Dictionary<string, msg> fullMsgListBurst = new Dictionary<string, msg>();
+        //private Dictionary<string, msg> fullMsgListBurstBTLHUD = new Dictionary<string, msg>();
+        //private Dictionary<string, msg> fullMsgListBurstPause = new Dictionary<string, msg>();
+
         private int numOfExportedItems = 0;
 
         public Export(Form1 form1,msg msg1,msg msg2,msg msg3,msg msg4,msg msg5, msg msg6)
@@ -88,51 +97,86 @@ namespace XV2SSEdit
             {
                 //UNLEASHED: while we are here, we might aswell build the SS Object
                 List<byte> SSFFile = new List<byte>();
-                SSFFile.AddRange(new byte[] { 0x23, 0x53, 0x53, 0x46 }); // UNLEASHED: Sig
+                SSFFile.AddRange(new byte[] { 0x23, 0x53, 0x46, 0x32 }); //#SF2
+                SSFFile.AddRange(new byte[] { 0x02, 0x00, 0x00, 0x00 }); //Version number
+                SSFFile.AddRange(new byte[] { 0x00, 0x00 }); //LB soul count
+                SSFFile.AddRange(new byte[] { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF }); //Limit Burst Identifiers
 
-                string nameText = Names.data[form1.Items[SSIndex].msgIndexName].Lines[0];
-                string DescText = Descs.data[form1.Items[SSIndex].msgIndexDesc].Lines[0];
-                string LBDescText = Burst.data[form1.Items[SSIndex].msgIndexBurst].Lines[0];
-                string LBBTLHUDDescText = BurstBTLHUD.data[form1.Items[SSIndex].msgIndexBurstBTL].Lines[0];
-                string lookupText = HowTo.data[form1.Items[SSIndex].msgIndexHow].Lines[0];
 
-                // UNLEASHED: Some SSs don't have the LBPauseDesc (we aren't sure if its evne used by the game..)
-                string LBPauseDescText;
+                //could be better, but oh well this works
+                List<string> languages = new List<string> { "en", "es", "ca", "fr", "de", "it", "pt", "pl", "ru", "tw", "zh", "kr", "ja" };
+                string MsgText = "";
+                int TextLength = 0;
+                string soulName = "";
 
-                if (form1.Items[SSIndex].msgIndexBurstPause > -1)
-                    LBPauseDescText = BurstPause.data[form1.Items[SSIndex].msgIndexBurstPause].Lines[0];
-                else
-                    LBPauseDescText = "";
+                //Name
+                foreach (string lang in languages)
+                {
+                    //Name
+                    MsgText = form1.fullMsgListNames[lang].data[form1.Items[SSIndex].msgIndexName].Lines[0];
+                    TextLength = MsgText.Length * 2;
+                    SSFFile.AddRange(BitConverter.GetBytes(TextLength));
+                    SSFFile.AddRange(System.Text.Encoding.Unicode.GetBytes(MsgText.ToCharArray()));
 
-                int nameCount = nameText.Length * 2;
-                int DescCount = DescText.Length * 2;
-                int LBDescCount = LBDescText.Length * 2;
-                int LBBTLHUDDescCount = LBBTLHUDDescText.Length * 2;
-                int LBPauseDescCount = LBPauseDescText.Length * 2;
-                int lookupCount = lookupText.Length * 2;
+                    if (lang == form1.currentLanguge)
+                        soulName = MsgText;
+                }
 
-                SSFFile.AddRange(BitConverter.GetBytes(nameCount));
-                SSFFile.AddRange(BitConverter.GetBytes(DescCount));
-                SSFFile.AddRange(BitConverter.GetBytes(LBDescCount));
-                SSFFile.AddRange(BitConverter.GetBytes(LBBTLHUDDescCount));
-                SSFFile.AddRange(BitConverter.GetBytes(LBPauseDescCount));
-                SSFFile.AddRange(BitConverter.GetBytes(lookupCount));
-                //UNLEASHED: those are the "Burst to Parent Super Soul" bytes, unused in the parent
-                SSFFile.AddRange(new byte[] { 0xFF, 0xFF, 0xFF, 0xFF });
+                //Description
+                foreach (string lang in languages)
+                {
+                    MsgText = form1.fullMsgListDescs[lang].data[form1.Items[SSIndex].msgIndexDesc].Lines[0];
+                    TextLength = MsgText.Length * 2;
+                    SSFFile.AddRange(BitConverter.GetBytes(TextLength));
+                    SSFFile.AddRange(System.Text.Encoding.Unicode.GetBytes(MsgText.ToCharArray()));
+                }
 
-                SSFFile.AddRange(CharByteArray(nameText));
-                SSFFile.AddRange(CharByteArray(DescText));
-                SSFFile.AddRange(CharByteArray(LBDescText));
-                SSFFile.AddRange(CharByteArray(LBBTLHUDDescText));
-                SSFFile.AddRange(CharByteArray(LBPauseDescText));
-                SSFFile.AddRange(CharByteArray(lookupText));
+                //HowTo
+                foreach (string lang in languages)
+                {
+                    MsgText = form1.fullMsgListHowTo[lang].data[form1.Items[SSIndex].msgIndexHow].Lines[0];
+                    TextLength = MsgText.Length * 2;
+                    SSFFile.AddRange(BitConverter.GetBytes(TextLength));
+                    SSFFile.AddRange(System.Text.Encoding.Unicode.GetBytes(MsgText.ToCharArray()));
+                }
 
-                //idb size is -2 because ssf does not copy index from original ss data
-                byte[] itempass = new byte[IDB.Idb_Size - 2];
-                Array.Copy(form1.Items[SSIndex].Data, 2, itempass, 0, IDB.Idb_Size - 2);
+                //Burst
+                foreach (string lang in languages)
+                {
+                    MsgText = form1.fullMsgListBurst[lang].data[form1.Items[SSIndex].msgIndexBurst].Lines[0];
+                    TextLength = MsgText.Length * 2;
+                    SSFFile.AddRange(BitConverter.GetBytes(TextLength));
+                    SSFFile.AddRange(System.Text.Encoding.Unicode.GetBytes(MsgText.ToCharArray()));
+                }
+
+                //Burst HUD
+                foreach (string lang in languages)
+                {
+                    MsgText = form1.fullMsgListBurstBTLHUD[lang].data[form1.Items[SSIndex].msgIndexBurstBTL].Lines[0];
+                    TextLength = MsgText.Length * 2;
+                    SSFFile.AddRange(BitConverter.GetBytes(TextLength));
+                    SSFFile.AddRange(System.Text.Encoding.Unicode.GetBytes(MsgText.ToCharArray()));
+                }
+
+                //Burst Pause
+                foreach (string lang in languages)
+                {
+                    if (form1.Items[SSIndex].msgIndexBurstPause > -1)
+                        MsgText = form1.fullMsgListBurstPause[lang].data[form1.Items[SSIndex].msgIndexBurstPause].Lines[0];
+                    else
+                        MsgText = "";
+
+                    TextLength = MsgText.Length * 2;
+                    SSFFile.AddRange(BitConverter.GetBytes(TextLength));
+                    SSFFile.AddRange(System.Text.Encoding.Unicode.GetBytes(MsgText.ToCharArray()));
+                }
+
+                //Soul Data
+                byte[] itempass = new byte[IDB.Idb_Size];
+                Array.Copy(form1.Items[SSIndex].Data, 0, itempass, 0, IDB.Idb_Size);
                 SSFFile.AddRange(itempass);
 
-                SSObjects.Add(new SSObject(SSFFile.ToArray(),false,nameText, Burst1ID, Burst2ID, Burst3ID, false, false, false));
+                SSObjects.Add(new SSObject(SSFFile.ToArray(),false, soulName, Burst1ID, Burst2ID, Burst3ID, false, false, false));
             }
 
             return isSS;       
@@ -167,7 +211,7 @@ namespace XV2SSEdit
             checkBurst3.Text = "Export Burst 3 (" + SSObjects[exportSoulsList.SelectedIndex].burst3ID.ToString() + ")";
         }
 
-        private byte[] getProperSSF_FormatForLimitBurst(ushort LimitBurstID, ushort parentID, ushort burstSlot)
+        private byte[] getProperSSF_FormatForLimitBurstOLD(ushort LimitBurstID, ushort parentID, ushort burstSlot)
         {
             for (int i = 0; i < form1.Items.Length; i++)
             {
@@ -217,12 +261,34 @@ namespace XV2SSEdit
                 return null; 
         }
 
+        private byte[] getProperSSF_FormatForLimitBurst(ushort LimitBurstID)
+        {
+            for (int i = 0; i < form1.Items.Length; i++)
+            {
+                if (BitConverter.ToUInt16(form1.Items[i].Data, 0) == LimitBurstID)
+                {
+                    List<byte> SSFFile = new List<byte>();
+                    byte[] itempass = new byte[IDB.Idb_Size];
+                    Array.Copy(form1.Items[i].Data, 0, itempass, 0, IDB.Idb_Size);
+                    SSFFile.AddRange(itempass);
+                    return SSFFile.ToArray();
+                }
+            }
+            return null;
+        }
+
         private void btnExport_Click(object sender, EventArgs e)
         {
             sspFile = new SSP();
             limitBursts = new List<byte[]>();
             byte[] tempBytes;
             ushort exportIndex = 0;
+
+            bool burst1 = false;
+            bool burst2 = false;
+            bool burst3 = false;
+            int burstCount = 0;
+
 
             if (SSObjects.Count == 0)
             {
@@ -242,9 +308,13 @@ namespace XV2SSEdit
                 {
                     if (SSObjects[i].exportBurst1)
                     {
-                        tempBytes = getProperSSF_FormatForLimitBurst(SSObjects[i].burst1ID, exportIndex, 1);
+                        tempBytes = getProperSSF_FormatForLimitBurst(SSObjects[i].burst1ID);
                         if (tempBytes != null)
+                        {
                             limitBursts.Add(tempBytes);
+                            burst1 = true;
+                            burstCount++;
+                        }
                         else
                         {
                             MessageBox.Show("could not find LimitBurst ID " + SSObjects[i].burst1ID.ToString() + " in Super Soul with Name " +
@@ -255,9 +325,13 @@ namespace XV2SSEdit
 
                     if (SSObjects[i].exportBurst2)
                     {
-                        tempBytes = getProperSSF_FormatForLimitBurst(SSObjects[i].burst2ID, exportIndex, 2);
+                        tempBytes = getProperSSF_FormatForLimitBurst(SSObjects[i].burst2ID);
                         if (tempBytes != null)
+                        {
                             limitBursts.Add(tempBytes);
+                            burst2 = true;
+                            burstCount++;
+                        }
                         else
                         {
                             MessageBox.Show("could not find LimitBurst ID " + SSObjects[i].burst1ID.ToString() + " in Super Soul with Name " +
@@ -268,9 +342,13 @@ namespace XV2SSEdit
 
                     if (SSObjects[i].exportBurst3)
                     {
-                        tempBytes = getProperSSF_FormatForLimitBurst(SSObjects[i].burst3ID, exportIndex, 3);
+                        tempBytes = getProperSSF_FormatForLimitBurst(SSObjects[i].burst3ID);
                         if (tempBytes != null)
+                        {
                             limitBursts.Add(tempBytes);
+                            burst3 = true;
+                            burstCount++;
+                        }
                         else
                         {
                             MessageBox.Show("could not find LimitBurst ID " + SSObjects[i].burst3ID.ToString() + " in Super Soul with Name " +
@@ -279,16 +357,33 @@ namespace XV2SSEdit
                         }
                     }
 
-                    sspFile.Souls.Add(new SSP.SSF(SSObjects[i].SSFData));
+                    //add limit burst data
+                    byte[] FullSSF = new byte[SSObjects[i].SSFData.Length + (burstCount * IDB.Idb_Size)];
+                    Array.Copy(SSObjects[i].SSFData, FullSSF, SSObjects[i].SSFData.Length);
+                    int pos = SSObjects[i].SSFData.Length;
+                    for (int l = 0; l < limitBursts.Count; l++)
+                    {
+                        Array.Copy(limitBursts[l], 0, FullSSF, pos + (l * IDB.Idb_Size), IDB.Idb_Size);
+                    }
 
+                    //fix lb identifiers
+                    Array.Copy(BitConverter.GetBytes(burstCount), 0, FullSSF, 8, 2); //count
+                    if (burst1)
+                        Array.Copy(BitConverter.GetBytes(0), 0, FullSSF, 10, 2);
+                    if (burst2)
+                        Array.Copy(BitConverter.GetBytes(0), 0, FullSSF, 12, 2);
+                    if (burst3)
+                        Array.Copy(BitConverter.GetBytes(0), 0, FullSSF, 14, 2);
+
+                    sspFile.Souls.Add(new SSP.SSF(FullSSF));
                     exportIndex++;
                 }
             }
 
-            for (int i = 0; i < limitBursts.Count; i++)
-            {
-                sspFile.Souls.Add(new SSP.SSF(limitBursts[i]));
-            }
+            //for (int i = 0; i < limitBursts.Count; i++)
+            //{
+            //    sspFile.Souls.Add(new SSP.SSF(limitBursts[i]));
+            //}
 
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.Filter = "Super Soul Package File | *.ssp";
