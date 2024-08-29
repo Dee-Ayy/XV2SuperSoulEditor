@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using Xv2CoreLib.IDB;
+using YAXLib;
 
 //toolstrip functions are to be placed here to clean things up a bit
 namespace XV2SSEdit
@@ -405,6 +407,32 @@ namespace XV2SSEdit
             int index = itemList.SelectedIndex;
             itemList.SelectedIndex = 0;
             itemList.SelectedIndex = index;
+        }
+
+        //will export current soul as Lazybones format xml
+        private void exportSoulasXml(object sender, EventArgs e)
+        {
+            byte[] copiedBytes = new byte[IDB.Idb_Size + 0x10];
+            Array.Copy(new byte[] { 0x23, 0x49, 0x44, 0x42, 0xFE, 0xFF, 0x07, 0x00, 0x01, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00 }, copiedBytes, 0x10);
+            Array.Copy(Items[currentSuperSoulIndex].Data, 0, copiedBytes, 0x10, IDB.Idb_Size);
+
+            //get a save location
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "LazyBone Installer XML | *.xml";
+            saveFileDialog1.Title = "Save Super Soul as XML";
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                //sspFile.SSPWrite(saveFileDialog1.FileName);
+
+                //Parser(copiedBytes, saveFileDialog1.FileName, true);
+
+                IDB_File idbFile = IDB_File.Load(copiedBytes);
+                YAXSerializer serializer = new YAXSerializer(typeof(IDB_File));
+                serializer.SerializeToFile(idbFile, saveFileDialog1.FileName);
+
+                //MessageBox.Show("Super Souls Exported Successfully");
+            }
         }
 
         ///

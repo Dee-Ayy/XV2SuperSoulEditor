@@ -316,9 +316,11 @@
             this.copyCurrentSuperSoulToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createNewSoulFromClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.replaceCurrentSoulFromClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportToXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msgToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addNewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.addNewLocationLookupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.limitBurstToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.itemList = new System.Windows.Forms.ComboBox();
@@ -328,7 +330,6 @@
             this.label53 = new System.Windows.Forms.Label();
             this.Index = new System.Windows.Forms.TextBox();
             this.caseSensetiveCheckBox = new System.Windows.Forms.CheckBox();
-            this.addNewLocationLookupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox9.SuspendLayout();
@@ -3118,6 +3119,7 @@
             this.toolStripSeparator1,
             this.addToolStripMenuItem,
             this.exportToolStripMenuItem1,
+            this.exportToXMLToolStripMenuItem,
             this.toolStripSeparator2,
             this.addCurrentSuperSoulToShopToolStripMenuItem,
             this.removeCurrentSuperSoulFromShopToolStripMenuItem,
@@ -3133,87 +3135,94 @@
             // createNewSoulToolStripMenuItem
             // 
             this.createNewSoulToolStripMenuItem.Name = "createNewSoulToolStripMenuItem";
-            this.createNewSoulToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
+            this.createNewSoulToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
             this.createNewSoulToolStripMenuItem.Text = "Create New Soul";
             this.createNewSoulToolStripMenuItem.Click += new System.EventHandler(this.createNewSoulToolStripMenuItem_Click);
             // 
             // duplicateCurrentSoulToolStripMenuItem
             // 
             this.duplicateCurrentSoulToolStripMenuItem.Name = "duplicateCurrentSoulToolStripMenuItem";
-            this.duplicateCurrentSoulToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
+            this.duplicateCurrentSoulToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
             this.duplicateCurrentSoulToolStripMenuItem.Text = "Duplicate Current Super Soul";
             this.duplicateCurrentSoulToolStripMenuItem.Click += new System.EventHandler(this.duplicateCurrentSoulToolStripMenuItem_Click);
             // 
             // removeToolStripMenuItem
             // 
             this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            this.removeToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
             this.removeToolStripMenuItem.Text = "Remove Current Super Soul";
             this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(277, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(301, 6);
             // 
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
             this.addToolStripMenuItem.Text = "Import Super Soul Package File (*.ssp)";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
             // exportToolStripMenuItem1
             // 
             this.exportToolStripMenuItem1.Name = "exportToolStripMenuItem1";
-            this.exportToolStripMenuItem1.Size = new System.Drawing.Size(280, 22);
+            this.exportToolStripMenuItem1.Size = new System.Drawing.Size(304, 22);
             this.exportToolStripMenuItem1.Text = "Export Super Soul Package File (*.ssp)";
             this.exportToolStripMenuItem1.Click += new System.EventHandler(this.exportToolStripMenuItem1_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(277, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(301, 6);
             // 
             // addCurrentSuperSoulToShopToolStripMenuItem
             // 
             this.addCurrentSuperSoulToShopToolStripMenuItem.Name = "addCurrentSuperSoulToShopToolStripMenuItem";
-            this.addCurrentSuperSoulToShopToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
+            this.addCurrentSuperSoulToShopToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
             this.addCurrentSuperSoulToShopToolStripMenuItem.Text = "Add Current Super Soul to Shop";
             this.addCurrentSuperSoulToShopToolStripMenuItem.Click += new System.EventHandler(this.store_defaultBtn_Click);
             // 
             // removeCurrentSuperSoulFromShopToolStripMenuItem
             // 
             this.removeCurrentSuperSoulFromShopToolStripMenuItem.Name = "removeCurrentSuperSoulFromShopToolStripMenuItem";
-            this.removeCurrentSuperSoulFromShopToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
+            this.removeCurrentSuperSoulFromShopToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
             this.removeCurrentSuperSoulFromShopToolStripMenuItem.Text = "Remove Current Super Soul From Shop";
             this.removeCurrentSuperSoulFromShopToolStripMenuItem.Click += new System.EventHandler(this.removeCurrentSuperSoulFromShopToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(277, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(301, 6);
             // 
             // copyCurrentSuperSoulToClipboardToolStripMenuItem
             // 
             this.copyCurrentSuperSoulToClipboardToolStripMenuItem.Name = "copyCurrentSuperSoulToClipboardToolStripMenuItem";
-            this.copyCurrentSuperSoulToClipboardToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
+            this.copyCurrentSuperSoulToClipboardToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
             this.copyCurrentSuperSoulToClipboardToolStripMenuItem.Text = "Copy Current Soul to Clipboard";
             this.copyCurrentSuperSoulToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyCurrentSuperSoulToClipboardToolStripMenuItem_Click);
             // 
             // createNewSoulFromClipboardToolStripMenuItem
             // 
             this.createNewSoulFromClipboardToolStripMenuItem.Name = "createNewSoulFromClipboardToolStripMenuItem";
-            this.createNewSoulFromClipboardToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
+            this.createNewSoulFromClipboardToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
             this.createNewSoulFromClipboardToolStripMenuItem.Text = "Paste New Soul From Clipboard";
             this.createNewSoulFromClipboardToolStripMenuItem.Click += new System.EventHandler(this.createNewSoulFromClipboardToolStripMenuItem_Click);
             // 
             // replaceCurrentSoulFromClipboardToolStripMenuItem
             // 
             this.replaceCurrentSoulFromClipboardToolStripMenuItem.Name = "replaceCurrentSoulFromClipboardToolStripMenuItem";
-            this.replaceCurrentSoulFromClipboardToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
+            this.replaceCurrentSoulFromClipboardToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
             this.replaceCurrentSoulFromClipboardToolStripMenuItem.Text = "Replace Current Soul From Clipboard";
             this.replaceCurrentSoulFromClipboardToolStripMenuItem.Click += new System.EventHandler(this.replaceCurrentSoulFromClipboardToolStripMenuItem_Click);
+            // 
+            // exportToXMLToolStripMenuItem
+            // 
+            this.exportToXMLToolStripMenuItem.Name = "exportToXMLToolStripMenuItem";
+            this.exportToXMLToolStripMenuItem.Size = new System.Drawing.Size(304, 22);
+            this.exportToXMLToolStripMenuItem.Text = "Export Current Super Soul to Lazybone XML";
+            this.exportToXMLToolStripMenuItem.Click += new System.EventHandler(this.exportSoulasXml);
             // 
             // msgToolStripMenuItem
             // 
@@ -3239,6 +3248,13 @@
             this.removeToolStripMenuItem1.Size = new System.Drawing.Size(246, 22);
             this.removeToolStripMenuItem1.Text = "Add New Description";
             this.removeToolStripMenuItem1.Click += new System.EventHandler(this.addNewInfoMsg);
+            // 
+            // addNewLocationLookupToolStripMenuItem
+            // 
+            this.addNewLocationLookupToolStripMenuItem.Name = "addNewLocationLookupToolStripMenuItem";
+            this.addNewLocationLookupToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
+            this.addNewLocationLookupToolStripMenuItem.Text = "Add New Location Lookup";
+            this.addNewLocationLookupToolStripMenuItem.Click += new System.EventHandler(this.addNewHowMsg);
             // 
             // limitBurstToolStripMenuItem
             // 
@@ -3311,13 +3327,6 @@
             this.caseSensetiveCheckBox.TabIndex = 43;
             this.caseSensetiveCheckBox.Text = "Case Sensitive";
             this.caseSensetiveCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // addNewLocationLookupToolStripMenuItem
-            // 
-            this.addNewLocationLookupToolStripMenuItem.Name = "addNewLocationLookupToolStripMenuItem";
-            this.addNewLocationLookupToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
-            this.addNewLocationLookupToolStripMenuItem.Text = "Add New Location Lookup";
-            this.addNewLocationLookupToolStripMenuItem.Click += new System.EventHandler(this.addNewHowMsg);
             // 
             // Form1
             // 
@@ -3690,5 +3699,6 @@
         private System.Windows.Forms.TextBox Index;
         private System.Windows.Forms.CheckBox caseSensetiveCheckBox;
         private System.Windows.Forms.ToolStripMenuItem addNewLocationLookupToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportToXMLToolStripMenuItem;
     }
 }

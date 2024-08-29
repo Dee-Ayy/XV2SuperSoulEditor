@@ -1,4 +1,6 @@
-﻿using System.Xml;
+﻿using System.Collections.Generic;
+using System;
+using System.Xml;
 
 //Parses and reads the lists in the EffectData xml
 namespace XV2SSEdit
@@ -195,4 +197,228 @@ namespace XV2SSEdit
             return 0;
         }
     }
+
+    //from LB
+    /// <summary>
+    /// Extra static methods for BitConverter.
+    /// </summary>
+    public static class BitConverter_Ex
+    {
+        public static ushort[] ToUInt16Array(byte[] bytes)
+        {
+            if (bytes == null) return new ushort[0];
+            int count = bytes.Length / 2;
+
+            ushort[] ints = new ushort[count];
+
+            for (int i = 0; i < count; i++)
+            {
+                ints[i] = BitConverter.ToUInt16(bytes, i * 2);
+            }
+
+            return ints;
+        }
+
+        public static int[] ToInt32Array(byte[] bytes, int index, int count)
+        {
+            int[] ints = new int[count];
+
+
+            for (int i = 0; i < count * 4; i += 4)
+            {
+                ints[i / 4] = BitConverter.ToInt32(bytes, index + i);
+            }
+
+            return ints;
+        }
+
+        public static short[] ToInt16Array(byte[] bytes, int index, int count)
+        {
+            short[] ints = new short[count];
+
+            for (int i = 0; i < count * 2; i += 2)
+            {
+                ints[i / 2] = BitConverter.ToInt16(bytes, index + i);
+            }
+
+            return ints;
+        }
+
+        public static ushort[] ToUInt16Array(byte[] bytes, int index, int count)
+        {
+            ushort[] ints = new ushort[count];
+
+            for (int i = 0; i < count * 2; i += 2)
+            {
+                ints[i / 2] = BitConverter.ToUInt16(bytes, index + i);
+            }
+
+            return ints;
+        }
+
+        public static bool ToBoolean(byte[] bytes, int index)
+        {
+            return (bytes[index] == 0) ? false : true;
+        }
+
+        public static bool ToBoolean(byte bytes)
+        {
+            return (bytes == 0) ? false : true;
+        }
+
+        public static bool ToBooleanFromInt32(byte[] bytes, int index)
+        {
+            return (BitConverter.ToInt32(bytes, index) == 0) ? false : true;
+        }
+
+        public static float[] ToFloat32Array(byte[] bytes, int index, int count)
+        {
+            float[] floats = new float[count];
+
+            for (int i = 0; i < count * 4; i += 4)
+            {
+                floats[i / 4] = BitConverter.ToSingle(bytes, index + i);
+            }
+
+            return floats;
+        }
+
+        //GetBytes methods
+        /// <summary>
+        /// Converts a boolean value into a byte
+        /// </summary>=
+        public static byte GetBytes(bool _bool)
+        {
+            if (_bool == true)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public static byte[] GetBytes_Bool32(bool _bool)
+        {
+            if (_bool == true)
+            {
+                return new byte[4] { 1, 0, 0, 0 };
+            }
+            else
+            {
+                return new byte[4] { 0, 0, 0, 0 };
+            }
+        }
+
+        public static byte[] GetBytes(int[] intArray, int fixedSize = -1)
+        {
+            if (intArray == null)
+                return new byte[2 * fixedSize];
+
+            if (fixedSize == -1)
+                fixedSize = intArray.Length;
+
+            List<byte> bytes = new List<byte>();
+
+            for (int i = 0; i < intArray.Length; i++)
+            {
+                if (i == fixedSize) break;
+                bytes.AddRange(BitConverter.GetBytes(intArray[i]));
+            }
+
+            if (intArray.Length < fixedSize)
+            {
+                for (int i = 0; i < fixedSize - intArray.Length; i++)
+                {
+                    bytes.AddRange(BitConverter.GetBytes((ushort)0));
+                }
+            }
+
+            return bytes.ToArray();
+        }
+
+        public static byte[] GetBytes(float[] floatArray, int fixedSize = -1)
+        {
+            if (floatArray == null)
+                return new byte[2 * fixedSize];
+
+            if (fixedSize == -1)
+                fixedSize = floatArray.Length;
+
+            List<byte> bytes = new List<byte>();
+
+            for (int i = 0; i < floatArray.Length; i++)
+            {
+                if (i == fixedSize) break;
+                bytes.AddRange(BitConverter.GetBytes(floatArray[i]));
+            }
+
+            if (floatArray.Length < fixedSize)
+            {
+                for (int i = 0; i < fixedSize - floatArray.Length; i++)
+                {
+                    bytes.AddRange(BitConverter.GetBytes((ushort)0));
+                }
+            }
+
+            return bytes.ToArray();
+        }
+
+        public static byte[] GetBytes(short[] intArray, int fixedSize = -1)
+        {
+            if (intArray == null)
+                return new byte[2 * fixedSize];
+
+            if (fixedSize == -1)
+                fixedSize = intArray.Length;
+
+            List<byte> bytes = new List<byte>();
+
+            for (int i = 0; i < intArray.Length; i++)
+            {
+                if (i == fixedSize) break;
+                bytes.AddRange(BitConverter.GetBytes(intArray[i]));
+            }
+
+            if (intArray.Length < fixedSize)
+            {
+                for (int i = 0; i < fixedSize - intArray.Length; i++)
+                {
+                    bytes.AddRange(BitConverter.GetBytes((ushort)0));
+                }
+            }
+
+            return bytes.ToArray();
+        }
+
+        public static byte[] GetBytes(ushort[] intArray, int fixedSize = -1)
+        {
+            if (intArray == null)
+                return new byte[2 * fixedSize];
+
+            if (fixedSize == -1)
+                fixedSize = intArray.Length;
+
+            List<byte> bytes = new List<byte>();
+
+            for (int i = 0; i < intArray.Length; i++)
+            {
+                if (i == fixedSize) break;
+                bytes.AddRange(BitConverter.GetBytes(intArray[i]));
+            }
+
+            if (intArray.Length < fixedSize)
+            {
+                for (int i = 0; i < fixedSize - intArray.Length; i++)
+                {
+                    bytes.AddRange(BitConverter.GetBytes((ushort)0));
+                }
+            }
+
+            return bytes.ToArray();
+        }
+
+    }
+
 }

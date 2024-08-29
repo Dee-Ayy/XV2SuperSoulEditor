@@ -112,6 +112,9 @@
     <Compile Include="Settings\Settings.cs" />
     <Compile Include="Main\SSP.cs" />
     <Compile Include="Main\StaticMethods.cs" />
+    <Compile Include="Xv2CoreLib\IDB\IDB_File.cs" />
+    <Compile Include="Xv2CoreLib\IDB\Parser.cs" />
+    <Compile Include="Xv2CoreLib\IDB\Utils.cs" />
     <EmbeddedResource Include="Forms\Export.resx">
       <DependentUpon>Export.cs</DependentUpon>
     </EmbeddedResource>

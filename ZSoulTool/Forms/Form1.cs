@@ -1848,6 +1848,5 @@ namespace XV2SSEdit
 
             return tmpSoul;
         }
-
     }
 }
