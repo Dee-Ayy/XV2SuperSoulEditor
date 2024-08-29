@@ -376,6 +376,13 @@ namespace XV2SSEdit
                         Array.Copy(BitConverter.GetBytes(0), 0, FullSSF, 14, 2);
 
                     sspFile.Souls.Add(new SSP.SSF(FullSSF));
+
+                    //reset data
+                    limitBursts = new List<byte[]>();
+                    burst1 = false;
+                    burst2 = false;
+                    burst3 = false;
+                    burstCount = 0;
                     exportIndex++;
                 }
             }
