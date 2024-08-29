@@ -50,7 +50,6 @@ namespace XV2SSEdit
             Application.Exit();
         }
 
-
         ///
         /// Super Soul Options
         /// 
