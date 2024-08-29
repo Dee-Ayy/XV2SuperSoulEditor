@@ -532,8 +532,8 @@ namespace XV2SSEdit
             //TODO: commented out cause it's buggy (when manually changing lb desc id). try to fix later
 
             //Demon: updates the in battle description text when the description id is changed
-            //Items[itemList.SelectedIndex].msgIndexBurstBTL = getLB_BTL_Pause_DescID(BurstBTLHUD, Burst.data[Items[itemList.SelectedIndex].msgIndexBurst].NameID);
-            //Items[itemList.SelectedIndex].msgIndexBurstPause = getLB_BTL_Pause_DescID(BurstPause, Burst.data[Items[itemList.SelectedIndex].msgIndexBurst].NameID);
+            Items[itemList.SelectedIndex].msgIndexBurstBTL = getLB_BTL_Pause_DescID(BurstBTLHUD, Burst.data[Items[itemList.SelectedIndex].msgIndexBurst].NameID);
+            Items[itemList.SelectedIndex].msgIndexBurstPause = getLB_BTL_Pause_DescID(BurstPause, Burst.data[Items[itemList.SelectedIndex].msgIndexBurst].NameID);
             txtMsgLBDescBTL.Text = BurstBTLHUD.data[Items[itemList.SelectedIndex].msgIndexBurstBTL].Lines[0];
         }
 
@@ -1411,12 +1411,12 @@ namespace XV2SSEdit
                 if (!UsedIDs.Contains(FreeID))
                 {
                     foundProperID = true;
-                }           
+                }
                 else
                 {
                     LastUsedIndex = UsedIDs.IndexOf(FreeID) + 1;
                     FreeID++;
-                }                
+                }
             }
 
             //get number of LB souls
@@ -1432,22 +1432,31 @@ namespace XV2SSEdit
             Array.Copy(Items, 0, SoulExpand, 0, LastUsedIndex);
 
             //blank soul for adding
-            byte[] NewSoulData = new byte[772];
+            byte[] NewSoulData = new byte[IDB.Idb_Size];
 
             //add new super soul data
-            int SoulPos = (LimitNum + 1) * 772; //position of the main super soul in SSF
-            Array.Copy(SSData, SSData.Length - SoulPos, NewSoulData, 0, 772); //copy main soul data
+            int SoulPos = (LimitNum + 1) * IDB.Idb_Size; //position of the main super soul in SSF
+            Array.Copy(SSData, SSData.Length - SoulPos, NewSoulData, 0, IDB.Idb_Size); //copy main soul data
             Array.Copy(BitConverter.GetBytes(FreeID), NewSoulData, 2); //might as well fix main soul id here
-            SoulExpand[LastUsedIndex].Data = NewSoulData; //add it to expand list
+
+            SoulExpand[LastUsedIndex].Data = new byte[IDB.Idb_Size];
+            Array.Copy(NewSoulData, SoulExpand[LastUsedIndex].Data, IDB.Idb_Size); //add it to expand list
+            //SoulExpand[LastUsedIndex].Data = NewSoulData; //add it to expand list
 
             //add limit bursts
             int tmpNum = 1; //helps keep track of what lb soul we are on
             while (LimitNum > 0)
             {
-                int LBSoulPos = LimitNum * 772;
-                Array.Copy(SSData, SSData.Length - LBSoulPos, NewSoulData, 0, 772);
+                int LBSoulPos = LimitNum * IDB.Idb_Size;
+                Array.Copy(SSData, SSData.Length - LBSoulPos, NewSoulData, 0, IDB.Idb_Size);
                 Array.Copy(BitConverter.GetBytes(FreeID + tmpNum), NewSoulData, 2);
-                SoulExpand[LastUsedIndex + tmpNum].Data = NewSoulData;
+
+                //not needed (i think), but it bothers me when LB souls don't use default stuff lol
+                NewSoulData = SoulToLB(NewSoulData);
+
+                SoulExpand[LastUsedIndex + tmpNum].Data = new byte[IDB.Idb_Size];
+                Array.Copy(NewSoulData, SoulExpand[LastUsedIndex + tmpNum].Data, IDB.Idb_Size);
+                //SoulExpand[LastUsedIndex + tmpNum].Data = NewSoulData;
 
                 //fix limit burst ids on main soul
                 if (LimitLv1)
@@ -1465,6 +1474,7 @@ namespace XV2SSEdit
                     Array.Copy(BitConverter.GetBytes(FreeID + tmpNum), 0, SoulExpand[LastUsedIndex].Data, IdbOffsets["LB_Soul_ID3"].Item2, 2);
                     LimitLv3 = false;
                 }
+
 
                 tmpNum++;
                 LimitNum--;
@@ -1499,7 +1509,7 @@ namespace XV2SSEdit
                 int StrLength = BitConverter.ToInt32(SSData, currentOffset);
                 currentOffset += 4;
 
-                if(StrLength > 0)
+                if (StrLength > 0)
                 {
                     MsgText = new byte[StrLength];
                     Array.Copy(SSData, currentOffset, MsgText, 0, StrLength);
@@ -2073,6 +2083,37 @@ namespace XV2SSEdit
             return new string(chrArray);
         }
 
+        //for setting soul info and such to that of what Limit Burst souls use
+        public byte[] SoulToLB(byte[] SoulData)
+        {
+            byte[] tmpSoul = SoulData;
+
+            Array.Copy(BitConverter.GetBytes(5), 0, tmpSoul, IdbOffsets["Rarity"].Item2, 2);
+            Array.Copy(BitConverter.GetBytes(0), 0, tmpSoul, IdbOffsets["Name_ID"].Item2, 2);
+            Array.Copy(BitConverter.GetBytes(0), 0, tmpSoul, IdbOffsets["Info_ID"].Item2, 2);
+            Array.Copy(BitConverter.GetBytes(0), 0, tmpSoul, IdbOffsets["How_ID"].Item2, 2);
+            Array.Copy(BitConverter.GetBytes(0), 0, tmpSoul, IdbOffsets["I_10"].Item2, 2);
+            Array.Copy(BitConverter.GetBytes(255), 0, tmpSoul, IdbOffsets["Dlc_Flag"].Item2, 2);
+            Array.Copy(BitConverter.GetBytes(-1), 0, tmpSoul, IdbOffsets["I_16"].Item2, 2);
+            Array.Copy(BitConverter.GetBytes(-1), 0, tmpSoul, IdbOffsets["I_18"].Item2, 2);
+            Array.Copy(BitConverter.GetBytes(32767), 0, tmpSoul, IdbOffsets["Prog_Flag"].Item2, 2);
+            Array.Copy(BitConverter.GetBytes(0), 0, tmpSoul, IdbOffsets["I_22"].Item2, 2);
+            Array.Copy(BitConverter.GetBytes(0), 0, tmpSoul, IdbOffsets["Cost"].Item2, 4);
+            Array.Copy(BitConverter.GetBytes(0), 0, tmpSoul, IdbOffsets["Sell"].Item2, 4);
+            Array.Copy(BitConverter.GetBytes(0), 0, tmpSoul, IdbOffsets["Race"].Item2, 4);
+            Array.Copy(BitConverter.GetBytes(0), 0, tmpSoul, IdbOffsets["Cost_TP"].Item2, 4);
+            Array.Copy(BitConverter.GetBytes(0), 0, tmpSoul, IdbOffsets["Cost_STP"].Item2, 4);
+            Array.Copy(BitConverter.GetBytes(0), 0, tmpSoul, IdbOffsets["I_44"].Item2, 4);
+            Array.Copy(BitConverter.GetBytes(0), 0, tmpSoul, IdbOffsets["KiBlast"].Item2, 4);
+            Array.Copy(BitConverter.GetBytes(-1), 0, tmpSoul, IdbOffsets["LB_Aura"].Item2, 2);
+            Array.Copy(BitConverter.GetBytes(-1), 0, tmpSoul, IdbOffsets["LB_Color"].Item2, 2);
+            Array.Copy(BitConverter.GetBytes(0), 0, tmpSoul, IdbOffsets["LB_Desc"].Item2, 2);
+            Array.Copy(BitConverter.GetBytes(-1), 0, tmpSoul, IdbOffsets["LB_Soul_ID1"].Item2, 2);
+            Array.Copy(BitConverter.GetBytes(-1), 0, tmpSoul, IdbOffsets["LB_Soul_ID2"].Item2, 2);
+            Array.Copy(BitConverter.GetBytes(-1), 0, tmpSoul, IdbOffsets["LB_Soul_ID3"].Item2, 2);
+
+            return tmpSoul;
+        }
 
     }
 }

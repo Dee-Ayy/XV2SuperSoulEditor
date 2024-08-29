@@ -235,8 +235,11 @@ namespace XV2SSEdit
             List<byte> copiedBytes = new List<byte>();
             copiedBytes.AddRange(new byte[] { 0x23, 0x53, 0x46, 0x32 }); //#SF2
             copiedBytes.AddRange(new byte[] { 0x02, 0x00, 0x00, 0x00 }); //Version number
-            copiedBytes.AddRange(new byte[] { 0x00, 0x00 }); //LB soul count
-            copiedBytes.AddRange(new byte[] { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF }); //Limit Burst Identifiers
+            //copiedBytes.AddRange(new byte[] { 0x00, 0x00 }); //LB soul count
+            //copiedBytes.AddRange(new byte[] { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF }); //Limit Burst Identifiers
+
+            copiedBytes.AddRange(new byte[] { 0x03, 0x00 }); //LB soul count
+            copiedBytes.AddRange(new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }); //Limit Burst Identifiers
 
             //could be better, but oh well this works
             List<string> languages = new List<string> { "en", "es", "ca", "fr", "de", "it", "pt", "pl", "ru", "tw", "zh", "kr", "ja" };
@@ -298,6 +301,9 @@ namespace XV2SSEdit
 
             byte[] tmp = new byte[IDB.Idb_Size];
             Array.Copy(Items[currentSuperSoulIndex].Data, 0, tmp, 0, IDB.Idb_Size);
+            copiedBytes.AddRange(tmp);
+            copiedBytes.AddRange(tmp);
+            copiedBytes.AddRange(tmp);
             copiedBytes.AddRange(tmp);
             clipboardData = copiedBytes.ToArray();
             MessageBox.Show("Super Soul copied successfully");
