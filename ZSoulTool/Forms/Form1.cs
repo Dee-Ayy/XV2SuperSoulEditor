@@ -524,9 +524,9 @@ namespace XV2SSEdit
             short ID;
 
             if (short.TryParse(LB_Desc.Text, out ID))
-                Array.Copy(BitConverter.GetBytes(ID), 0, Items[itemList.SelectedIndex].Data, 56, 2);
+                Array.Copy(BitConverter.GetBytes(ID), 0, Items[itemList.SelectedIndex].Data, IDB.IdbOffsets["LB_Desc"].Item2, 2);
 
-            Items[itemList.SelectedIndex].msgIndexBurst = FindmsgIndex(ref Burst, BitConverter.ToUInt16(Items[itemList.SelectedIndex].Data, 56));
+            Items[itemList.SelectedIndex].msgIndexBurst = FindmsgIndex(ref Burst, BitConverter.ToUInt16(Items[itemList.SelectedIndex].Data, IDB.IdbOffsets["LB_Desc"].Item2));
             txtMsgLBDesc.Text = Burst.data[Items[itemList.SelectedIndex].msgIndexBurst].Lines[0];
 
             //TODO: commented out cause it's buggy (when manually changing lb desc id). try to fix later
@@ -534,6 +534,9 @@ namespace XV2SSEdit
             //Demon: updates the in battle description text when the description id is changed
             Items[itemList.SelectedIndex].msgIndexBurstBTL = getLB_BTL_Pause_DescID(BurstBTLHUD, Burst.data[Items[itemList.SelectedIndex].msgIndexBurst].NameID);
             Items[itemList.SelectedIndex].msgIndexBurstPause = getLB_BTL_Pause_DescID(BurstPause, Burst.data[Items[itemList.SelectedIndex].msgIndexBurst].NameID);
+            //Items[itemList.SelectedIndex].msgIndexBurstBTL = FindMsgIndexbyNameID(BurstBTLHUD, BurstBTLHUD.data[Items[itemList.SelectedIndex].msgIndexBurstBTL].NameID);
+            //Items[itemList.SelectedIndex].msgIndexBurstPause = FindMsgIndexbyNameID(BurstPause, BurstPause.data[Items[itemList.SelectedIndex].msgIndexBurstPause].NameID);
+
             txtMsgLBDescBTL.Text = BurstBTLHUD.data[Items[itemList.SelectedIndex].msgIndexBurstBTL].Lines[0];
         }
 
@@ -1619,6 +1622,7 @@ namespace XV2SSEdit
                 currentOffset += StrLength;
             }
 
+
             //Limit Burst Desctiption
             foreach (string lang in languages)
             {
@@ -1670,7 +1674,7 @@ namespace XV2SSEdit
                 Array.Copy(BurstBTLHUD.data, MsgExpand_BurstBTL, BurstBTLHUD.data.Length); //copy all original entries to tmp
 
                 //UNLEASHED:i'm guessing MSG IDs are zero based so calling length is like IDs + 1
-                MsgExpand_BurstBTL[MsgExpand_BurstBTL.Length - 1].NameID = "BHD_OLT_000_" + BurstBTLHUD.data.Length.ToString("000");
+                MsgExpand_BurstBTL[MsgExpand_BurstBTL.Length - 1].NameID = "BHD_OLT_000_" + Items[LastUsedIndex].msgIndexBurst.ToString(); //BurstBTLHUD.data.Length.ToString("000");
                 MsgExpand_BurstBTL[MsgExpand_BurstBTL.Length - 1].ID = BurstBTLHUD.data.Length;
 
                 //get text data
@@ -1710,7 +1714,7 @@ namespace XV2SSEdit
                 Array.Copy(BurstPause.data, MsgExpand_Burst, BurstPause.data.Length); //copy all original entries to tmp
 
                 //UNLEASHED:i'm guessing MSG IDs are zero based so calling length is like IDs + 1
-                MsgExpand_Burst[MsgExpand_Burst.Length - 1].NameID = "BHD_OLT_000_" + BurstPause.data.Length.ToString("000");
+                MsgExpand_Burst[MsgExpand_Burst.Length - 1].NameID = "BHD_OLT_000_" + Items[LastUsedIndex].msgIndexBurst.ToString(); //BurstPause.data.Length.ToString("000");
                 MsgExpand_Burst[MsgExpand_Burst.Length - 1].ID = BurstPause.data.Length;
 
                 //get text data
