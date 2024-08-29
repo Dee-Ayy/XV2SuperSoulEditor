@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.Expando;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 //toolstrip functions are to be placed here to clean things up a bit
 namespace XV2SSEdit
@@ -23,7 +25,6 @@ namespace XV2SSEdit
             MessageBox.Show("Save Successful and files writtin to 'data' folder\nTo see changes in-game, the XV2Patcher must be installed.", "Save Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         
-        //TODO: Reload msg text on setting change with no restart needed?
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (Forms.Settings form = new Forms.Settings(settings))
@@ -36,12 +37,6 @@ namespace XV2SSEdit
                     MessageBox.Show(this, "Please restart the application for the changes to take affect.", "Settings", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-        }
-
-        private void setAsDefaultProgramForSSFToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FileAssociations.SetAssoc(".ssf", "XV2SS_EDITOR_FILE", "SSF File");
-            MessageBox.Show("Extension Set Successfully");
         }
 
         private void setAsDefaultProgramForSSFPToolStripMenuItem_Click(object sender, EventArgs e)
@@ -61,7 +56,7 @@ namespace XV2SSEdit
         /// 
         private void createNewSoulToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int index = AddSSNew(Properties.Resources.newss);
+            int index = AddSSNew(Properties.Resources.Soul_BlankText);
 
             if (index < 0)
                 return;
@@ -76,42 +71,12 @@ namespace XV2SSEdit
             itemList.SelectedIndex = index;
         }
 
-        //TODO update(?) 
-        private void createNewSoulAsLimitBurstToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            int index = AddLB(Properties.Resources.newss);
-
-            if (index < 0)
-                return;
-
-            itemList.Items.Clear();
-            for (int i = 0; i < Items.Length; i++)
-            {
-                itemList.Items.Add(BitConverter.ToUInt16(Items[i].Data, 0).ToString() + " - " + Names.data[Items[i].msgIndexName].Lines[0]);
-            }
-
-            itemList.SelectedIndex = index;
-
-            Name_ID.Text = "0";
-            Info_ID.Text = "0";
-            KiBlast.SelectedIndex = 0;
-            Race.Text = "0";
-            Dlc_Flag.Text = "255";
-            Prog_Flag.Text = "32767";
-            Cost.Text = "0";
-            Sell.Text = "0";
-            Cost_TP.Text = "0";
-            Rarity.SelectedIndex = 5;
-            LB_Aura.Text = "-1";
-            LB_Desc.Text = "0";
-            LB_Soul_ID1.Text = "65535";
-            LB_Soul_ID2.Text = "65535";
-            LB_Soul_ID3.Text = "65535";
-            LB_Color.SelectedIndex = 0;
-        }
-        
         private void removeToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            var result = MessageBox.Show(this, "Are you sure you want to remove this Super Soul?", "Remove", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
+            if (result != DialogResult.Yes)
+                return;
+
             //remove super soul  
             //UNLEASHED: there are probably better methods to do this, but working with Lists is just so much easier.
 
@@ -129,52 +94,7 @@ namespace XV2SSEdit
             itemList.SelectedIndex = 0;
         }
 
-        ///DEMON: old code for replacing the currently selected SS with a .zss
-        ///commented out for now in case i want to re add this feature
-        //private void replaceImportToolStripMenuItem_Click(object sender, EventArgs e)
-        //{
-        //    //import/replace
-        //    OpenFileDialog browseFile = new OpenFileDialog();
-        //    browseFile.Filter = "Super Soul File (*.zss)|*.zss";
-        //    browseFile.Title = "Browse for Z Soul Share File";
-        //    if (browseFile.ShowDialog() == DialogResult.Cancel)
-        //        return;
-        //
-        //    byte[] zssfile = File.ReadAllBytes(browseFile.FileName);
-        //
-        //    int nameCount = BitConverter.ToInt32(zssfile, 4);
-        //    int DescCount = BitConverter.ToInt32(zssfile, 8);
-        //    short nameID = BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, 4);
-        //    short DescID = BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, 6);
-        //
-        //    Array.Copy(zssfile, 12 + (nameCount * 2) + (DescCount * 2), Items[itemList.SelectedIndex].Data, 2, 718);
-        //    Array.Copy(BitConverter.GetBytes(nameID), 0, Items[itemList.SelectedIndex].Data, 4, 2);
-        //    Array.Copy(BitConverter.GetBytes(DescID), 0, Items[itemList.SelectedIndex].Data, 6, 2);
-        //
-        //    byte[] pass;
-        //
-        //    if (nameCount > 0)
-        //    {
-        //        pass = new byte[nameCount * 2];
-        //        Array.Copy(zssfile, 12, pass, 0, nameCount * 2);
-        //        txtMsgName.Text = BytetoString(pass);
-        //    }
-        //
-        //    if (DescCount > 0)
-        //    {
-        //        pass = new byte[DescCount * 2];
-        //        Array.Copy(zssfile, 12 + (nameCount * 2), pass, 0, DescCount * 2);
-        //        txtMsgDesc.Text = BytetoString(pass);
-        //    }
-        //
-        //    UpdateData();
-        //}
-
-
-
-
         //TODO: Update SSP import
-
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //add/import super soul
@@ -210,12 +130,13 @@ namespace XV2SSEdit
 
         private void store_defaultBtn_Click(object sender, EventArgs e)
         {
-            Race.Text = "255";
+            //Race.Text = "255";
             Dlc_Flag.Text = "-1";
             Prog_Flag.Text = "30";
             Cost.Text = "1000";
             Sell.Text = "100";
             Cost_TP.Text = "1";
+            Cost_STP.Text = "1";
             //Rarity.SelectedIndex = 1;
         }
 
@@ -235,9 +156,80 @@ namespace XV2SSEdit
             List<byte> copiedBytes = new List<byte>();
             copiedBytes.AddRange(new byte[] { 0x23, 0x53, 0x46, 0x32 }); //#SF2
             copiedBytes.AddRange(new byte[] { 0x02, 0x00, 0x00, 0x00 }); //Version number
-            //copiedBytes.AddRange(new byte[] { 0x00, 0x00 }); //LB soul count
-            //copiedBytes.AddRange(new byte[] { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF }); //Limit Burst Identifiers
+            copiedBytes.AddRange(new byte[] { 0x00, 0x00 }); //LB soul count
+            copiedBytes.AddRange(new byte[] { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF }); //Limit Burst Identifiers
 
+            //could be better, but oh well this works
+            List<string> languages = new List<string> { "en", "es", "ca", "fr", "de", "it", "pt", "pl", "ru", "tw", "zh", "kr", "ja" };
+            string MsgText = "";
+            int TextLength = 0;
+            foreach (string lang in languages)
+            {
+                //Name
+                MsgText = fullMsgListNames[lang].data[Items[currentSuperSoulIndex].msgIndexName].Lines[0];
+                TextLength = MsgText.Length * 2;
+                copiedBytes.AddRange(BitConverter.GetBytes(TextLength));
+                copiedBytes.AddRange(System.Text.Encoding.Unicode.GetBytes(MsgText.ToCharArray()));
+            }
+
+            foreach (string lang in languages)
+            {
+                //Description
+                MsgText = fullMsgListDescs[lang].data[Items[currentSuperSoulIndex].msgIndexDesc].Lines[0];
+                TextLength = MsgText.Length * 2;
+                copiedBytes.AddRange(BitConverter.GetBytes(TextLength));
+                copiedBytes.AddRange(System.Text.Encoding.Unicode.GetBytes(MsgText.ToCharArray()));
+            }
+
+            foreach (string lang in languages)
+            {
+                //HowTo
+                MsgText = fullMsgListHowTo[lang].data[Items[currentSuperSoulIndex].msgIndexHow].Lines[0];
+                TextLength = MsgText.Length * 2;
+                copiedBytes.AddRange(BitConverter.GetBytes(TextLength));
+                copiedBytes.AddRange(System.Text.Encoding.Unicode.GetBytes(MsgText.ToCharArray()));
+            }
+
+            foreach (string lang in languages)
+            {
+                //Burst
+                MsgText = fullMsgListBurst[lang].data[Items[currentSuperSoulIndex].msgIndexBurst].Lines[0];
+                TextLength = MsgText.Length * 2;
+                copiedBytes.AddRange(BitConverter.GetBytes(TextLength));
+                copiedBytes.AddRange(System.Text.Encoding.Unicode.GetBytes(MsgText.ToCharArray()));
+            }
+            
+            foreach (string lang in languages)
+            {
+                //Burst HUD
+                MsgText = fullMsgListBurstBTLHUD[lang].data[Items[currentSuperSoulIndex].msgIndexBurstBTL].Lines[0];
+                TextLength = MsgText.Length * 2;
+                copiedBytes.AddRange(BitConverter.GetBytes(TextLength));
+                copiedBytes.AddRange(System.Text.Encoding.Unicode.GetBytes(MsgText.ToCharArray()));
+            }
+            
+            foreach (string lang in languages)
+            {
+                //Burst Pause
+                MsgText = fullMsgListBurstPause[lang].data[Items[currentSuperSoulIndex].msgIndexBurstPause].Lines[0];
+                TextLength = MsgText.Length * 2;
+                copiedBytes.AddRange(BitConverter.GetBytes(TextLength));
+                copiedBytes.AddRange(System.Text.Encoding.Unicode.GetBytes(MsgText.ToCharArray()));
+            }
+
+            byte[] tmp = new byte[IDB.Idb_Size];
+            Array.Copy(Items[currentSuperSoulIndex].Data, 0, tmp, 0, IDB.Idb_Size);
+            copiedBytes.AddRange(tmp);
+            clipboardData = copiedBytes.ToArray();
+            MessageBox.Show("Super Soul copied successfully");
+        }
+
+        //TODO: do we really want this?
+        private void copyWithLimitToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            List<byte> copiedBytes = new List<byte>();
+            copiedBytes.AddRange(new byte[] { 0x23, 0x53, 0x46, 0x32 }); //#SF2
+            copiedBytes.AddRange(new byte[] { 0x02, 0x00, 0x00, 0x00 }); //Version number
             copiedBytes.AddRange(new byte[] { 0x03, 0x00 }); //LB soul count
             copiedBytes.AddRange(new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }); //Limit Burst Identifiers
 
@@ -302,6 +294,8 @@ namespace XV2SSEdit
             byte[] tmp = new byte[IDB.Idb_Size];
             Array.Copy(Items[currentSuperSoulIndex].Data, 0, tmp, 0, IDB.Idb_Size);
             copiedBytes.AddRange(tmp);
+
+            //TODO: Grab Actual Limit Bursts
             copiedBytes.AddRange(tmp);
             copiedBytes.AddRange(tmp);
             copiedBytes.AddRange(tmp);
@@ -331,138 +325,230 @@ namespace XV2SSEdit
             itemList.SelectedIndex = index;
         }
 
-        //TODO Update
+        private void duplicateCurrentSoulToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            byte[] tmp = new byte[IDB.Idb_Size];
+            Array.Copy(Items[currentSuperSoulIndex].Data, 0, tmp, 0, IDB.Idb_Size);
+
+            //search for closest unused id after vanilla ids
+            //should be 1003+, but we start searching from 1000 just because
+            ushort FreeID = 1000;
+            int LastUsedIndex = 0;
+            bool foundProperID = false;
+            while (!foundProperID)
+            {
+                if (!UsedIDs.Contains(FreeID))
+                {
+                    foundProperID = true;
+                }
+                else
+                {
+                    LastUsedIndex = UsedIDs.IndexOf(FreeID) + 1;
+                    FreeID++;
+                }
+            }
+
+            //start expanding
+            idbItem[] SoulExpand = new idbItem[Items.Length + 1];
+
+            //add each soul to new list up to last new index
+            Array.Copy(Items, 0, SoulExpand, 0, LastUsedIndex);
+
+            //fix soul id
+            Array.Copy(BitConverter.GetBytes(FreeID), tmp, 2);
+
+            //add it to expand list
+            SoulExpand[LastUsedIndex].Data = tmp;
+
+            //copy original soul msg ids
+            SoulExpand[LastUsedIndex].msgIndexName = Items[currentSuperSoulIndex].msgIndexName;
+            SoulExpand[LastUsedIndex].msgIndexDesc = Items[currentSuperSoulIndex].msgIndexDesc;
+            SoulExpand[LastUsedIndex].msgIndexHow = Items[currentSuperSoulIndex].msgIndexHow;
+            SoulExpand[LastUsedIndex].msgIndexBurst = Items[currentSuperSoulIndex].msgIndexBurst;
+            SoulExpand[LastUsedIndex].msgIndexBurstBTL = Items[currentSuperSoulIndex].msgIndexBurstBTL;
+            SoulExpand[LastUsedIndex].msgIndexBurstPause = Items[currentSuperSoulIndex].msgIndexBurstPause;
+
+            //add rest of original souls
+            Array.Copy(Items, LastUsedIndex, SoulExpand, LastUsedIndex + 1, Items.Length - LastUsedIndex);
+
+            //finish adding souls
+            Items = SoulExpand;
+
+            itemList.Items.Clear();
+            for (int i = 0; i < Items.Length; i++)
+            {
+                itemList.Items.Add(BitConverter.ToUInt16(Items[i].Data, 0).ToString() + " - " + Names.data[Items[i].msgIndexName].Lines[0]);
+            }
+
+            //remember to add new id to used ids list
+            UsedIDs.Insert(LastUsedIndex, FreeID);
+
+            //go to new soul
+            itemList.SelectedIndex = LastUsedIndex;
+        }
+
+        private void replaceCurrentSoulFromClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (clipboardData == null)
+            {
+                MessageBox.Show("Clipboard is empty.");
+                return;
+            }
+
+            var result = MessageBox.Show(this, "Are you sure you want to replace this Super Soul?", "Replace", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            if (result != DialogResult.Yes)
+                return;
+
+            //replace everythig except index
+            Array.Copy(clipboardData, clipboardData.Length - (IDB.Idb_Size-2), Items[itemList.SelectedIndex].Data, 2, IDB.Idb_Size-2);
+
+            //reload (scuffed)
+            int index = itemList.SelectedIndex;
+            itemList.SelectedIndex = 0;
+            itemList.SelectedIndex = index;
+        }
+
         ///
         /// Msg Options
         /// 
         private void addNewNameMsg(object sender, EventArgs e)
         {
-            //add msg name
-            msgData[] Expand = new msgData[Names.data.Length + 1];
-            Array.Copy(Names.data, Expand, Names.data.Length);
-            Expand[Expand.Length - 1].NameID = "talisman_" + Names.data.Length.ToString("000");
-            Expand[Expand.Length - 1].ID = Names.data.Length;
-            Expand[Expand.Length - 1].Lines = new string[] { "New Name Entry" };
-            Names.data = Expand;
-            //writeToMsgText(0, "New Name Entry");
-            Name_ID.Text = Names.data[Names.data.Length - 1].ID.ToString();
-        }
+            List<string> languages = new List<string> { "en", "es", "ca", "fr", "de", "it", "pt", "pl", "ru", "tw", "zh", "kr", "ja" };
 
-        private void removeNameMsg(object sender, EventArgs e)
-        {
-            //remove msg name
-            msgData[] reduce = new msgData[Names.data.Length - 1];
-            Array.Copy(Names.data, reduce, Names.data.Length - 1);
-            Names.data = reduce;
+            //Names
+            foreach (string lang in languages)
+            {
+                Names = fullMsgListNames[lang];
+
+                msgData[] MsgExpand_Names = new msgData[Names.data.Length + 1]; //create tmp expand
+                Array.Copy(Names.data, MsgExpand_Names, Names.data.Length); //copy all original entries to tmp
+                MsgExpand_Names[MsgExpand_Names.Length - 1].NameID = "talisman_" + Names.data.Length.ToString("000");
+                MsgExpand_Names[MsgExpand_Names.Length - 1].ID = Names.data.Length;
+                MsgExpand_Names[MsgExpand_Names.Length - 1].Lines = new string[] { "New Name Entry" };
+
+                //finish
+                Names.data = MsgExpand_Names;
+                fullMsgListNames[lang] = Names;
+            }
+
+            //makes sure text is set back to correct language
+            Names = fullMsgListNames[currentLanguge];
+            Name_ID.Text = Names.data[Names.data.Length - 1].ID.ToString();
         }
 
         private void addNewInfoMsg(object sender, EventArgs e)
         {
-            //add msg desc
-            msgData[] Expand = new msgData[Descs.data.Length + 1];
-            Array.Copy(Descs.data, Expand, Descs.data.Length);
-            Expand[Expand.Length - 1].NameID = "talisman_eff_" + Descs.data.Length.ToString("000");
-            Expand[Expand.Length - 1].ID = Descs.data.Length;
-            Expand[Expand.Length - 1].Lines = new string[] { "New Description Entry" };
-            Descs.data = Expand;
-            //writeToMsgText(1, "New Description Entry");
+            List<string> languages = new List<string> { "en", "es", "ca", "fr", "de", "it", "pt", "pl", "ru", "tw", "zh", "kr", "ja" };
+            foreach (string lang in languages)
+            {
+                Descs = fullMsgListDescs[lang];
+
+                msgData[] MsgExpand = new msgData[Descs.data.Length + 1]; 
+                Array.Copy(Descs.data, MsgExpand, Descs.data.Length);
+                MsgExpand[MsgExpand.Length - 1].NameID = "talisman_eff_" + Descs.data.Length.ToString("000");
+                MsgExpand[MsgExpand.Length - 1].ID = Descs.data.Length;
+                MsgExpand[MsgExpand.Length - 1].Lines = new string[] { "New Description Entry" };
+
+                //finish
+                Descs.data = MsgExpand;
+                fullMsgListDescs[lang] = Descs;
+            }
+
+            //makes sure text is set back to correct language
+            Descs = fullMsgListDescs[currentLanguge];
             Info_ID.Text = Descs.data[Descs.data.Length - 1].ID.ToString();
         }
 
-        private void removeInfoMsg(object sender, EventArgs e)
+        private void addNewHowMsg(object sender, EventArgs e)
         {
-            //remove msg desc
-            msgData[] reduce = new msgData[Descs.data.Length - 1];
-            Array.Copy(Descs.data, reduce, Descs.data.Length - 1);
-            Descs.data = reduce;
+            List<string> languages = new List<string> { "en", "es", "ca", "fr", "de", "it", "pt", "pl", "ru", "tw", "zh", "kr", "ja" };
+            foreach (string lang in languages)
+            {
+                HowTo = fullMsgListHowTo[lang];
+
+                msgData[] MsgExpand = new msgData[HowTo.data.Length + 1];
+                Array.Copy(HowTo.data, MsgExpand, HowTo.data.Length);
+                MsgExpand[MsgExpand.Length - 1].NameID = "talisman_how_" + HowTo.data.Length.ToString("000");
+                MsgExpand[MsgExpand.Length - 1].ID = HowTo.data.Length;
+                MsgExpand[MsgExpand.Length - 1].Lines = new string[] { "New Location Lookup Entry" };
+
+                //finish
+                HowTo.data = MsgExpand;
+                fullMsgListHowTo[lang] = HowTo;
+            }
+
+            //makes sure text is set back to correct language
+            HowTo = fullMsgListHowTo[currentLanguge];
+            How_ID.Text = HowTo.data[HowTo.data.Length - 1].ID.ToString();
         }
 
         private void addNewBurstMsg(object sender, EventArgs e)
         {
-            byte[] blankzss = Properties.Resources.newss;
+            List<string> languages = new List<string> { "en", "es", "ca", "fr", "de", "it", "pt", "pl", "ru", "tw", "zh", "kr", "ja" };
+            short test = 0;
 
-            int nameCount = BitConverter.ToInt32(blankzss, 4);
-            int DescCount = BitConverter.ToInt32(blankzss, 8);
-            int LBDescCount = BitConverter.ToInt32(blankzss, 16);
-            int LBDescCountBtl = BitConverter.ToInt32(blankzss, 20);
-            int LBDescCountPause = BitConverter.ToInt32(blankzss, 24);
-
-            byte[] pass = null;
-            msgData[] Expand4 = new msgData[Burst.data.Length + 1];
-            Array.Copy(Burst.data, Expand4, Burst.data.Length);
-            Expand4[Expand4.Length - 1].NameID = "talisman_olt_" + Burst.data.Length.ToString("000");
-            Expand4[Expand4.Length - 1].ID = Burst.data.Length;
-
-            if (LBDescCount > 0)
+            //Limit Burst Desctiption
+            foreach (string lang in languages)
             {
-                pass = new byte[LBDescCount];
-                Array.Copy(blankzss, 0x1C + (nameCount) + (DescCount), pass, 0, LBDescCount);
-                Expand4[Expand4.Length - 1].Lines = new string[] { BytetoString(pass) };
+                Burst = fullMsgListBurst[lang];
+
+                msgData[] MsgExpand_Burst = new msgData[Burst.data.Length + 1]; //create tmp expand
+                Array.Copy(Burst.data, MsgExpand_Burst, Burst.data.Length); //copy all original entries to tmp
+                MsgExpand_Burst[MsgExpand_Burst.Length - 1].NameID = "talisman_olt_" + Burst.data.Length.ToString("000");
+                MsgExpand_Burst[MsgExpand_Burst.Length - 1].ID = Burst.data.Length;
+                MsgExpand_Burst[MsgExpand_Burst.Length - 1].Lines = new string[] { "New LB Desc Entry" };
+
+                if (lang == "en")
+                {
+                    test = (short)MsgExpand_Burst[MsgExpand_Burst.Length - 1].ID;
+                }
+
+                //finish
+                Burst.data = MsgExpand_Burst;
+                fullMsgListBurst[lang] = Burst;
             }
 
-            else
-                Expand4[Expand4.Length - 1].Lines = new string[] { "New LB Desc Entry" };
-
-            byte[] newMSGLBDescEntryIDBytes = BitConverter.GetBytes((short)Expand4[Expand4.Length - 1].ID);
-            Array.Copy(newMSGLBDescEntryIDBytes, 0, Items[currentSuperSoulIndex].Data, 44, 2);
-            Burst.data = Expand4;
-            Items[currentSuperSoulIndex].msgIndexBurst = BitConverter.ToInt16(newMSGLBDescEntryIDBytes, 0);
-
-            //if (LBDescCount > 0)
-            //    writeToMsgText(2, BytetoString(pass));
-            //else
-            //    writeToMsgText(2, "New LB Desc Entry");
-
-            int OLT_ID = Items[currentSuperSoulIndex].msgIndexBurst;
-            msgData[] Expand5 = new msgData[BurstBTLHUD.data.Length + 1];
-            Array.Copy(BurstBTLHUD.data, Expand5, BurstBTLHUD.data.Length);
-            Expand5[Expand5.Length - 1].NameID = "BHD_OLT_000_" + Items[currentSuperSoulIndex].msgIndexBurst.ToString();// +BurstBTLHUD.data.Length.ToString("000");
-            Expand5[Expand5.Length - 1].ID = BurstBTLHUD.data.Length;
-
-            if (LBDescCountBtl > 0)
+            //Limit Burst Battle Pop-up Text
+            foreach (string lang in languages)
             {
-                pass = new byte[LBDescCountBtl];
-                Array.Copy(blankzss, 0x1C + (nameCount) + (DescCount) + (LBDescCount), pass, 0, LBDescCountBtl);
-                Expand5[Expand5.Length - 1].Lines = new string[] { BytetoString(pass) };
+                BurstBTLHUD = fullMsgListBurstBTLHUD[lang];
+
+                msgData[] MsgExpand_BurstBTL = new msgData[BurstBTLHUD.data.Length + 1]; //create tmp expand
+                Array.Copy(BurstBTLHUD.data, MsgExpand_BurstBTL, BurstBTLHUD.data.Length); //copy all original entries to tmp
+                MsgExpand_BurstBTL[MsgExpand_BurstBTL.Length - 1].NameID = "BHD_OLT_000_" + test.ToString();
+                MsgExpand_BurstBTL[MsgExpand_BurstBTL.Length - 1].ID = BurstBTLHUD.data.Length;
+                MsgExpand_BurstBTL[MsgExpand_BurstBTL.Length - 1].Lines = new string[] { "New LB Battle Desc Entry" };
+
+                //finish
+                BurstBTLHUD.data = MsgExpand_BurstBTL;
+                fullMsgListBurstBTLHUD[lang] = BurstBTLHUD;
             }
-            else
-                Expand5[Expand5.Length - 1].Lines = new string[] { "New LB Battle Desc Entry" };
 
-            byte[] newMSGLBDescBtlEntryIDBytes = BitConverter.GetBytes((short)Expand5[Expand5.Length - 1].ID);
-            BurstBTLHUD.data = Expand5;
-            Items[currentSuperSoulIndex].msgIndexBurstBTL = BitConverter.ToInt16(newMSGLBDescBtlEntryIDBytes, 0);
-
-            //if (LBDescCountBtl > 0)
-            //    writeToMsgText(3, BytetoString(pass), OLT_ID);
-            //else
-            //    writeToMsgText(3, "New LB Battle Desc Entry", OLT_ID);
-
-            msgData[] Expand6 = new msgData[BurstPause.data.Length + 1];
-            Array.Copy(BurstPause.data, Expand6, BurstPause.data.Length);
-            Expand6[Expand6.Length - 1].NameID = "BHD_OLT_000_" + Items[currentSuperSoulIndex].msgIndexBurst.ToString();// +BurstBTLHUD.data.Length.ToString("000");
-            Expand6[Expand6.Length - 1].ID = BurstPause.data.Length;
-
-            if (LBDescCountPause > 0)
+            //Limit Burst Pause Text
+            foreach (string lang in languages)
             {
-                pass = new byte[LBDescCountPause];
-                Array.Copy(blankzss, 0x1C + (nameCount) + (DescCount) + (LBDescCount) + (LBDescCountBtl), pass, 0, LBDescCountPause);
-                Expand6[Expand6.Length - 1].Lines = new string[] { BytetoString(pass) };
+                BurstPause = fullMsgListBurstPause[lang];
+
+                msgData[] MsgExpand_Burst = new msgData[BurstPause.data.Length + 1]; //create tmp expand
+                Array.Copy(BurstPause.data, MsgExpand_Burst, BurstPause.data.Length); //copy all original entries to tmp
+
+                //UNLEASHED:i'm guessing MSG IDs are zero based so calling length is like IDs + 1
+                MsgExpand_Burst[MsgExpand_Burst.Length - 1].NameID = "BHD_OLT_000_" + test.ToString();
+                MsgExpand_Burst[MsgExpand_Burst.Length - 1].ID = BurstPause.data.Length;
+                MsgExpand_Burst[MsgExpand_Burst.Length - 1].Lines = new string[] { "New LB Battle Desc Entry" };
+
+                //finish
+                BurstPause.data = MsgExpand_Burst;
+                fullMsgListBurstPause[lang] = BurstPause;
             }
-            else
-                Expand6[Expand6.Length - 1].Lines = new string[] { "New LB Pause Desc Entry" };
 
-            byte[] newMSGLBDescPauseEntryIDBytes = BitConverter.GetBytes((short)Expand6[Expand6.Length - 1].ID);
-            BurstPause.data = Expand6;
-            //Items[currentSuperSoulIndex].msgIndexBurstPause = BitConverter.ToInt16(newMSGLBDescPauseEntryIDBytes, 0);
-            //if (LBDescCountPause > 0)
-            //
-            //    writeToMsgText(4, BytetoString(pass), OLT_ID);
-            //else
-            //    writeToMsgText(4, "New LB Pause Desc Entry", OLT_ID);
+            //makes sure text is set back to correct language
+            Burst = fullMsgListBurst[currentLanguge];
+            BurstBTLHUD = fullMsgListBurstBTLHUD[currentLanguge];
+            BurstPause = fullMsgListBurstPause[currentLanguge];
 
-            LB_Desc.Text = Expand4[Expand4.Length - 1].ID.ToString();
+            LB_Desc.Text = Burst.data[Burst.data.Length - 1].ID.ToString();
         }
-
 
         ///
         /// Other

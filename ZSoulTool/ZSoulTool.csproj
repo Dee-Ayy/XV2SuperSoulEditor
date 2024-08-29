@@ -151,6 +151,7 @@
     <EmbeddedResource Include="Resources\newzss" />
     <None Include="Resources\Blank.122" />
     <None Include="Resources\newss" />
+    <Resource Include="Resources\Soul_BlankText.SSF" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

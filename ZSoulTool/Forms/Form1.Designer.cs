@@ -294,44 +294,41 @@
             this.label46 = new System.Windows.Forms.Label();
             this.Effect_E2 = new System.Windows.Forms.ComboBox();
             this.label47 = new System.Windows.Forms.Label();
-            this.Index = new System.Windows.Forms.TextBox();
             this.srchBox = new System.Windows.Forms.TextBox();
             this.srchBtn = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setAsDefaultProgramForSSFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setAsDefaultProgramForSSFPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addNewXV2SSEditStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createNewSoulToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.createNewSoulAsLimitBurstToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.duplicateCurrentSoulToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.replaceImportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.addCurrentSuperSoulToShopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeCurrentSuperSoulFromShopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.copyCurrentSuperSoulToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createNewSoulFromClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.replaceCurrentSoulFromClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msgToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addNewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.nameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.descriptionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.nameToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.descriptionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.limitBurstToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addNewEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.caseSensetiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.itemList = new System.Windows.Forms.ComboBox();
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.label53 = new System.Windows.Forms.Label();
+            this.Index = new System.Windows.Forms.TextBox();
+            this.caseSensetiveCheckBox = new System.Windows.Forms.CheckBox();
+            this.addNewLocationLookupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox9.SuspendLayout();
@@ -1079,7 +1076,6 @@
             // 
             this.LB_Desc.Location = new System.Drawing.Point(187, 48);
             this.LB_Desc.Name = "LB_Desc";
-            this.LB_Desc.ReadOnly = true;
             this.LB_Desc.Size = new System.Drawing.Size(80, 20);
             this.LB_Desc.TabIndex = 36;
             this.LB_Desc.TextChanged += new System.EventHandler(this.updateBurstMsgID);
@@ -1150,11 +1146,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label118.AutoSize = true;
             this.label118.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(254)));
-            this.label118.Location = new System.Drawing.Point(204, 6);
+            this.label118.Location = new System.Drawing.Point(173, 6);
             this.label118.Name = "label118";
-            this.label118.Size = new System.Drawing.Size(260, 34);
+            this.label118.Size = new System.Drawing.Size(298, 34);
             this.label118.TabIndex = 101;
-            this.label118.Text = "Unknown Behavior When Edited!\r\nValues May Not Work as Expected!";
+            this.label118.Text = "Area not normally used for Super Souls!\r\nValues May Not Work as Expected!";
             this.label118.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label113
@@ -3043,25 +3039,16 @@
             this.label47.TabIndex = 51;
             this.label47.Text = "Effect to Use";
             // 
-            // Index
-            // 
-            this.Index.Location = new System.Drawing.Point(469, 4);
-            this.Index.Name = "Index";
-            this.Index.ReadOnly = true;
-            this.Index.Size = new System.Drawing.Size(48, 20);
-            this.Index.TabIndex = 16;
-            this.Index.Visible = false;
-            // 
             // srchBox
             // 
-            this.srchBox.Location = new System.Drawing.Point(468, 28);
+            this.srchBox.Location = new System.Drawing.Point(468, 27);
             this.srchBox.Name = "srchBox";
             this.srchBox.Size = new System.Drawing.Size(200, 20);
             this.srchBox.TabIndex = 32;
             // 
             // srchBtn
             // 
-            this.srchBtn.Location = new System.Drawing.Point(530, 50);
+            this.srchBtn.Location = new System.Drawing.Point(479, 50);
             this.srchBtn.Name = "srchBtn";
             this.srchBtn.Size = new System.Drawing.Size(75, 20);
             this.srchBtn.TabIndex = 5;
@@ -3076,7 +3063,6 @@
             this.fileToolStripMenuItem,
             this.addNewXV2SSEditStripMenuItem,
             this.msgToolStripMenuItem,
-            this.searchOptionsToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -3089,7 +3075,6 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveToolStripMenuItem,
             this.settingsToolStripMenuItem,
-            this.setAsDefaultProgramForSSFToolStripMenuItem,
             this.setAsDefaultProgramForSSFPToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -3110,14 +3095,6 @@
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
-            // setAsDefaultProgramForSSFToolStripMenuItem
-            // 
-            this.setAsDefaultProgramForSSFToolStripMenuItem.Name = "setAsDefaultProgramForSSFToolStripMenuItem";
-            this.setAsDefaultProgramForSSFToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
-            this.setAsDefaultProgramForSSFToolStripMenuItem.Text = "Set as Default Program for (.SSF)";
-            this.setAsDefaultProgramForSSFToolStripMenuItem.Visible = false;
-            this.setAsDefaultProgramForSSFToolStripMenuItem.Click += new System.EventHandler(this.setAsDefaultProgramForSSFToolStripMenuItem_Click);
-            // 
             // setAsDefaultProgramForSSFPToolStripMenuItem
             // 
             this.setAsDefaultProgramForSSFPToolStripMenuItem.Name = "setAsDefaultProgramForSSFPToolStripMenuItem";
@@ -3136,15 +3113,18 @@
             // 
             this.addNewXV2SSEditStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.createNewSoulToolStripMenuItem,
-            this.createNewSoulAsLimitBurstToolStripMenuItem,
+            this.duplicateCurrentSoulToolStripMenuItem,
             this.removeToolStripMenuItem,
-            this.replaceImportToolStripMenuItem,
+            this.toolStripSeparator1,
             this.addToolStripMenuItem,
             this.exportToolStripMenuItem1,
+            this.toolStripSeparator2,
             this.addCurrentSuperSoulToShopToolStripMenuItem,
             this.removeCurrentSuperSoulFromShopToolStripMenuItem,
+            this.toolStripSeparator3,
             this.copyCurrentSuperSoulToClipboardToolStripMenuItem,
-            this.createNewSoulFromClipboardToolStripMenuItem});
+            this.createNewSoulFromClipboardToolStripMenuItem,
+            this.replaceCurrentSoulFromClipboardToolStripMenuItem});
             this.addNewXV2SSEditStripMenuItem.Enabled = false;
             this.addNewXV2SSEditStripMenuItem.Name = "addNewXV2SSEditStripMenuItem";
             this.addNewXV2SSEditStripMenuItem.Size = new System.Drawing.Size(120, 20);
@@ -3153,162 +3133,119 @@
             // createNewSoulToolStripMenuItem
             // 
             this.createNewSoulToolStripMenuItem.Name = "createNewSoulToolStripMenuItem";
-            this.createNewSoulToolStripMenuItem.Size = new System.Drawing.Size(285, 22);
+            this.createNewSoulToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
             this.createNewSoulToolStripMenuItem.Text = "Create New Soul";
             this.createNewSoulToolStripMenuItem.Click += new System.EventHandler(this.createNewSoulToolStripMenuItem_Click);
             // 
-            // createNewSoulAsLimitBurstToolStripMenuItem
+            // duplicateCurrentSoulToolStripMenuItem
             // 
-            this.createNewSoulAsLimitBurstToolStripMenuItem.Name = "createNewSoulAsLimitBurstToolStripMenuItem";
-            this.createNewSoulAsLimitBurstToolStripMenuItem.Size = new System.Drawing.Size(285, 22);
-            this.createNewSoulAsLimitBurstToolStripMenuItem.Text = "Create New Soul (For Limit Burst)";
-            this.createNewSoulAsLimitBurstToolStripMenuItem.Click += new System.EventHandler(this.createNewSoulAsLimitBurstToolStripMenuItem_Click);
+            this.duplicateCurrentSoulToolStripMenuItem.Name = "duplicateCurrentSoulToolStripMenuItem";
+            this.duplicateCurrentSoulToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
+            this.duplicateCurrentSoulToolStripMenuItem.Text = "Duplicate Current Super Soul";
+            this.duplicateCurrentSoulToolStripMenuItem.Click += new System.EventHandler(this.duplicateCurrentSoulToolStripMenuItem_Click);
             // 
             // removeToolStripMenuItem
             // 
             this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            this.removeToolStripMenuItem.Size = new System.Drawing.Size(285, 22);
-            this.removeToolStripMenuItem.Text = "Remove Current Soul";
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
+            this.removeToolStripMenuItem.Text = "Remove Current Super Soul";
             this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
             // 
-            // replaceImportToolStripMenuItem
+            // toolStripSeparator1
             // 
-            this.replaceImportToolStripMenuItem.Name = "replaceImportToolStripMenuItem";
-            this.replaceImportToolStripMenuItem.Size = new System.Drawing.Size(285, 22);
-            this.replaceImportToolStripMenuItem.Text = "Replace Current Soul (*.zss)";
-            this.replaceImportToolStripMenuItem.Visible = false;
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(277, 6);
             // 
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(285, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
             this.addToolStripMenuItem.Text = "Import Super Soul Package File (*.ssp)";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
             // exportToolStripMenuItem1
             // 
             this.exportToolStripMenuItem1.Name = "exportToolStripMenuItem1";
-            this.exportToolStripMenuItem1.Size = new System.Drawing.Size(285, 22);
-            this.exportToolStripMenuItem1.Text = "Export to Super Soul Package File (*.ssp)";
+            this.exportToolStripMenuItem1.Size = new System.Drawing.Size(280, 22);
+            this.exportToolStripMenuItem1.Text = "Export Super Soul Package File (*.ssp)";
             this.exportToolStripMenuItem1.Click += new System.EventHandler(this.exportToolStripMenuItem1_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(277, 6);
             // 
             // addCurrentSuperSoulToShopToolStripMenuItem
             // 
             this.addCurrentSuperSoulToShopToolStripMenuItem.Name = "addCurrentSuperSoulToShopToolStripMenuItem";
-            this.addCurrentSuperSoulToShopToolStripMenuItem.Size = new System.Drawing.Size(285, 22);
+            this.addCurrentSuperSoulToShopToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
             this.addCurrentSuperSoulToShopToolStripMenuItem.Text = "Add Current Super Soul to Shop";
             this.addCurrentSuperSoulToShopToolStripMenuItem.Click += new System.EventHandler(this.store_defaultBtn_Click);
             // 
             // removeCurrentSuperSoulFromShopToolStripMenuItem
             // 
             this.removeCurrentSuperSoulFromShopToolStripMenuItem.Name = "removeCurrentSuperSoulFromShopToolStripMenuItem";
-            this.removeCurrentSuperSoulFromShopToolStripMenuItem.Size = new System.Drawing.Size(285, 22);
+            this.removeCurrentSuperSoulFromShopToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
             this.removeCurrentSuperSoulFromShopToolStripMenuItem.Text = "Remove Current Super Soul From Shop";
             this.removeCurrentSuperSoulFromShopToolStripMenuItem.Click += new System.EventHandler(this.removeCurrentSuperSoulFromShopToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(277, 6);
             // 
             // copyCurrentSuperSoulToClipboardToolStripMenuItem
             // 
             this.copyCurrentSuperSoulToClipboardToolStripMenuItem.Name = "copyCurrentSuperSoulToClipboardToolStripMenuItem";
-            this.copyCurrentSuperSoulToClipboardToolStripMenuItem.Size = new System.Drawing.Size(285, 22);
+            this.copyCurrentSuperSoulToClipboardToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
             this.copyCurrentSuperSoulToClipboardToolStripMenuItem.Text = "Copy Current Soul to Clipboard";
             this.copyCurrentSuperSoulToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyCurrentSuperSoulToClipboardToolStripMenuItem_Click);
             // 
             // createNewSoulFromClipboardToolStripMenuItem
             // 
             this.createNewSoulFromClipboardToolStripMenuItem.Name = "createNewSoulFromClipboardToolStripMenuItem";
-            this.createNewSoulFromClipboardToolStripMenuItem.Size = new System.Drawing.Size(285, 22);
+            this.createNewSoulFromClipboardToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
             this.createNewSoulFromClipboardToolStripMenuItem.Text = "Paste New Soul From Clipboard";
             this.createNewSoulFromClipboardToolStripMenuItem.Click += new System.EventHandler(this.createNewSoulFromClipboardToolStripMenuItem_Click);
+            // 
+            // replaceCurrentSoulFromClipboardToolStripMenuItem
+            // 
+            this.replaceCurrentSoulFromClipboardToolStripMenuItem.Name = "replaceCurrentSoulFromClipboardToolStripMenuItem";
+            this.replaceCurrentSoulFromClipboardToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
+            this.replaceCurrentSoulFromClipboardToolStripMenuItem.Text = "Replace Current Soul From Clipboard";
+            this.replaceCurrentSoulFromClipboardToolStripMenuItem.Click += new System.EventHandler(this.replaceCurrentSoulFromClipboardToolStripMenuItem_Click);
             // 
             // msgToolStripMenuItem
             // 
             this.msgToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addNewToolStripMenuItem,
             this.removeToolStripMenuItem1,
+            this.addNewLocationLookupToolStripMenuItem,
             this.limitBurstToolStripMenuItem});
-            this.msgToolStripMenuItem.Enabled = false;
             this.msgToolStripMenuItem.Name = "msgToolStripMenuItem";
             this.msgToolStripMenuItem.Size = new System.Drawing.Size(87, 20);
             this.msgToolStripMenuItem.Text = "Msg Options";
-            this.msgToolStripMenuItem.Visible = false;
             // 
             // addNewToolStripMenuItem
             // 
-            this.addNewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.nameToolStripMenuItem,
-            this.descriptionToolStripMenuItem});
             this.addNewToolStripMenuItem.Name = "addNewToolStripMenuItem";
-            this.addNewToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-            this.addNewToolStripMenuItem.Text = "Name";
-            // 
-            // nameToolStripMenuItem
-            // 
-            this.nameToolStripMenuItem.Name = "nameToolStripMenuItem";
-            this.nameToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.nameToolStripMenuItem.Text = "Add New Entry";
-            this.nameToolStripMenuItem.Click += new System.EventHandler(this.addNewNameMsg);
-            // 
-            // descriptionToolStripMenuItem
-            // 
-            this.descriptionToolStripMenuItem.Name = "descriptionToolStripMenuItem";
-            this.descriptionToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.descriptionToolStripMenuItem.Text = "Remove";
-            this.descriptionToolStripMenuItem.Visible = false;
-            this.descriptionToolStripMenuItem.Click += new System.EventHandler(this.removeNameMsg);
+            this.addNewToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
+            this.addNewToolStripMenuItem.Text = "Add New Name";
+            this.addNewToolStripMenuItem.Click += new System.EventHandler(this.addNewNameMsg);
             // 
             // removeToolStripMenuItem1
             // 
-            this.removeToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.nameToolStripMenuItem1,
-            this.descriptionToolStripMenuItem1});
             this.removeToolStripMenuItem1.Name = "removeToolStripMenuItem1";
-            this.removeToolStripMenuItem1.Size = new System.Drawing.Size(134, 22);
-            this.removeToolStripMenuItem1.Text = "Description";
-            // 
-            // nameToolStripMenuItem1
-            // 
-            this.nameToolStripMenuItem1.Name = "nameToolStripMenuItem1";
-            this.nameToolStripMenuItem1.Size = new System.Drawing.Size(153, 22);
-            this.nameToolStripMenuItem1.Text = "Add New Entry";
-            this.nameToolStripMenuItem1.Click += new System.EventHandler(this.addNewInfoMsg);
-            // 
-            // descriptionToolStripMenuItem1
-            // 
-            this.descriptionToolStripMenuItem1.Name = "descriptionToolStripMenuItem1";
-            this.descriptionToolStripMenuItem1.Size = new System.Drawing.Size(153, 22);
-            this.descriptionToolStripMenuItem1.Text = "Remove";
-            this.descriptionToolStripMenuItem1.Visible = false;
-            this.descriptionToolStripMenuItem1.Click += new System.EventHandler(this.removeInfoMsg);
+            this.removeToolStripMenuItem1.Size = new System.Drawing.Size(246, 22);
+            this.removeToolStripMenuItem1.Text = "Add New Description";
+            this.removeToolStripMenuItem1.Click += new System.EventHandler(this.addNewInfoMsg);
             // 
             // limitBurstToolStripMenuItem
             // 
-            this.limitBurstToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addNewEntryToolStripMenuItem});
             this.limitBurstToolStripMenuItem.Name = "limitBurstToolStripMenuItem";
-            this.limitBurstToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-            this.limitBurstToolStripMenuItem.Text = "Limit Burst";
-            // 
-            // addNewEntryToolStripMenuItem
-            // 
-            this.addNewEntryToolStripMenuItem.Name = "addNewEntryToolStripMenuItem";
-            this.addNewEntryToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
-            this.addNewEntryToolStripMenuItem.Text = "Add New Entry ";
-            this.addNewEntryToolStripMenuItem.Click += new System.EventHandler(this.addNewBurstMsg);
-            // 
-            // searchOptionsToolStripMenuItem
-            // 
-            this.searchOptionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.caseSensetiveToolStripMenuItem});
-            this.searchOptionsToolStripMenuItem.Name = "searchOptionsToolStripMenuItem";
-            this.searchOptionsToolStripMenuItem.Size = new System.Drawing.Size(99, 20);
-            this.searchOptionsToolStripMenuItem.Text = "Search Options";
-            // 
-            // caseSensetiveToolStripMenuItem
-            // 
-            this.caseSensetiveToolStripMenuItem.CheckOnClick = true;
-            this.caseSensetiveToolStripMenuItem.Name = "caseSensetiveToolStripMenuItem";
-            this.caseSensetiveToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
-            this.caseSensetiveToolStripMenuItem.Text = "Case Sensetive";
+            this.limitBurstToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
+            this.limitBurstToolStripMenuItem.Text = "Add New Limit Burst Description";
+            this.limitBurstToolStripMenuItem.Click += new System.EventHandler(this.addNewBurstMsg);
             // 
             // aboutToolStripMenuItem
             // 
@@ -3356,11 +3293,38 @@
             this.label53.Text = "For XV2 Ver. 1.22.01 +";
             this.label53.Visible = false;
             // 
+            // Index
+            // 
+            this.Index.Location = new System.Drawing.Point(469, 4);
+            this.Index.Name = "Index";
+            this.Index.ReadOnly = true;
+            this.Index.Size = new System.Drawing.Size(48, 20);
+            this.Index.TabIndex = 16;
+            this.Index.Visible = false;
+            // 
+            // caseSensetiveCheckBox
+            // 
+            this.caseSensetiveCheckBox.AutoSize = true;
+            this.caseSensetiveCheckBox.Location = new System.Drawing.Point(562, 52);
+            this.caseSensetiveCheckBox.Name = "caseSensetiveCheckBox";
+            this.caseSensetiveCheckBox.Size = new System.Drawing.Size(96, 17);
+            this.caseSensetiveCheckBox.TabIndex = 43;
+            this.caseSensetiveCheckBox.Text = "Case Sensitive";
+            this.caseSensetiveCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // addNewLocationLookupToolStripMenuItem
+            // 
+            this.addNewLocationLookupToolStripMenuItem.Name = "addNewLocationLookupToolStripMenuItem";
+            this.addNewLocationLookupToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
+            this.addNewLocationLookupToolStripMenuItem.Text = "Add New Location Lookup";
+            this.addNewLocationLookupToolStripMenuItem.Click += new System.EventHandler(this.addNewHowMsg);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(684, 661);
+            this.Controls.Add(this.caseSensetiveCheckBox);
             this.Controls.Add(this.srchBtn);
             this.Controls.Add(this.srchBox);
             this.Controls.Add(this.label53);
@@ -3478,7 +3442,6 @@
         private System.Windows.Forms.TextBox Name_ID;
         private System.Windows.Forms.ComboBox Rarity;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox Index;
         private System.Windows.Forms.TextBox Amount1_E1;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.ComboBox Target_E1;
@@ -3606,18 +3569,11 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.TextBox srchBox;
         private System.Windows.Forms.Button srchBtn;
-        private System.Windows.Forms.ToolStripMenuItem searchOptionsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem caseSensetiveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem msgToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addNewToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem nameToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem descriptionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem nameToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem descriptionToolStripMenuItem1;
         private System.Windows.Forms.Label label97;
         private System.Windows.Forms.TextBox txtMsgLBDescBTL;
-        private System.Windows.Forms.ToolStripMenuItem setAsDefaultProgramForSSFToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setAsDefaultProgramForSSFPToolStripMenuItem;
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.Label label29;
@@ -3687,11 +3643,9 @@
         private System.Windows.Forms.ToolStripMenuItem removeCurrentSuperSoulFromShopToolStripMenuItem;
         private System.Windows.Forms.ComboBox debugLBSelect;
         private System.Windows.Forms.ToolStripMenuItem limitBurstToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem addNewEntryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyCurrentSuperSoulToClipboardToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createNewSoulFromClipboardToolStripMenuItem;
         private System.Windows.Forms.GroupBox groupBox9;
-        private System.Windows.Forms.ToolStripMenuItem createNewSoulAsLimitBurstToolStripMenuItem;
         private System.Windows.Forms.Label label53;
         private System.Windows.Forms.Label label105;
         private System.Windows.Forms.TextBox txtMsgHowDesc;
@@ -3726,8 +3680,15 @@
         private System.Windows.Forms.TextBox I_56_E2;
         private System.Windows.Forms.Label label116;
         private System.Windows.Forms.TextBox I_52_E2;
-        private System.Windows.Forms.ToolStripMenuItem replaceImportToolStripMenuItem;
         private System.Windows.Forms.Label label118;
         private System.Windows.Forms.ComboBox msgLanguageSelect;
+        private System.Windows.Forms.ToolStripMenuItem duplicateCurrentSoulToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem replaceCurrentSoulFromClipboardToolStripMenuItem;
+        private System.Windows.Forms.TextBox Index;
+        private System.Windows.Forms.CheckBox caseSensetiveCheckBox;
+        private System.Windows.Forms.ToolStripMenuItem addNewLocationLookupToolStripMenuItem;
     }
 }

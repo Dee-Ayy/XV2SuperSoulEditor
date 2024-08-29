@@ -67,7 +67,7 @@
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(112, 51);
+            this.comboBox1.Location = new System.Drawing.Point(228, 55);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
             this.comboBox1.TabIndex = 3;
@@ -75,11 +75,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(51, 54);
+            this.label2.Location = new System.Drawing.Point(130, 58);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 13);
+            this.label2.Size = new System.Drawing.Size(92, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Language";
+            this.label2.Text = "Default Language";
             // 
             // button1
             // 
@@ -95,11 +95,12 @@
             // 
             this.label3.AutoSize = true;
             this.label3.ForeColor = System.Drawing.Color.Red;
-            this.label3.Location = new System.Drawing.Point(239, 54);
+            this.label3.Location = new System.Drawing.Point(127, 120);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(234, 13);
             this.label3.TabIndex = 5;
             this.label3.Text = "Editor Language MUST Match Game Language";
+            this.label3.Visible = false;
             // 
             // Settings
             // 
